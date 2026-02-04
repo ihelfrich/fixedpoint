@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="ACCT 410x Study Platform - Comprehensive practice for USC Marshall School of Accounting">
+    <title>ACCT 410x Study Platform | Foundations of Accounting</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎓 ACCT 410x Study Platform</h1>
+            <p class="subtitle">Foundations of Accounting | USC Marshall School of Business</p>
+        </header>
+
+        <nav class="main-nav">
+            <button class="nav-btn active" data-section="home">🏠 Home</button>
+            <button class="nav-btn" data-section="practice">📝 Practice</button>
+            <button class="nav-btn" data-section="simulator">⚙️ Simulator</button>
+            <button class="nav-btn" data-section="quiz">🎯 Quiz</button>
+            <button class="nav-btn" data-section="study">📚 Study Guide</button>
+            <button class="nav-btn" data-section="progress">📊 Progress</button>
+        </nav>
+
+        <!-- HOME SECTION -->
+        <section id="home" class="content-section active">
+            <div class="welcome-card">
+                <h2>Welcome to Your Complete ACCT 410x Study Platform</h2>
+                <p>Prepare for Midterm 1 (February 9, 2026) with comprehensive practice materials covering Classes 1-7</p>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-number">3000+</div>
+                        <div class="stat-label">Practice Problems</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">10</div>
+                        <div class="stat-label">Full Practice Exams</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">7</div>
+                        <div class="stat-label">Interactive Tools</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="user-progress">0%</div>
+                        <div class="stat-label">Your Progress</div>
+                    </div>
+                </div>
+
+                <div class="topic-overview">
+                    <h3>Midterm 1 Coverage (Classes 1-7)</h3>
+                    <div class="topic-list">
+                        <div class="topic-item">
+                            <span class="topic-icon">📋</span>
+                            <div class="topic-content">
+                                <strong>Class 2: Balance Sheet</strong>
+                                <p>Accounting equation, assets, liabilities, equity</p>
+                            </div>
+                        </div>
+                        <div class="topic-item">
+                            <span class="topic-icon">💰</span>
+                            <div class="topic-content">
+                                <strong>Class 3: Income Statement</strong>
+                                <p>Revenue, expenses, net income</p>
+                            </div>
+                        </div>
+                        <div class="topic-item">
+                            <span class="topic-icon">✏️</span>
+                            <div class="topic-content">
+                                <strong>Class 4: Double-Entry Accounting</strong>
+                                <p>Debits, credits, journal entries, T-accounts</p>
+                            </div>
+                        </div>
+                        <div class="topic-item">
+                            <span class="topic-icon">📅</span>
+                            <div class="topic-content">
+                                <strong>Class 5: Accrual Accounting</strong>
+                                <p>Revenue recognition, matching principle</p>
+                            </div>
+                        </div>
+                        <div class="topic-item">
+                            <span class="topic-icon">🔧</span>
+                            <div class="topic-content">
+                                <strong>Class 6: Accounting Cycle & Adjusting Entries</strong>
+                                <p>Prepaid expenses, accrued revenue/expenses, depreciation</p>
+                            </div>
+                        </div>
+                        <div class="topic-item">
+                            <span class="topic-icon">🧾</span>
+                            <div class="topic-content">
+                                <strong>Class 7: Accounts Receivable</strong>
+                                <p>Net revenue, receivables analysis, allowance for doubtful accounts</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="quick-start">
+                    <h3>Quick Start Guide</h3>
+                    <ol>
+                        <li><strong>Take the Diagnostic Quiz</strong> to identify your weak areas</li>
+                        <li><strong>Review the Study Guide</strong> for comprehensive coverage</li>
+                        <li><strong>Practice with Problem Sets</strong> organized by difficulty</li>
+                        <li><strong>Use the Simulator</strong> to build real journal entries and financial statements</li>
+                        <li><strong>Take Practice Exams</strong> under timed conditions</li>
+                        <li><strong>Track Your Progress</strong> to stay motivated</li>
+                    </ol>
+                </div>
+
+                <div class="cta-buttons">
+                    <button class="btn btn-primary" onclick="startDiagnostic()">🎯 Start Diagnostic Quiz</button>
+                    <button class="btn btn-secondary" onclick="viewStudyGuide()">📚 View Study Guide</button>
+                    <button class="btn btn-secondary" onclick="startPractice()">📝 Practice Problems</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- PRACTICE SECTION -->
+        <section id="practice" class="content-section">
+            <h2>Practice Problems</h2>
+            <div class="practice-selector">
+                <label for="topic-select">Select Topic:</label>
+                <select id="topic-select">
+                    <option value="all">All Topics</option>
+                    <option value="balance-sheet">Balance Sheet</option>
+                    <option value="income-statement">Income Statement</option>
+                    <option value="double-entry">Double-Entry Accounting</option>
+                    <option value="accrual">Accrual Accounting</option>
+                    <option value="adjusting-entries">Adjusting Entries</option>
+                    <option value="accounts-receivable">Accounts Receivable</option>
+                </select>
+
+                <label for="difficulty-select">Difficulty:</label>
+                <select id="difficulty-select">
+                    <option value="all">All Levels</option>
+                    <option value="easy">Easy</option>
+                    <option value="medium">Medium</option>
+                    <option value="hard">Hard</option>
+                    <option value="expert">Expert</option>
+                </select>
+
+                <button class="btn btn-primary" onclick="loadProblems()">Load Problems</button>
+            </div>
+
+            <div id="practice-container">
+                <p class="placeholder">Select a topic and difficulty to begin practicing.</p>
+            </div>
+        </section>
+
+        <!-- SIMULATOR SECTION -->
+        <section id="simulator" class="content-section">
+            <h2>Accounting Cycle Simulator</h2>
+            <p>Build complete financial statements from scratch</p>
+            <div id="simulator-container">
+                <p class="placeholder">Simulator loading...</p>
+            </div>
+        </section>
+
+        <!-- QUIZ SECTION -->
+        <section id="quiz" class="content-section">
+            <h2>Adaptive Quiz System</h2>
+            <div id="quiz-container">
+                <p class="placeholder">Quiz loading...</p>
+            </div>
+        </section>
+
+        <!-- STUDY GUIDE SECTION -->
+        <section id="study" class="content-section">
+            <h2>Comprehensive Study Guide</h2>
+            <div id="study-container">
+                <p class="placeholder">Study guide loading...</p>
+            </div>
+        </section>
+
+        <!-- PROGRESS SECTION -->
+        <section id="progress" class="content-section">
+            <h2>Your Progress</h2>
+            <div id="progress-container">
+                <p class="placeholder">Progress tracking loading...</p>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <p>ACCT 410x Study Platform | Created for USC Marshall Students | Spring 2026</p>
+        <p><small>All practice materials align with Classes 1-7 for Midterm 1 (February 9, 2026)</small></p>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>
