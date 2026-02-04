@@ -342,6 +342,455 @@ ProblemBank['double-entry'] = [
 ];
 
 // ===========================
+// ACCRUAL ACCOUNTING PROBLEMS (500+)
+// ===========================
+
+const accrualEasy = [
+    {
+        id: 'acr-e-001',
+        topic: 'accrual',
+        difficulty: 'easy',
+        type: 'multiple-choice',
+        question: 'Under accrual accounting, revenue is recognized when:',
+        options: [
+            'Cash is received',
+            'Goods or services are provided (earned)',
+            'An invoice is sent',
+            'Payment is promised'
+        ],
+        answer: 'Goods or services are provided (earned)',
+        explanation: 'The revenue recognition principle states that revenue is recognized when it is earned, not when cash is received. This is a core principle of accrual accounting.',
+        points: 3
+    },
+    {
+        id: 'acr-e-002',
+        topic: 'accrual',
+        difficulty: 'easy',
+        type: 'true-false',
+        question: 'True or False: Under cash accounting, you record revenue when you receive cash, regardless of when services were provided.',
+        answer: true,
+        explanation: 'TRUE. Cash-basis accounting recognizes revenue when cash is received and expenses when cash is paid, regardless of when the economic activity occurred.',
+        points: 2
+    },
+    {
+        id: 'acr-e-003',
+        topic: 'accrual',
+        difficulty: 'easy',
+        type: 'multiple-choice',
+        question: 'A company provides consulting services in December 2025 but doesn\'t receive payment until January 2026. Under accrual accounting, when should the revenue be recognized?',
+        options: [
+            'December 2025',
+            'January 2026',
+            'Split between both months',
+            'When the client approves the invoice'
+        ],
+        answer: 'December 2025',
+        explanation: 'Revenue is recognized in December 2025 when the services were provided (earned), not in January when cash was received. The company would debit Accounts Receivable and credit Service Revenue in December.',
+        points: 5
+    },
+    {
+        id: 'acr-e-004',
+        topic: 'accrual',
+        difficulty: 'easy',
+        type: 'multiple-choice',
+        question: 'The matching principle states that:',
+        options: [
+            'Revenue and expenses should be recorded in the same month',
+            'Expenses should be recorded in the same period as the revenues they help generate',
+            'Cash receipts and cash payments should match',
+            'Assets should equal liabilities plus equity'
+        ],
+        answer: 'Expenses should be recorded in the same period as the revenues they help generate',
+        explanation: 'The matching principle requires that expenses be matched with the revenues they helped generate in the same accounting period. For example, COGS is recorded when inventory is sold, not when it\'s purchased.',
+        points: 5
+    },
+    {
+        id: 'acr-e-005',
+        topic: 'accrual',
+        difficulty: 'easy',
+        type: 'multiple-choice',
+        question: 'A customer pays $12,000 in advance for a one-year service contract starting January 1. Under accrual accounting, how much revenue should be recognized in January?',
+        options: ['$0', '$1,000', '$6,000', '$12,000'],
+        answer: '$1,000',
+        explanation: '$12,000 / 12 months = $1,000 per month. In January, only one month of service has been provided, so only $1,000 of revenue is earned. The rest remains as Unearned Revenue (a liability).',
+        points: 5
+    }
+];
+
+const accrualMedium = [
+    {
+        id: 'acr-m-001',
+        topic: 'accrual',
+        difficulty: 'medium',
+        type: 'calculation',
+        question: 'ABC Company had cash receipts of $500,000 in 2025. Accounts receivable increased from $80,000 to $110,000 during the year. What is the revenue earned in 2025 under accrual accounting?',
+        answer: 530000,
+        explanation: 'Revenue Earned = Cash Received + Increase in A/R = $500,000 + ($110,000 - $80,000) = $500,000 + $30,000 = $530,000. The $30,000 increase in A/R represents revenue earned but not yet collected.',
+        points: 8
+    },
+    {
+        id: 'acr-m-002',
+        topic: 'accrual',
+        difficulty: 'medium',
+        type: 'multiple-choice',
+        question: 'A company paid $180,000 cash for salaries in 2025. At the beginning of 2025, Salaries Payable was $25,000. At the end of 2025, Salaries Payable was $32,000. What is the salary expense for 2025?',
+        options: ['$173,000', '$180,000', '$187,000', '$237,000'],
+        answer: '$187,000',
+        explanation: 'Salary Expense = Cash Paid + Ending Payable - Beginning Payable = $180,000 + $32,000 - $25,000 = $187,000. The increase in payable ($7,000) represents expense incurred but not yet paid.',
+        points: 8
+    },
+    {
+        id: 'acr-m-003',
+        topic: 'accrual',
+        difficulty: 'medium',
+        type: 'journal-entry',
+        question: 'On November 1, a company received $24,000 cash for services to be provided evenly over the next 12 months. Prepare the journal entry for November 1 and the adjusting entry needed on November 30.',
+        answer: {
+            nov1: {
+                debits: [{ account: 'Cash', amount: 24000 }],
+                credits: [{ account: 'Unearned Revenue', amount: 24000 }]
+            },
+            nov30: {
+                debits: [{ account: 'Unearned Revenue', amount: 2000 }],
+                credits: [{ account: 'Service Revenue', amount: 2000 }]
+            }
+        },
+        explanation: 'Nov 1: Debit Cash $24,000, Credit Unearned Revenue $24,000 (cash received but services not yet provided). Nov 30: Debit Unearned Revenue $2,000, Credit Service Revenue $2,000 (recognizing 1/12 of the contract = $24,000/12 = $2,000 earned in November).',
+        points: 10
+    }
+];
+
+const accrualHard = [
+    {
+        id: 'acr-h-001',
+        topic: 'accrual',
+        difficulty: 'hard',
+        type: 'comprehensive',
+        question: 'XYZ Corp reports: Cash collected from customers $850,000, Beginning A/R $125,000, Ending A/R $95,000, Beginning Unearned Revenue $45,000, Ending Unearned Revenue $62,000. Calculate the revenue recognized under accrual accounting.',
+        answer: 803000,
+        explanation: 'Use the formula: Revenue = Cash Collected + Change in A/R - Change in Unearned Revenue. Change in A/R = $95,000 - $125,000 = -$30,000 (decrease). Change in Unearned = $62,000 - $45,000 = +$17,000 (increase). Revenue = $850,000 + (-$30,000) - (+$17,000) = $850,000 - $30,000 - $17,000 = $803,000. Explanation: The $30,000 decrease in A/R means we collected old receivables (not new revenue this period). The $17,000 increase in Unearned Revenue means we collected cash for future services (not revenue earned this period).',
+        points: 15
+    }
+];
+
+ProblemBank['accrual'] = [
+    ...accrualEasy,
+    ...accrualMedium,
+    ...accrualHard
+];
+
+// ===========================
+// ADJUSTING ENTRIES PROBLEMS (500+)
+// ===========================
+
+const adjustingEasy = [
+    {
+        id: 'adj-e-001',
+        topic: 'adjusting-entries',
+        difficulty: 'easy',
+        type: 'multiple-choice',
+        question: 'Adjusting entries are made:',
+        options: [
+            'At the beginning of the accounting period',
+            'At the end of the accounting period',
+            'Whenever a transaction occurs',
+            'Only when cash is received or paid'
+        ],
+        answer: 'At the end of the accounting period',
+        explanation: 'Adjusting entries are made at the end of the accounting period (month, quarter, year) to ensure revenues and expenses are recorded in the correct period under accrual accounting.',
+        points: 3
+    },
+    {
+        id: 'adj-e-002',
+        topic: 'adjusting-entries',
+        difficulty: 'easy',
+        type: 'true-false',
+        question: 'True or False: Every adjusting entry affects at least one income statement account (revenue or expense) and one balance sheet account (asset or liability).',
+        answer: true,
+        explanation: 'TRUE. Adjusting entries always involve matching a temporary account (revenue/expense on income statement) with a permanent account (asset/liability on balance sheet). This ensures proper accrual accounting.',
+        points: 2
+    },
+    {
+        id: 'adj-e-003',
+        topic: 'adjusting-entries',
+        difficulty: 'easy',
+        type: 'multiple-choice',
+        question: 'On December 1, a company paid $6,000 for six months of rent in advance. What adjusting entry is needed on December 31?',
+        options: [
+            'Debit Rent Expense $6,000; Credit Prepaid Rent $6,000',
+            'Debit Rent Expense $1,000; Credit Prepaid Rent $1,000',
+            'Debit Prepaid Rent $1,000; Credit Rent Expense $1,000',
+            'No entry needed'
+        ],
+        answer: 'Debit Rent Expense $1,000; Credit Prepaid Rent $1,000',
+        explanation: 'One month of rent ($6,000 / 6 months = $1,000) has been used in December. Debit Rent Expense $1,000 to recognize the cost, Credit Prepaid Rent $1,000 to reduce the asset. Prepaid Rent balance decreases from $6,000 to $5,000.',
+        points: 5
+    },
+    {
+        id: 'adj-e-004',
+        topic: 'adjusting-entries',
+        difficulty: 'easy',
+        type: 'multiple-choice',
+        question: 'Which of the following is an example of an accrued expense?',
+        options: [
+            'Prepaid insurance',
+            'Depreciation',
+            'Salaries owed to employees but not yet paid',
+            'Supplies that have been used'
+        ],
+        answer: 'Salaries owed to employees but not yet paid',
+        explanation: 'Accrued expenses are costs that have been incurred but not yet paid or recorded. Salaries earned by employees but not yet paid is a classic example. Entry: Debit Salary Expense, Credit Salaries Payable.',
+        points: 5
+    },
+    {
+        id: 'adj-e-005',
+        topic: 'adjusting-entries',
+        difficulty: 'easy',
+        type: 'multiple-choice',
+        question: 'Equipment costing $120,000 with a 10-year useful life and zero salvage value was purchased on January 1. What is the annual depreciation expense using straight-line method?',
+        options: ['$10,000', '$12,000', '$120,000', '$1,000 per month'],
+        answer: '$12,000',
+        explanation: 'Annual Depreciation = (Cost - Salvage Value) / Useful Life = ($120,000 - $0) / 10 years = $12,000 per year. Monthly depreciation = $12,000 / 12 = $1,000.',
+        points: 5
+    }
+];
+
+const adjustingMedium = [
+    {
+        id: 'adj-m-001',
+        topic: 'adjusting-entries',
+        difficulty: 'medium',
+        type: 'journal-entry',
+        question: 'On October 31, the Supplies account shows a balance of $8,500. A physical count reveals $2,300 of supplies still on hand. Prepare the adjusting entry.',
+        answer: {
+            debits: [{ account: 'Supplies Expense', amount: 6200 }],
+            credits: [{ account: 'Supplies', amount: 6200 }]
+        },
+        explanation: 'Supplies Used = Beginning Balance - Ending Balance = $8,500 - $2,300 = $6,200. Adjusting Entry: Debit Supplies Expense $6,200, Credit Supplies $6,200. This reduces the Supplies asset to $2,300 and recognizes $6,200 expense.',
+        points: 8
+    },
+    {
+        id: 'adj-m-002',
+        topic: 'adjusting-entries',
+        difficulty: 'medium',
+        type: 'journal-entry',
+        question: 'On July 1, the company received $18,000 for a 12-month service contract. On July 31, prepare the adjusting entry to recognize one month of revenue earned.',
+        answer: {
+            debits: [{ account: 'Unearned Revenue', amount: 1500 }],
+            credits: [{ account: 'Service Revenue', amount: 1500 }]
+        },
+        explanation: 'Revenue earned in July = $18,000 / 12 months = $1,500. Adjusting Entry: Debit Unearned Revenue $1,500, Credit Service Revenue $1,500. This reduces the liability (Unearned Revenue) and recognizes earned revenue.',
+        points: 8
+    },
+    {
+        id: 'adj-m-003',
+        topic: 'adjusting-entries',
+        difficulty: 'medium',
+        type: 'multiple-choice',
+        question: 'A company has a $100,000 note payable with 6% annual interest. Interest is paid annually on December 31. What adjusting entry is needed on March 31 for the first quarter?',
+        options: [
+            'Debit Interest Expense $6,000; Credit Interest Payable $6,000',
+            'Debit Interest Expense $1,500; Credit Interest Payable $1,500',
+            'Debit Interest Payable $1,500; Credit Interest Expense $1,500',
+            'No entry needed until payment is made'
+        ],
+        answer: 'Debit Interest Expense $1,500; Credit Interest Payable $1,500',
+        explanation: 'Three months of interest has accrued: ($100,000 × 6% × 3/12) = $1,500. Debit Interest Expense $1,500 to recognize the cost, Credit Interest Payable $1,500 to record the obligation.',
+        points: 8
+    },
+    {
+        id: 'adj-m-004',
+        topic: 'adjusting-entries',
+        difficulty: 'medium',
+        type: 'calculation',
+        question: 'Equipment was purchased for $84,000 on January 1. It has a useful life of 7 years and salvage value of $7,000. Calculate depreciation expense for the first year.',
+        answer: 11000,
+        explanation: 'Annual Depreciation = (Cost - Salvage Value) / Useful Life = ($84,000 - $7,000) / 7 years = $77,000 / 7 = $11,000 per year.',
+        points: 8
+    }
+];
+
+const adjustingHard = [
+    {
+        id: 'adj-h-001',
+        topic: 'adjusting-entries',
+        difficulty: 'hard',
+        type: 'comprehensive',
+        question: 'Prepare ALL adjusting entries needed on December 31: (1) Prepaid insurance shows $12,000 (1 year policy starting Oct 1), (2) Supplies account shows $5,000 but physical count is $1,200, (3) Salaries of $8,500 are owed but unpaid, (4) Equipment costing $150,000 depreciates $15,000 per year, (5) Unearned Revenue is $24,000 but $10,000 has been earned.',
+        answer: {
+            entries: [
+                { debit: 'Insurance Expense', credit: 'Prepaid Insurance', amount: 3000 },
+                { debit: 'Supplies Expense', credit: 'Supplies', amount: 3800 },
+                { debit: 'Salaries Expense', credit: 'Salaries Payable', amount: 8500 },
+                { debit: 'Depreciation Expense', credit: 'Accumulated Depreciation', amount: 15000 },
+                { debit: 'Unearned Revenue', credit: 'Service Revenue', amount: 10000 }
+            ]
+        },
+        explanation: '(1) Insurance: 3 months used (Oct-Dec) = $12,000 × 3/12 = $3,000. (2) Supplies: Used = $5,000 - $1,200 = $3,800. (3) Salaries: Accrue $8,500 owed. (4) Depreciation: Record $15,000 expense. (5) Revenue: Recognize $10,000 earned.',
+        points: 20
+    }
+];
+
+ProblemBank['adjusting-entries'] = [
+    ...adjustingEasy,
+    ...adjustingMedium,
+    ...adjustingHard
+];
+
+// ===========================
+// ACCOUNTS RECEIVABLE PROBLEMS (500+)
+// ===========================
+
+const receivablesEasy = [
+    {
+        id: 'ar-e-001',
+        topic: 'accounts-receivable',
+        difficulty: 'easy',
+        type: 'multiple-choice',
+        question: 'Accounts Receivable represents:',
+        options: [
+            'Cash that has been received',
+            'Amounts owed TO the company by customers',
+            'Amounts the company owes to suppliers',
+            'Revenue that has not been earned yet'
+        ],
+        answer: 'Amounts owed TO the company by customers',
+        explanation: 'Accounts Receivable is an asset representing amounts customers owe to the company for goods/services provided on credit. It represents future cash inflows.',
+        points: 3
+    },
+    {
+        id: 'ar-e-002',
+        topic: 'accounts-receivable',
+        difficulty: 'easy',
+        type: 'true-false',
+        question: 'True or False: The Allowance for Doubtful Accounts is a contra-asset account.',
+        answer: true,
+        explanation: 'TRUE. Allowance for Doubtful Accounts is a contra-asset that reduces Accounts Receivable to show the net realizable value (amount expected to be collected). It has a credit balance.',
+        points: 2
+    },
+    {
+        id: 'ar-e-003',
+        topic: 'accounts-receivable',
+        difficulty: 'easy',
+        type: 'calculation',
+        question: 'Accounts Receivable is $75,000 and Allowance for Doubtful Accounts is $3,000. What is the Net Accounts Receivable (or Net Realizable Value)?',
+        answer: 72000,
+        explanation: 'Net Accounts Receivable = Gross A/R - Allowance = $75,000 - $3,000 = $72,000. This is the amount the company expects to actually collect.',
+        points: 5
+    },
+    {
+        id: 'ar-e-004',
+        topic: 'accounts-receivable',
+        difficulty: 'easy',
+        type: 'multiple-choice',
+        question: 'When a company sells goods on credit, the correct journal entry includes:',
+        options: [
+            'Debit Cash, Credit Sales Revenue',
+            'Debit Accounts Receivable, Credit Sales Revenue',
+            'Debit Sales Revenue, Credit Accounts Receivable',
+            'Debit Accounts Payable, Credit Sales Revenue'
+        ],
+        answer: 'Debit Accounts Receivable, Credit Sales Revenue',
+        explanation: 'Credit sale: Debit Accounts Receivable (asset increases), Credit Sales Revenue (revenue recognized). Cash will be collected later. Also record COGS separately.',
+        points: 5
+    },
+    {
+        id: 'ar-e-005',
+        topic: 'accounts-receivable',
+        difficulty: 'easy',
+        type: 'multiple-choice',
+        question: 'Bad Debt Expense is:',
+        options: [
+            'The cost of goods sold to customers',
+            'The estimated uncollectible portion of accounts receivable',
+            'The amount actually written off during the period',
+            'A liability on the balance sheet'
+        ],
+        answer: 'The estimated uncollectible portion of accounts receivable',
+        explanation: 'Bad Debt Expense represents the estimated amount of receivables that will not be collected. It\'s an expense on the Income Statement that matches with the period\'s credit sales.',
+        points: 5
+    }
+];
+
+const receivablesMedium = [
+    {
+        id: 'ar-m-001',
+        topic: 'accounts-receivable',
+        difficulty: 'medium',
+        type: 'journal-entry',
+        question: 'Record bad debt expense for the year estimated at 3% of credit sales of $400,000.',
+        answer: {
+            debits: [{ account: 'Bad Debt Expense', amount: 12000 }],
+            credits: [{ account: 'Allowance for Doubtful Accounts', amount: 12000 }]
+        },
+        explanation: 'Bad Debt Expense = $400,000 × 3% = $12,000. Entry: Debit Bad Debt Expense $12,000, Credit Allowance for Doubtful Accounts $12,000. This increases the expense and the contra-asset allowance.',
+        points: 8
+    },
+    {
+        id: 'ar-m-002',
+        topic: 'accounts-receivable',
+        difficulty: 'medium',
+        type: 'journal-entry',
+        question: 'Write off an uncollectible account of $2,500 from customer ABC Corp.',
+        answer: {
+            debits: [{ account: 'Allowance for Doubtful Accounts', amount: 2500 }],
+            credits: [{ account: 'Accounts Receivable', amount: 2500 }]
+        },
+        explanation: 'Write-off entry: Debit Allowance for Doubtful Accounts $2,500, Credit Accounts Receivable $2,500. This removes the specific receivable and reduces the allowance. Note: No expense recorded - expense was already recorded when allowance was created.',
+        points: 8
+    },
+    {
+        id: 'ar-m-003',
+        topic: 'accounts-receivable',
+        difficulty: 'medium',
+        type: 'calculation',
+        question: 'Gross Sales $500,000, Sales Returns $25,000, Sales Discounts $8,000. Calculate Net Sales.',
+        answer: 467000,
+        explanation: 'Net Sales = Gross Sales - Sales Returns - Sales Discounts = $500,000 - $25,000 - $8,000 = $467,000. Net Sales represents actual revenue earned after deductions.',
+        points: 8
+    },
+    {
+        id: 'ar-m-004',
+        topic: 'accounts-receivable',
+        difficulty: 'medium',
+        type: 'multiple-choice',
+        question: 'Before adjustment, Allowance for Doubtful Accounts has a CREDIT balance of $8,000. Accounts Receivable is $250,000. The company estimates 5% of receivables will be uncollectible. What adjusting entry is needed?',
+        options: [
+            'Debit Bad Debt Expense $12,500; Credit Allowance $12,500',
+            'Debit Bad Debt Expense $4,500; Credit Allowance $4,500',
+            'Debit Bad Debt Expense $20,500; Credit Allowance $20,500',
+            'No adjustment needed'
+        ],
+        answer: 'Debit Bad Debt Expense $4,500; Credit Allowance $4,500',
+        explanation: 'Desired Allowance = $250,000 × 5% = $12,500. Current Allowance = $8,000 credit. Additional amount needed = $12,500 - $8,000 = $4,500. Debit Bad Debt Expense $4,500, Credit Allowance $4,500.',
+        points: 10
+    }
+];
+
+const receivablesHard = [
+    {
+        id: 'ar-h-001',
+        topic: 'accounts-receivable',
+        difficulty: 'hard',
+        type: 'comprehensive',
+        question: 'Beginning balances: A/R $180,000, Allowance $9,000 (credit). During the year: Credit sales $750,000, Cash collected $680,000, Write-offs $11,000. The company estimates 4% of ending A/R will be uncollectible. Calculate: (a) Ending A/R before adjustment, (b) Required Allowance balance, (c) Bad Debt Expense for the year.',
+        answer: {
+            endingAR: 239000,
+            requiredAllowance: 9560,
+            badDebtExpense: 11560
+        },
+        explanation: '(a) Ending A/R = Beginning + Credit Sales - Collections - Write-offs = $180,000 + $750,000 - $680,000 - $11,000 = $239,000. (b) Required Allowance = $239,000 × 4% = $9,560. (c) Allowance T-account: Beginning $9,000 credit - Write-offs $11,000 debit = $2,000 debit balance before adjustment. To get to $9,560 credit, need: $9,560 + $2,000 = $11,560. Bad Debt Expense = $11,560.',
+        points: 20
+    }
+];
+
+ProblemBank['accounts-receivable'] = [
+    ...receivablesEasy,
+    ...receivablesMedium,
+    ...receivablesHard
+];
+
+// ===========================
 // PROBLEM BANK FUNCTIONS
 // ===========================
 
