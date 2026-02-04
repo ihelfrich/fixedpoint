@@ -187,22 +187,152 @@ function loadProblems() {
     const container = document.getElementById('practice-container');
     container.innerHTML = '<div class="loading">Loading problems...</div>';
 
-    // Simulate loading
+    // Get actual problems
     setTimeout(() => {
         container.innerHTML = generatePracticeProblems(topic, difficulty);
-    }, 500);
+    }, 300);
 }
 
 function generatePracticeProblems(topic, difficulty) {
+    // Get problems from the problem bank
+    let problems = [];
+
+    if (typeof ProblemBank !== 'undefined') {
+        if (topic === 'all') {
+            problems = Object.values(ProblemBank).flat();
+        } else {
+            problems = ProblemBank[topic] || [];
+        }
+
+        if (difficulty !== 'all') {
+            problems = problems.filter(p => p.difficulty === difficulty);
+        }
+    }
+
     let html = '<div class="problems-container">';
     html += `<h3>Practice Problems: ${formatTopicName(topic)} - ${formatDifficulty(difficulty)}</h3>`;
+    html += `<p class="problem-count">Found ${problems.length} problems</p>`;
 
-    // This will be populated with actual problems
-    html += '<p class="info-message">Problems are being loaded. This section will contain 3000+ practice problems organized by topic and difficulty.</p>';
-    html += '<div class="problem-placeholder">Problem generation in progress...</div>';
+    if (problems.length === 0) {
+        html += '<p class="info-message">No problems found for this combination. Try selecting "All Topics" or "All Levels".</p>';
+    } else {
+        problems.forEach((problem, index) => {
+            html += renderProblem(problem, index);
+        });
+    }
+
     html += '</div>';
+    return html;
+}
+
+function renderProblem(problem, index) {
+    let html = `<div class="problem-card" id="problem-${problem.id}">`;
+    html += `<div class="problem-header">`;
+    html += `<span class="problem-number">Problem ${index + 1}</span>`;
+    html += `<span class="problem-difficulty badge-${problem.difficulty}">${problem.difficulty}</span>`;
+    html += `<span class="problem-points">${problem.points} points</span>`;
+    html += `</div>`;
+
+    html += `<div class="problem-question">${problem.question}</div>`;
+
+    if (problem.type === 'multiple-choice') {
+        html += `<div class="problem-options">`;
+        problem.options.forEach((option, i) => {
+            html += `<div class="option">`;
+            html += `<input type="radio" name="problem-${problem.id}" id="${problem.id}-${i}" value="${option}">`;
+            html += `<label for="${problem.id}-${i}">${option}</label>`;
+            html += `</div>`;
+        });
+        html += `</div>`;
+    } else if (problem.type === 'calculation') {
+        html += `<div class="calculation-input">`;
+        html += `<label>Your Answer: $</label>`;
+        html += `<input type="number" id="answer-${problem.id}" placeholder="Enter amount">`;
+        html += `</div>`;
+    } else if (problem.type === 'true-false') {
+        html += `<div class="problem-options">`;
+        html += `<div class="option">`;
+        html += `<input type="radio" name="problem-${problem.id}" id="${problem.id}-true" value="true">`;
+        html += `<label for="${problem.id}-true">True</label>`;
+        html += `</div>`;
+        html += `<div class="option">`;
+        html += `<input type="radio" name="problem-${problem.id}" id="${problem.id}-false" value="false">`;
+        html += `<label for="${problem.id}-false">False</label>`;
+        html += `</div>`;
+        html += `</div>`;
+    }
+
+    html += `<button class="btn btn-secondary check-answer-btn" onclick="checkAnswer('${problem.id}')">Check Answer</button>`;
+    html += `<div class="answer-feedback" id="feedback-${problem.id}" style="display:none;"></div>`;
+    html += `</div>`;
 
     return html;
+}
+
+function checkAnswer(problemId) {
+    // Find the problem
+    let problem = null;
+    if (typeof ProblemBank !== 'undefined') {
+        for (const topic in ProblemBank) {
+            const found = ProblemBank[topic].find(p => p.id === problemId);
+            if (found) {
+                problem = found;
+                break;
+            }
+        }
+    }
+
+    if (!problem) return;
+
+    // Get user's answer
+    let userAnswer = null;
+    if (problem.type === 'multiple-choice' || problem.type === 'true-false') {
+        const selected = document.querySelector(`input[name="problem-${problemId}"]:checked`);
+        userAnswer = selected ? selected.value : null;
+    } else if (problem.type === 'calculation') {
+        const input = document.getElementById(`answer-${problemId}`);
+        userAnswer = input ? parseFloat(input.value) : null;
+    }
+
+    const feedbackDiv = document.getElementById(`feedback-${problemId}`);
+
+    if (userAnswer === null) {
+        feedbackDiv.innerHTML = '<p class="feedback-warning">Please select or enter an answer.</p>';
+        feedbackDiv.style.display = 'block';
+        return;
+    }
+
+    // Check if correct
+    let isCorrect = false;
+    if (problem.type === 'calculation') {
+        isCorrect = Math.abs(userAnswer - problem.answer) < 0.01;
+    } else if (problem.type === 'true-false') {
+        isCorrect = (userAnswer === 'true') === problem.answer;
+    } else {
+        isCorrect = userAnswer === problem.answer;
+    }
+
+    // Show feedback
+    if (isCorrect) {
+        feedbackDiv.innerHTML = `
+            <div class="feedback-correct">
+                <strong>✓ Correct!</strong>
+                <p>${problem.explanation}</p>
+            </div>
+        `;
+        AppState.userProgress.problemsCompleted++;
+    } else {
+        feedbackDiv.innerHTML = `
+            <div class="feedback-incorrect">
+                <strong>✗ Incorrect</strong>
+                <p><strong>Correct Answer:</strong> ${problem.answer}</p>
+                <p>${problem.explanation}</p>
+            </div>
+        `;
+    }
+
+    feedbackDiv.style.display = 'block';
+    saveUserProgress();
 }
 
 function formatTopicName(topic) {
@@ -313,8 +443,266 @@ function initializeQuiz() {
 }
 
 function startQuizType(type) {
-    console.log('Starting quiz type:', type);
-    alert(`${type} quiz will start here!`);
+    const container = document.getElementById('quiz-container');
+
+    if (type === 'practice-exam' && typeof PracticeMidterm !== 'undefined') {
+        // Load the official practice midterm
+        const exam = generateFullPracticeExam();
+        renderPracticeExam(exam);
+    } else {
+        container.innerHTML = `
+            <div class="info-message">
+                <h3>${type.charAt(0).toUpperCase() + type.slice(1)} Quiz</h3>
+                <p>This quiz type is coming soon! For now, try the Practice Exam.</p>
+                <button class="btn btn-primary" onclick="initializeQuiz()">Back to Quiz Selection</button>
+            </div>
+        `;
+    }
+}
+
+function renderPracticeExam(exam) {
+    const container = document.getElementById('quiz-container');
+
+    let html = '<div class="practice-exam-container">';
+    html += '<div class="exam-header">';
+    html += '<h2>🎯 Official Practice Midterm 1</h2>';
+    html += '<p class="exam-meta">200 points total | Based on Spring 2026 USC ACCT 410x</p>';
+    html += '<div class="exam-timer" id="exam-timer">Time: 110:00</div>';
+    html += '</div>';
+
+    // Part I - Multiple Choice
+    html += '<div class="exam-section">';
+    html += '<h3>Part I: Multiple Choice (90 points)</h3>';
+    html += '<p class="section-instructions">Select the best answer for each question. 6 points each.</p>';
+
+    exam.partI.forEach((q, index) => {
+        html += `<div class="exam-question" id="q-${q.id}">`;
+        html += `<div class="question-number">Question ${index + 1} of 15</div>`;
+        html += `<div class="question-text">${q.question}</div>`;
+        html += '<div class="question-options">';
+
+        q.options.forEach((option, i) => {
+            html += `<div class="exam-option">`;
+            html += `<input type="radio" name="${q.id}" id="${q.id}-${i}" value="${option}">`;
+            html += `<label for="${q.id}-${i}">${option}</label>`;
+            html += `</div>`;
+        });
+
+        html += '</div></div>';
+    });
+
+    html += '</div>'; // End Part I
+
+    // Part II - Account Classification
+    html += '<div class="exam-section">';
+    html += '<h3>Part II: Account Classification (50 points)</h3>';
+    html += '<p class="section-instructions">Select the correct classification for each scenario. 5 points each.</p>';
+
+    exam.partII.forEach((q, index) => {
+        html += `<div class="exam-question" id="q-${q.id}">`;
+        html += `<div class="question-number">Question ${index + 1} of 10</div>`;
+        html += `<div class="question-text">${q.scenario}</div>`;
+        html += '<div class="question-options">';
+
+        q.options.forEach((option, i) => {
+            html += `<div class="exam-option">`;
+            html += `<input type="radio" name="${q.id}" id="${q.id}-${i}" value="${option}">`;
+            html += `<label for="${q.id}-${i}">${option}</label>`;
+            html += `</div>`;
+        });
+
+        html += '</div></div>';
+    });
+
+    html += '</div>'; // End Part II
+
+    // Part III - Transaction Analysis
+    html += '<div class="exam-section">';
+    html += '<h3>Part III: Transaction Analysis (60 points)</h3>';
+    html += '<p class="section-instructions">Select I (Increase), D (Decrease), or N (No Change) for each category. 6 points each.</p>';
+
+    exam.partIII.forEach((q, index) => {
+        html += `<div class="exam-question transaction-analysis" id="q-${q.id}">`;
+        html += `<div class="question-number">Question ${index + 1} of 10</div>`;
+        html += `<div class="question-text">${q.transaction}</div>`;
+
+        html += '<div class="transaction-grid">';
+        const categories = ['assets', 'liabilities', 'equity', 'revenue', 'expenses'];
+        const labels = ['Assets', 'Liabilities', 'Stockholders\' Equity', 'Revenue', 'Expenses'];
+
+        categories.forEach((cat, i) => {
+            html += '<div class="transaction-row">';
+            html += `<div class="transaction-label">${labels[i]}</div>`;
+            html += '<div class="transaction-options">';
+            ['I', 'D', 'N'].forEach(choice => {
+                html += `<label class="transaction-choice">`;
+                html += `<input type="radio" name="${q.id}-${cat}" value="${choice}">`;
+                html += `<span>${choice}</span>`;
+                html += `</label>`;
+            });
+            html += '</div></div>';
+        });
+
+        html += '</div></div>';
+    });
+
+    html += '</div>'; // End Part III
+
+    // Submit button
+    html += '<div class="exam-actions">';
+    html += '<button class="btn btn-primary btn-large" onclick="gradePracticeExam()">Submit Exam for Grading</button>';
+    html += '<button class="btn btn-secondary" onclick="initializeQuiz()">Cancel and Return</button>';
+    html += '</div>';
+
+    html += '</div>'; // End container
+
+    container.innerHTML = html;
+
+    // Store exam for grading
+    window.currentExam = exam;
+
+    // Start timer (optional)
+    startExamTimer(110);
+}
+
+function startExamTimer(minutes) {
+    let totalSeconds = minutes * 60;
+    const timerDiv = document.getElementById('exam-timer');
+
+    if (!timerDiv) return;
+
+    const interval = setInterval(() => {
+        totalSeconds--;
+
+        const mins = Math.floor(totalSeconds / 60);
+        const secs = totalSeconds % 60;
+
+        timerDiv.textContent = `Time: ${mins}:${secs.toString().padStart(2, '0')}`;
+
+        if (totalSeconds <= 0) {
+            clearInterval(interval);
+            timerDiv.textContent = 'Time\'s Up!';
+            timerDiv.style.color = 'red';
+        }
+    }, 1000);
+
+    // Store interval ID to clear later if needed
+    window.examTimerInterval = interval;
+}
+
+function gradePracticeExam() {
+    if (!window.currentExam) {
+        alert('No exam loaded');
+        return;
+    }
+
+    const exam = window.currentExam;
+    let userAnswers = { partI: {}, partII: {}, partIII: {} };
+
+    // Collect Part I answers
+    exam.partI.forEach(q => {
+        const selected = document.querySelector(`input[name="${q.id}"]:checked`);
+        if (selected) {
+            userAnswers.partI[q.id] = selected.value;
+        }
+    });
+
+    // Collect Part II answers
+    exam.partII.forEach(q => {
+        const selected = document.querySelector(`input[name="${q.id}"]:checked`);
+        if (selected) {
+            userAnswers.partII[q.id] = selected.value;
+        }
+    });
+
+    // Collect Part III answers
+    exam.partIII.forEach(q => {
+        const categories = ['assets', 'liabilities', 'equity', 'revenue', 'expenses'];
+        userAnswers.partIII[q.id] = {};
+
+        categories.forEach(cat => {
+            const selected = document.querySelector(`input[name="${q.id}-${cat}"]:checked`);
+            if (selected) {
+                userAnswers.partIII[q.id][cat] = selected.value;
+            }
+        });
+    });
+
+    // Calculate score
+    const results = calculateScore(userAnswers, exam);
+
+    // Display results
+    displayExamResults(results, exam, userAnswers);
+}
+
+function displayExamResults(results, exam, userAnswers) {
+    const container = document.getElementById('quiz-container');
+
+    let html = '<div class="exam-results">';
+    html += '<h2>📊 Exam Results</h2>';
+
+    html += '<div class="results-summary">';
+    html += `<div class="score-card">`;
+    html += `<div class="score-large">${results.score} / ${results.maxScore}</div>`;
+    html += `<div class="score-percentage">${results.percentage}%</div>`;
+    html += `<div class="score-grade">Grade: ${results.grade}</div>`;
+    html += `</div>`;
+
+    html += '<div class="score-breakdown">';
+    html += `<div class="breakdown-item">`;
+    html += `<strong>Part I (Multiple Choice):</strong> ${results.breakdown.partI} / 90 points`;
+    html += `</div>`;
+    html += `<div class="breakdown-item">`;
+    html += `<strong>Part II (Classification):</strong> ${results.breakdown.partII} / 50 points`;
+    html += `</div>`;
+    html += `<div class="breakdown-item">`;
+    html += `<strong>Part III (Transaction Analysis):</strong> ${results.breakdown.partIII} / 60 points`;
+    html += `</div>`;
+    html += '</div></div>';
+
+    // Detailed review
+    html += '<div class="detailed-review">';
+    html += '<h3>Detailed Review</h3>';
+
+    // Part I Review
+    html += '<h4>Part I: Multiple Choice</h4>';
+    exam.partI.forEach((q, index) => {
+        const userAns = userAnswers.partI[q.id];
+        const isCorrect = userAns === q.correctAnswer;
+
+        html += `<div class="review-question ${isCorrect ? 'correct' : 'incorrect'}">`;
+        html += `<div class="review-header">`;
+        html += `<span class="review-number">Q${index + 1}</span>`;
+        html += `<span class="review-result">${isCorrect ? '✓ Correct' : '✗ Incorrect'}</span>`;
+        html += `</div>`;
+        html += `<div class="review-question-text">${q.question}</div>`;
+        html += `<div class="review-answer"><strong>Your Answer:</strong> ${userAns || 'No answer'}</div>`;
+        if (!isCorrect) {
+            html += `<div class="review-correct-answer"><strong>Correct Answer:</strong> ${q.correctAnswer}</div>`;
+        }
+        html += `<div class="review-explanation">${q.explanation}</div>`;
+        html += `</div>`;
+    });
+
+    html += '</div>'; // End detailed review
+
+    html += '<div class="results-actions">';
+    html += '<button class="btn btn-primary" onclick="startQuizType(\'practice-exam\')">Retake Exam</button>';
+    html += '<button class="btn btn-secondary" onclick="initializeQuiz()">Back to Quizzes</button>`;
+    html += '</div>';
+
+    html += '</div>'; // End results
+
+    container.innerHTML = html;
+
+    // Clear timer
+    if (window.examTimerInterval) {
+        clearInterval(window.examTimerInterval);
+    }
+
+    // Save score
+    AppState.userProgress.quizzesCompleted++;
+    saveUserProgress();
 }
 
 // ===========================
