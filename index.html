@@ -207,34 +207,87 @@
 
         <!-- PRACTICE SECTION -->
         <section id="practice" class="content-section">
-            <h2>Practice Problems</h2>
-            <div class="practice-selector">
-                <label for="topic-select">Select Topic:</label>
-                <select id="topic-select">
-                    <option value="all">All Topics</option>
-                    <option value="balance-sheet">Balance Sheet</option>
-                    <option value="income-statement">Income Statement</option>
-                    <option value="double-entry">Double-Entry Accounting</option>
-                    <option value="accrual">Accrual Accounting</option>
-                    <option value="adjusting-entries">Adjusting Entries</option>
-                    <option value="accounts-receivable">Accounts Receivable</option>
-                    <option value="financial-ratios">Financial Ratios</option>
-                </select>
+            <div class="practice-studio">
+                <div class="practice-controls card">
+                    <div class="practice-header">
+                        <h2>Practice Studio</h2>
+                        <p class="muted">Build a focused set, hit it hard, and review quickly. Designed for short attention bursts.</p>
+                    </div>
+                    <div class="practice-modes">
+                        <label>
+                            Session Mode
+                            <select id="practice-mode">
+                                <option value="mixed">Mixed (shuffle)</option>
+                                <option value="focused">Focused (ordered)</option>
+                            </select>
+                        </label>
+                    </div>
+                    <div class="practice-grid">
+                        <label>
+                            Topic
+                            <select id="practice-topic">
+                                <option value="all">All Topics</option>
+                                <option value="balance-sheet">Balance Sheet</option>
+                                <option value="income-statement">Income Statement</option>
+                                <option value="double-entry">Double-Entry Accounting</option>
+                                <option value="accrual">Accrual Accounting</option>
+                                <option value="adjusting-entries">Adjusting Entries</option>
+                                <option value="accounts-receivable">Accounts Receivable</option>
+                                <option value="financial-ratios">Financial Ratios</option>
+                            </select>
+                        </label>
+                        <label>
+                            Difficulty
+                            <select id="practice-difficulty">
+                                <option value="all">All Levels</option>
+                                <option value="easy">Easy</option>
+                                <option value="medium">Medium</option>
+                                <option value="hard">Hard</option>
+                                <option value="expert">Expert</option>
+                            </select>
+                        </label>
+                        <label>
+                            Problem Count
+                            <select id="practice-count">
+                                <option value="5">5</option>
+                                <option value="10" selected>10</option>
+                                <option value="15">15</option>
+                                <option value="20">20</option>
+                            </select>
+                        </label>
+                    </div>
+                    <div class="practice-actions">
+                        <button class="btn btn-primary" id="practiceGenerateBtn">Generate Set</button>
+                        <button class="btn btn-secondary" id="practiceResetBtn">Reset Session</button>
+                    </div>
+                    <div class="session-stats">
+                        <div class="session-card">
+                            <span>Attempted</span>
+                            <strong id="session-attempted">0</strong>
+                        </div>
+                        <div class="session-card">
+                            <span>Correct</span>
+                            <strong id="session-correct">0</strong>
+                        </div>
+                        <div class="session-card">
+                            <span>Accuracy</span>
+                            <strong id="session-accuracy">0%</strong>
+                        </div>
+                        <div class="session-card">
+                            <span>Streak</span>
+                            <strong id="session-streak">0</strong>
+                        </div>
+                    </div>
+                    <div class="practice-tips">
+                        <p><strong>Quick rule:</strong> Attempt → Check → Fix → Move on. Keep it moving.</p>
+                    </div>
+                </div>
 
-                <label for="difficulty-select">Difficulty:</label>
-                <select id="difficulty-select">
-                    <option value="all">All Levels</option>
-                    <option value="easy">Easy</option>
-                    <option value="medium">Medium</option>
-                    <option value="hard">Hard</option>
-                    <option value="expert">Expert</option>
-                </select>
-
-                <button class="btn btn-primary" id="loadProblemsBtn">Load Problems</button>
-            </div>
-
-            <div id="practice-container">
-                <p class="placeholder">Select a topic and difficulty to begin practicing.</p>
+                <div class="practice-workbench">
+                    <div id="practice-container">
+                        <p class="placeholder">Generate a set to begin practicing.</p>
+                    </div>
+                </div>
             </div>
         </section>
 

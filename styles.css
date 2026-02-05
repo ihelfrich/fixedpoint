@@ -589,6 +589,83 @@ h3, h4 {
     margin: var(--space-8) 0;
 }
 
+/* Practice Studio */
+.practice-studio {
+    display: grid;
+    grid-template-columns: minmax(280px, 0.85fr) minmax(0, 2fr);
+    gap: var(--space-6);
+    align-items: start;
+}
+
+.practice-controls {
+    display: grid;
+    gap: var(--space-5);
+    position: sticky;
+    top: 90px;
+}
+
+.practice-header h2 {
+    margin-bottom: var(--space-3);
+}
+
+.practice-modes label,
+.practice-grid label {
+    display: grid;
+    gap: var(--space-2);
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+
+.practice-grid {
+    display: grid;
+    gap: var(--space-4);
+}
+
+.practice-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+}
+
+.session-stats {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-3);
+}
+
+.session-card {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: var(--space-4);
+    display: grid;
+    gap: var(--space-2);
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+.session-card strong {
+    font-size: 1.4rem;
+    color: var(--primary);
+    letter-spacing: 0;
+}
+
+.practice-tips {
+    padding: var(--space-4);
+    background: rgba(255, 204, 0, 0.12);
+    border: 1px solid rgba(255, 204, 0, 0.4);
+    border-radius: var(--radius-md);
+    font-size: 0.9rem;
+}
+
+.practice-workbench {
+    display: grid;
+    gap: var(--space-4);
+}
+
 .stat-card {
     background: var(--bg-primary);
     padding: var(--space-6);
@@ -734,6 +811,12 @@ h3, h4 {
     font-size: 0.9375rem;
 }
 
+.problem-subtitle {
+    color: var(--text-secondary);
+    margin-bottom: var(--space-3);
+    font-size: 0.9rem;
+}
+
 .problem-card {
     background: var(--bg-primary);
     border-radius: var(--radius-lg);
@@ -862,6 +945,19 @@ h3, h4 {
     margin-bottom: var(--space-5);
 }
 
+.journal-entry-group {
+    display: grid;
+    gap: var(--space-3);
+}
+
+.journal-group-label {
+    font-weight: 700;
+    color: var(--text-primary);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 0.75rem;
+}
+
 .journal-hint {
     color: var(--text-secondary);
     font-size: 0.9rem;
@@ -891,6 +987,27 @@ h3, h4 {
     grid-template-columns: 1fr 110px;
     gap: var(--space-2);
     margin-bottom: var(--space-3);
+}
+
+/* Comprehensive Inputs */
+.comprehensive-inputs {
+    display: grid;
+    gap: var(--space-3);
+    margin-bottom: var(--space-5);
+}
+
+.comprehensive-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--space-3);
+}
+
+.comprehensive-grid label {
+    display: grid;
+    gap: var(--space-2);
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    font-weight: 600;
 }
 
 /* Comprehensive / Short Answer */
@@ -936,6 +1053,16 @@ h3, h4 {
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: var(--space-4);
     margin-top: var(--space-3);
+    padding: var(--space-4);
+    background: var(--bg-secondary);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border);
+}
+
+.journal-solution-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: var(--space-3);
 }
 
 .journal-line {
@@ -1265,6 +1392,14 @@ footer p {
 
     .home-grid {
         grid-template-columns: 1fr;
+    }
+
+    .practice-studio {
+        grid-template-columns: 1fr;
+    }
+
+    .practice-controls {
+        position: static;
     }
 
     .quick-practice,

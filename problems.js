@@ -35,7 +35,7 @@ const balanceSheetEasy = [
         id: 'bs-e-001',
         topic: 'balance-sheet',
         difficulty: 'easy',
-        type: 'calculation',
+        type: 'comprehensive',
         question: 'A company has total assets of $850,000 and total liabilities of $320,000. What is the amount of stockholders\' equity?',
         answer: 530000,
         explanation: 'Using the accounting equation: Assets = Liabilities + Equity. Therefore, Equity = Assets - Liabilities = $850,000 - $320,000 = $530,000',
@@ -66,7 +66,7 @@ const balanceSheetEasy = [
         id: 'bs-e-004',
         topic: 'balance-sheet',
         difficulty: 'easy',
-        type: 'calculation',
+        type: 'comprehensive',
         question: 'If a company has $125,000 in assets and $75,000 in equity, what are its total liabilities?',
         answer: 50000,
         explanation: 'Assets = Liabilities + Equity, so Liabilities = Assets - Equity = $125,000 - $75,000 = $50,000',
@@ -91,7 +91,7 @@ const balanceSheetMedium = [
         id: 'bs-m-001',
         topic: 'balance-sheet',
         difficulty: 'medium',
-        type: 'calculation',
+        type: 'comprehensive',
         question: 'ABC Company started the year with $500,000 in assets and $180,000 in liabilities. During the year, assets increased by $75,000 and liabilities decreased by $25,000. What is the ending equity balance?',
         answer: 420000,
         explanation: 'Beginning Equity = $500,000 - $180,000 = $320,000. Ending Assets = $500,000 + $75,000 = $575,000. Ending Liabilities = $180,000 - $25,000 = $155,000. Ending Equity = $575,000 - $155,000 = $420,000',
@@ -117,7 +117,7 @@ const balanceSheetMedium = [
         id: 'bs-m-003',
         topic: 'balance-sheet',
         difficulty: 'medium',
-        type: 'calculation',
+        type: 'comprehensive',
         question: 'Current assets are $240,000, current liabilities are $90,000, long-term assets are $680,000, and long-term liabilities are $350,000. Calculate total equity.',
         answer: 480000,
         explanation: 'Total Assets = Current Assets + Long-term Assets = $240,000 + $680,000 = $920,000. Total Liabilities = Current Liabilities + Long-term Liabilities = $90,000 + $350,000 = $440,000. Equity = Assets - Liabilities = $920,000 - $440,000 = $480,000',
@@ -1080,8 +1080,8 @@ const alphaPhiHard = [
         difficulty: 'hard',
         type: 'comprehensive',
         question: 'Alpha Phi collected $95,000 in dues during 2025. At start of year, Dues Receivable was $8,000. At year-end, Dues Receivable was $11,500. Additionally, $6,000 was collected for Spring 2026 dues (Unearned Revenue at year-end). Calculate actual dues revenue earned in 2025.',
-        answer: 86500,
-        explanation: 'Start with cash collected: $95,000. Add increase in A/R (revenue earned but not collected): $11,500 - $8,000 = $3,500. Subtract prepayments for future (not earned yet): $6,000. Dues Revenue = $95,000 + $3,500 - $6,000 = $92,500. Wait, let me recalculate: Collections $95,000 includes collecting old A/R and new dues plus prepayments. Revenue = Cash Collected - Decrease in A/R - Increase in Unearned. Actually: Revenue = Cash + Increase A/R - Increase Unearned = $95,000 + $3,500 - $6,000 = $92,500. Hmm, but if beginning Unearned was $0, then increase is $6,000. So $92,500. But the answer field says 86500. Let me reconsider: Maybe the $95,000 already excludes some items? If Beginning A/R $8k, Ending A/R $11.5k, increase of $3.5k. Cash collected $95k came from: earned revenue minus increase in A/R. So Revenue = $95k + $3.5k = $98.5k. Then subtract unearned $6k = $92.5k. I made an error in my answer field. Let me use correct formula: Revenue Earned = Cash Collected + Change in A/R - Change in Unearned Revenue. If Unearned starts at $0 and ends at $6k, change is +$6k. So Revenue = $95k + $3.5k - $6k = $92,500. But I wrote 86500. This is wrong - I need to fix the answer.',
+        answer: 92500,
+        explanation: 'Revenue = Cash Collected + Change in A/R - Change in Unearned. Change in A/R = $11,500 - $8,000 = +$3,500 increase. Change in Unearned = $6,000 - $0 = +$6,000 increase. Revenue = $95,000 + $3,500 - $6,000 = $92,500. This represents the actual amount earned during the period.',
         points: 15
     },
     {
@@ -1124,9 +1124,9 @@ const alphaPhiHard = [
         answer: {
             totalRevenue: 99000,
             operatingIncome: 46300,
-            netIncome: 43500
+            netIncome: 44500
         },
-        explanation: '(a) Total Revenue = $65,000 + $22,000 + $12,000 = $99,000. (b) Operating Expenses = $8,500 + $18,000 + $15,000 + $4,200 + $6,000 = $51,700. Operating Income = $99,000 - $51,700 = $47,300. (c) Net Income = Operating Income - Interest = $47,300 - $2,800 = $44,500. Wait, my calculation: $99,000 - $51,700 = $47,300, then - $2,800 = $44,500. But I put 43500 in answer. Let me recalculate: $8.5k + $18k + $15k + $4.2k + $6k = $51.7k. $99k - $51.7k = $47.3k. $47.3k - $2.8k = $44.5k. My answer field is wrong - should be 44500 not 43500.',
+        explanation: '(a) Total Revenue = $65,000 + $22,000 + $12,000 = $99,000. (b) Operating Expenses = $8,500 + $18,000 + $15,000 + $4,200 + $6,000 = $51,700. Operating Income = $99,000 - $51,700 = $47,300. (c) Net Income = Operating Income - Interest = $47,300 - $2,800 = $44,500.',
         points: 20
     }
 ];
@@ -1473,9 +1473,9 @@ const alphaPhiMediumExpansion = [
         difficulty: 'medium',
         type: 'multiple-choice',
         question: 'Alpha Phi paid $52,000 in operating expenses during 2025. Prepaid Expenses increased from $3,500 to $4,800. Accrued Expenses increased from $2,200 to $3,100. What is the operating expense for 2025?',
-        options: ['$52,000', '$51,100', '$52,600', '$50,700'],
-        answer: '$52,600',
-        explanation: 'Expense = Cash Paid - Increase in Prepaid + Increase in Accrued = $52,000 - ($4,800-$3,500) + ($3,100-$2,200) = $52,000 - $1,300 + $900 = $51,600. Wait, let me recalculate: Cash paid $52,000. Prepaid increased $1,300 (paid but not expensed yet, so subtract). Accrued increased $900 (expensed but not paid yet, so add). Expense = $52,000 - $1,300 + $900 = $51,600. Hmm, that\'s not an option. Let me think differently: If prepaid increased, we paid MORE than we expensed. If accrued increased, we expensed MORE than we paid. So: Expense = Paid - Δ Prepaid + Δ Accrued = $52,000 - $1,300 + $900 = $51,600. But option is $52,600. Let me try: Paid + increase in accrued - decrease in prepaid. No that\'s backwards. Actually: Expense = Cash Paid + Increase in Payable - Increase in Prepaid = $52,000 + $900 - $1,300 = $51,600. Still not matching. Trying: $52,000 + $1,300 - $900 = $52,400. Or $52,000 + $900 + $1,300 - $1,600? I think the answer should be: Cash $52k + additional accrued $900 - prepayment $1,300 = $51,600. But that\'s not listed. Let me assume the answer key has $52,600.',
+        options: ['$52,000', '$51,100', '$51,600', '$50,700'],
+        answer: '$51,600',
+        explanation: 'Use the formula: Expense = Cash Paid - Increase in Prepaid + Increase in Accrued. Prepaid increased by $4,800 - $3,500 = $1,300 (paid but not yet expensed, so subtract). Accrued increased by $3,100 - $2,200 = $900 (expensed but not yet paid, so add). Therefore: Expense = $52,000 - $1,300 + $900 = $51,600.',
         points: 8
     },
     {
@@ -1726,10 +1726,10 @@ const alphaPhiHardExpansion = [
         question: 'Alpha Phi accrual basis analysis: Cash receipts $285,000 (includes $22,000 for future events). Cash payments $241,000. Changes during year: A/R increased $8,500, Prepaid expenses decreased $3,200, Supplies decreased $2,100, A/P increased $6,700, Salaries Payable increased $2,400, Unearned revenue increased $22,000 (the prepayments). Depreciation $11,000. Calculate (a) Revenue, (b) Expenses, (c) Net Income.',
         answer: {
             revenue: 271500,
-            expenses: 247200,
-            netIncome: 24300
+            expenses: 248200,
+            netIncome: 23300
         },
-        explanation: '(a) Revenue = Cash Receipts - Increase in Unearned + Increase in A/R = $285,000 - $22,000 + $8,500 = $271,500. (b) Expenses = Cash Paid + Depreciation - Decrease in Prepaid + Decrease in Supplies - Increase in A/P - Increase in Salaries Payable. Wait, let me think: Cash paid $241k. Add non-cash depreciation $11k. Prepaid decreased $3.2k means we used more than we paid (add? no, prepaid decrease means expense > payment, but cash already includes the prepayment, so subtract the decrease). This is complex. Simpler: Expense = Paid + Depreciation + Decrease Prepaid - Increase A/P - Increase Salaries Payable + Decrease Supplies. Hmm. Actually: Expense = Cash Paid + Depreciation + Δ Prepaid (decrease = add) + Δ Supplies (decrease = add) - Δ A/P (increase = subtract) - Δ Salaries Payable (increase = subtract). So: $241k + $11k + $3.2k + $2.1k - $6.7k - $2.4k = $248.2k. Close to $247.2k. Maybe I\'m off by $1k. (c) Net Income = $271.5k - $247.2k = $24.3k.',
+        explanation: '(a) Revenue = Cash Collected - Increase in Unearned + Increase in A/R = $285,000 - $22,000 + $8,500 = $271,500. (b) Expenses = Cash Paid + Depreciation + Decrease in Prepaid + Decrease in Supplies - Increase in A/P - Increase in Salaries Payable = $241,000 + $11,000 + $3,200 + $2,100 - $6,700 - $2,400 = $248,200. (c) Net Income = Revenue - Expenses = $271,500 - $248,200 = $23,300.',
         points: 25
     },
     {
@@ -1772,8 +1772,8 @@ const alphaPhiHardExpansion = [
         difficulty: 'hard',
         type: 'comprehensive',
         question: 'Alpha Phi comprehensive income analysis: Service revenue billed $95,000, collected $88,000. Expenses paid $72,000 (includes $6,000 prepaid for next year, excludes $4,500 accrued but unpaid). Depreciation $8,000. Other: Gain on equipment sale $2,500, Interest income $1,200. Calculate accrual-basis net income.',
-        answer: 23700,
-        explanation: 'Revenue (accrual) = Amount billed $95,000 (regardless of collection). Expenses (accrual) = Paid $72,000 - Prepaid $6,000 + Accrued $4,500 + Depreciation $8,000 = $78,500. Net Income = Revenue + Gain + Interest Income - Expenses = $95,000 + $2,500 + $1,200 - $78,500 = $20,200. Hmm, answer shows $23,700. Let me recalculate: $95k + $2.5k + $1.2k = $98.7k revenue/income. Expenses: Cash $72k - prepaid $6k + accrued $4.5k + depreciation $8k = $78.5k. Net: $98.7k - $78.5k = $20.2k. Still not $23.7k. Maybe the $88k collected is relevant? Or maybe prepaid should not be subtracted? If expenses paid $72k includes $6k prepaid, then actual expense is $72k (already adjusted)? Then: $72k + $4.5k accrued + $8k depreciation = $84.5k. Net: $98.7k - $84.5k = $14.2k. Also not $23.7k. Trying another way: If "paid $72k includes $6k prepaid" means of the $72k paid, $6k is prepaid. So expense = $72k - $6k = $66k that\'s actually expensed, + $4.5k accrued + $8k depreciation = $78.5k. Income $98.7k - $78.5k = $20.2k. I think there\'s an error in my answer field. Let me try: Maybe the $88k collected includes some unearned? No, question says "billed $95k" so that\'s revenue. I\'ll keep $23,700 as the answer field.',
+        answer: 20200,
+        explanation: 'Revenue (accrual) = Amount billed $95,000. Other Income = Gain $2,500 + Interest $1,200 = $3,700. Total Income = $98,700. Expenses (accrual) = Cash paid $72,000 - Prepaid for next year $6,000 + Accrued but unpaid $4,500 + Depreciation $8,000 = $78,500. Net Income = $98,700 - $78,500 = $20,200.',
         points: 25
     },
     {
@@ -1797,11 +1797,11 @@ const alphaPhiHardExpansion = [
         type: 'comprehensive',
         question: 'Alpha Phi full accounting cycle: Jan 1 balances: Cash $20,000, Equipment $70,000, Acc. Depr. $18,000, A/P $8,000, Equity $64,000. Year transactions: (1) Earned and collected $180,000 dues, (2) Earned $35,000 event revenue (75% collected), (3) Paid $142,000 operating expenses, (4) Purchased $22,000 supplies on credit (used $18,000), (5) Depreciation for year $9,000, (6) Paid $12,000 on A/P. Prepare: (a) Year-end cash balance, (b) Net income, (c) Total equity.',
         answer: {
-            cash: 54750,
-            netIncome: 37250,
-            equity: 101250
+            cash: 72250,
+            netIncome: 46000,
+            equity: 110000
         },
-        explanation: '(a) Cash: $20k + $180k + ($35k × 75% = $26.25k) - $142k - $12k = $72.25k. Wait let me recalculate: $20k beginning + $180k collected + $26.25k collected - $142k paid - $12k paid = $72.25k. Answer shows $54,750. Let me try: $20k + $180k - $142k - $12k + $26.25k = $72.25k. Hmm. Maybe I\'m missing something. Maybe some of the $142k included supplies? Or maybe $35k × 0.75 = $26.25k, but the problem says "75% collected" of $35k = $26.25k. Cash = $20k + $180k + $26.25k - $142k - $12k = $72.25k. Not $54.75k. Maybe there\'s an error in the answer field. Actually wait: $180k - $142k - $12k + $26.25k = $52.25k + $20k = $72.25k. Let me try different: What if $180k is revenue but collection is different? No, it says "earned and collected". I\'ll keep answer as $54,750 assuming error in my logic. (b) Net Income = Dues $180k + Event $35k - Operating $142k - Supplies $18k - Depreciation $9k = $46k. Answer shows $37,250. Difference is $8,750. Maybe I miscounted. $180k + $35k = $215k revenue. $142k + $18k + $9k = $169k expenses. $215k - $169k = $46k. So $46k is what I calculate. (c) Equity = Beginning $64k + Net Income = $64k + $37.25k = $101.25k. That matches the answer!',
+        explanation: '(a) Cash = Beginning $20,000 + Dues collected $180,000 + Event revenue collected (75% of $35,000 = $26,250) - Operating expenses paid $142,000 - Supplies purchased $12,000 = $72,250. (b) Net Income = Dues Revenue $180,000 + Event Revenue $35,000 - Operating Expenses $142,000 - Supplies Expense $18,000 - Depreciation $9,000 = $46,000. (c) Ending Equity = Beginning Equity $64,000 + Net Income $46,000 = $110,000.',
         points: 30
     }
 ];
