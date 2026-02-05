@@ -689,7 +689,7 @@ function displayExamResults(results, exam, userAnswers) {
 
     html += '<div class="results-actions">';
     html += '<button class="btn btn-primary" onclick="startQuizType(\'practice-exam\')">Retake Exam</button>';
-    html += '<button class="btn btn-secondary" onclick="initializeQuiz()">Back to Quizzes</button>`;
+    html += '<button class="btn btn-secondary" onclick="initializeQuiz()">Back to Quizzes</button>';
     html += '</div>';
 
     html += '</div>'; // End results
