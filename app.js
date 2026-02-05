@@ -523,6 +523,27 @@ function generatePracticeProblems(topic, difficulty, count = null, mode = 'mixed
     return html;
 }
 
+function formatQuestionText(text) {
+    if (!text) return '';
+
+    // Convert numbered lists like "(1) item" or "1. item" or "a) item"
+    text = text.replace(/\((\d+)\)\s+/g, '<br><strong>($1)</strong> ');
+    text = text.replace(/(\d+)\.\s+/g, '<br><strong>$1.</strong> ');
+    text = text.replace(/\(([a-z])\)\s+/g, '<br><strong>($1)</strong> ');
+    text = text.replace(/([a-z])\)\s+/g, '<br><strong>$1)</strong> ');
+
+    // Convert multiple spaces to proper spacing
+    text = text.replace(/\s{2,}/g, ' ');
+
+    // Add line breaks for common patterns
+    text = text.replace(/\.\s+([A-Z])/g, '.<br><br>$1');
+
+    // Remove leading breaks
+    text = text.replace(/^<br>/, '');
+
+    return text;
+}
+
 function renderProblem(problem, index) {
     const instanceId = generateUniqueId();
     let html = `<div class="problem-card" id="problem-${problem.id}-${instanceId}" data-instance-id="${instanceId}">`;
@@ -532,7 +553,7 @@ function renderProblem(problem, index) {
     html += `<span class="problem-points">${problem.points} points</span>`;
     html += `</div>`;
 
-    html += `<div class="problem-question">${problem.question}</div>`;
+    html += `<div class="problem-question">${formatQuestionText(problem.question)}</div>`;
 
     if (problem.type === 'multiple-choice') {
         html += `<div class="problem-options">`;
@@ -837,7 +858,7 @@ function checkAnswer(problemId, instanceId) {
         feedbackDiv.innerHTML = `
             <div class="feedback-correct">
                 <strong>✓ Correct!</strong>
-                <p>${problem.explanation}</p>
+                <div class="answer-feedback">${formatQuestionText(problem.explanation)}</div>
             </div>
         `;
         AppState.userProgress.problemsCompleted++;
@@ -846,7 +867,7 @@ function checkAnswer(problemId, instanceId) {
             <div class="feedback-incorrect">
                 <strong>✗ Incorrect</strong>
                 <div class="answer-block"><strong>Correct Answer:</strong> ${formatAnswerDisplay(problem)}</div>
-                <p>${problem.explanation}</p>
+                <div class="answer-feedback">${formatQuestionText(problem.explanation)}</div>
             </div>
         `;
     } else {
@@ -854,7 +875,7 @@ function checkAnswer(problemId, instanceId) {
             <div class="feedback-neutral">
                 <strong>Solution Review</strong>
                 <div class="answer-block">${formatAnswerDisplay(problem)}</div>
-                <p>${problem.explanation}</p>
+                <div class="answer-feedback">${formatQuestionText(problem.explanation)}</div>
             </div>
         `;
     }

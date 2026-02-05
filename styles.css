@@ -888,9 +888,49 @@ h3, h4 {
 
 .problem-question {
     font-size: 1.0625rem;
-    line-height: 1.65;
+    line-height: 1.75;
     margin-bottom: var(--space-5);
     color: var(--text-primary);
+}
+
+.problem-question ul,
+.problem-question ol {
+    margin: var(--space-4) 0;
+    padding-left: var(--space-6);
+    list-style-position: outside;
+}
+
+.problem-question ul {
+    list-style-type: disc;
+}
+
+.problem-question ol {
+    list-style-type: decimal;
+}
+
+.problem-question li {
+    margin-bottom: var(--space-3);
+    padding-left: var(--space-2);
+    line-height: 1.75;
+}
+
+.problem-question p {
+    margin-bottom: var(--space-3);
+}
+
+.problem-question p:last-child {
+    margin-bottom: 0;
+}
+
+.problem-question strong {
+    font-weight: 600;
+    color: var(--primary);
+}
+
+.problem-question br {
+    display: block;
+    margin-bottom: var(--space-2);
+    content: "";
 }
 
 /* Transaction Analysis */
@@ -1266,11 +1306,42 @@ textarea:hover {
 
 .answer-feedback p {
     margin: 0;
-    line-height: 1.6;
+    line-height: 1.75;
 }
 
 .answer-feedback p + p {
     margin-top: var(--space-3);
+}
+
+.answer-feedback ul,
+.answer-feedback ol {
+    margin: var(--space-4) 0;
+    padding-left: var(--space-6);
+    list-style-position: outside;
+}
+
+.answer-feedback ul {
+    list-style-type: disc;
+}
+
+.answer-feedback ol {
+    list-style-type: decimal;
+}
+
+.answer-feedback li {
+    margin-bottom: var(--space-3);
+    padding-left: var(--space-2);
+    line-height: 1.75;
+}
+
+.answer-feedback strong {
+    font-weight: 600;
+}
+
+.answer-feedback br {
+    display: block;
+    margin-bottom: var(--space-2);
+    content: "";
 }
 
 /* Notifications */
