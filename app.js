@@ -15,7 +15,8 @@ const AppState = {
             'double-entry': 0,
             'accrual': 0,
             'adjusting-entries': 0,
-            'accounts-receivable': 0
+            'accounts-receivable': 0,
+            'financial-ratios': 0
         },
         lastActivity: null
     },
@@ -63,7 +64,7 @@ function saveUserProgress() {
 
 function updateProgressDisplay() {
     const total = Object.values(AppState.userProgress.topicMastery).reduce((a, b) => a + b, 0);
-    const average = Math.round(total / 6);
+    const average = Math.round(total / 7);
     const progressElement = document.getElementById('user-progress');
     if (progressElement) {
         progressElement.textContent = average + '%';
