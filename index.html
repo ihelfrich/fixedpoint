@@ -31,16 +31,16 @@
 
                 <div class="stats-grid">
                     <div class="stat-card">
-                        <div class="stat-number">3000+</div>
+                        <div class="stat-number" id="stat-problems">--</div>
                         <div class="stat-label">Practice Problems</div>
                     </div>
                     <div class="stat-card">
-                        <div class="stat-number">10</div>
-                        <div class="stat-label">Full Practice Exams</div>
+                        <div class="stat-number" id="stat-exams">--</div>
+                        <div class="stat-label">Practice Exams</div>
                     </div>
                     <div class="stat-card">
-                        <div class="stat-number">7</div>
-                        <div class="stat-label">Interactive Tools</div>
+                        <div class="stat-number" id="stat-tools">--</div>
+                        <div class="stat-label">Sections</div>
                     </div>
                     <div class="stat-card">
                         <div class="stat-number" id="user-progress">0%</div>
@@ -82,8 +82,8 @@
                         <div class="topic-item">
                             <span class="topic-icon">🔧</span>
                             <div class="topic-content">
-                                <strong>Class 6: Accounting Cycle & Adjusting Entries</strong>
-                                <p>Prepaid expenses, accrued revenue/expenses, depreciation</p>
+                                <strong>Class 6: Accrual vs Cash Accounting</strong>
+                                <p>Timing differences, revenue/expense recognition</p>
                             </div>
                         </div>
                         <div class="topic-item">
@@ -103,15 +103,15 @@
                         <li><strong>Review the Study Guide</strong> for comprehensive coverage</li>
                         <li><strong>Practice with Problem Sets</strong> organized by difficulty</li>
                         <li><strong>Use the Simulator</strong> to build real journal entries and financial statements</li>
-                        <li><strong>Take Practice Exams</strong> under timed conditions</li>
+                        <li><strong>Take the Practice Exam</strong> under timed conditions</li>
                         <li><strong>Track Your Progress</strong> to stay motivated</li>
                     </ol>
                 </div>
 
                 <div class="cta-buttons">
-                    <button class="btn btn-primary" onclick="startDiagnostic()">🎯 Start Diagnostic Quiz</button>
-                    <button class="btn btn-secondary" onclick="viewStudyGuide()">📚 View Study Guide</button>
-                    <button class="btn btn-secondary" onclick="startPractice()">📝 Practice Problems</button>
+                    <button class="btn btn-primary" id="ctaDiagnostic">🎯 Start Diagnostic Quiz</button>
+                    <button class="btn btn-secondary" id="ctaStudyGuide">📚 View Study Guide</button>
+                    <button class="btn btn-secondary" id="ctaPractice">📝 Practice Problems</button>
                 </div>
             </div>
         </section>
@@ -141,7 +141,7 @@
                     <option value="expert">Expert</option>
                 </select>
 
-                <button class="btn btn-primary" onclick="loadProblems()">Load Problems</button>
+                <button class="btn btn-primary" id="loadProblemsBtn">Load Problems</button>
             </div>
 
             <div id="practice-container">
@@ -198,6 +198,7 @@
 
     <script src="problems.js"></script>
     <script src="practice-exam.js"></script>
+    <script src="study-guide.js"></script>
     <script src="app.js"></script>
 </body>
 </html>

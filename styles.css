@@ -749,3 +749,198 @@ footer p {
 ::-webkit-scrollbar-thumb:hover {
     background: var(--text-tertiary);
 }
+
+/* ===========================
+   STUDY GUIDE STYLES
+   =========================== */
+
+.study-guide {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.study-section {
+    margin-bottom: var(--space-8);
+    padding: var(--space-6);
+    background: var(--bg-primary);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+    transition: box-shadow var(--transition);
+}
+
+.study-section:hover {
+    box-shadow: var(--shadow-md);
+}
+
+.study-section h3 {
+    color: var(--primary);
+    font-size: 1.5rem;
+    margin-bottom: var(--space-5);
+    padding-bottom: var(--space-3);
+    border-bottom: 2px solid var(--accent);
+}
+
+.study-section h4 {
+    color: var(--text-primary);
+    font-size: 1.125rem;
+    margin-top: var(--space-5);
+    margin-bottom: var(--space-3);
+}
+
+.concept-block {
+    margin-bottom: var(--space-6);
+    padding: var(--space-4);
+    background: var(--bg-secondary);
+    border-radius: var(--radius-sm);
+}
+
+.concept-block p {
+    margin-bottom: var(--space-3);
+    line-height: 1.6;
+}
+
+.concept-block ul {
+    margin-left: var(--space-6);
+    margin-bottom: var(--space-3);
+}
+
+.concept-block li {
+    margin-bottom: var(--space-2);
+    line-height: 1.5;
+}
+
+.formula {
+    background: var(--bg-tertiary);
+    padding: var(--space-5);
+    border-radius: var(--radius-md);
+    text-align: center;
+    font-weight: 700;
+    font-size: 1.125rem;
+    margin: var(--space-4) 0;
+    border-left: 4px solid var(--primary);
+    box-shadow: var(--shadow-sm);
+    font-family: 'SF Mono', Monaco, 'Courier New', monospace;
+}
+
+.example {
+    background: var(--bg-secondary);
+    padding: var(--space-4);
+    border-radius: var(--radius-sm);
+    margin: var(--space-4) 0;
+    border-left: 3px solid var(--accent);
+}
+
+.example strong {
+    display: block;
+    color: var(--primary);
+    margin-bottom: var(--space-2);
+}
+
+.journal-entry {
+    font-family: 'SF Mono', Monaco, 'Courier New', monospace;
+    background: var(--bg-primary);
+    padding: var(--space-4);
+    border-radius: var(--radius-sm);
+    margin: var(--space-3) 0;
+    font-size: 0.875rem;
+    line-height: 1.8;
+    border: 1px solid var(--border);
+}
+
+.study-guide table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: var(--space-4) 0;
+    background: var(--bg-primary);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+}
+
+.study-guide th {
+    background: var(--primary);
+    color: white;
+    padding: var(--space-4);
+    text-align: left;
+    font-weight: 600;
+}
+
+.study-guide td {
+    padding: var(--space-4);
+    border-bottom: 1px solid var(--border);
+}
+
+.study-guide tr:last-child td {
+    border-bottom: none;
+}
+
+.study-guide tr:hover {
+    background: var(--bg-secondary);
+}
+
+.key-point {
+    background: var(--warning-bg);
+    border-left: 4px solid var(--warning);
+    padding: var(--space-4);
+    border-radius: var(--radius-sm);
+    margin: var(--space-4) 0;
+}
+
+.key-point strong {
+    color: var(--warning);
+    display: block;
+    margin-bottom: var(--space-2);
+}
+
+.exam-tip {
+    background: var(--success-bg);
+    border-left: 4px solid var(--success);
+    padding: var(--space-4);
+    border-radius: var(--radius-sm);
+    margin: var(--space-4) 0;
+}
+
+.exam-tip strong {
+    color: var(--success);
+    display: block;
+    margin-bottom: var(--space-2);
+}
+
+.back-to-top {
+    display: inline-block;
+    margin-top: var(--space-6);
+    padding: var(--space-3) var(--space-5);
+    background: var(--primary);
+    color: white;
+    text-decoration: none;
+    border-radius: var(--radius-sm);
+    transition: all var(--transition);
+}
+
+.back-to-top:hover {
+    background: var(--primary-hover);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+/* Dark mode adjustments for study guide */
+[data-theme="dark"] .study-section {
+    background: var(--bg-secondary);
+}
+
+[data-theme="dark"] .concept-block {
+    background: var(--bg-primary);
+}
+
+[data-theme="dark"] .formula {
+    background: var(--bg-primary);
+}
+
+[data-theme="dark"] .example {
+    background: var(--bg-primary);
+}
+
+[data-theme="dark"] .journal-entry {
+    background: var(--bg-secondary);
+}

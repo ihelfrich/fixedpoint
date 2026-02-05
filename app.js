@@ -18,6 +18,15 @@ const AppState = {
             'accounts-receivable': 0,
             'financial-ratios': 0
         },
+        topicStats: {
+            'balance-sheet': { attempted: 0, correct: 0 },
+            'income-statement': { attempted: 0, correct: 0 },
+            'double-entry': { attempted: 0, correct: 0 },
+            'accrual': { attempted: 0, correct: 0 },
+            'adjusting-entries': { attempted: 0, correct: 0 },
+            'accounts-receivable': { attempted: 0, correct: 0 },
+            'financial-ratios': { attempted: 0, correct: 0 }
+        },
         lastActivity: null
     },
     settings: {
@@ -43,6 +52,8 @@ document.addEventListener('DOMContentLoaded', () => {
 function initializeApp() {
     console.log('ACCT 410x Study Platform Initialized');
     updateProgressDisplay();
+    updateHomeStats();
+    setupDarkMode();
 }
 
 function loadUserProgress() {
@@ -50,7 +61,19 @@ function loadUserProgress() {
     const saved = localStorage.getItem('acct410x-progress');
     if (saved) {
         try {
-            AppState.userProgress = JSON.parse(saved);
+            const parsed = JSON.parse(saved);
+            AppState.userProgress = {
+                ...AppState.userProgress,
+                ...parsed,
+                topicMastery: {
+                    ...AppState.userProgress.topicMastery,
+                    ...(parsed.topicMastery || {})
+                },
+                topicStats: {
+                    ...AppState.userProgress.topicStats,
+                    ...(parsed.topicStats || {})
+                }
+            };
             updateProgressDisplay();
         } catch (e) {
             console.error('Error loading progress:', e);
@@ -70,6 +93,43 @@ function updateProgressDisplay() {
     if (progressElement) {
         progressElement.textContent = average + '%';
     }
+}
+
+function updateHomeStats() {
+    const problemsEl = document.getElementById('stat-problems');
+    const examsEl = document.getElementById('stat-exams');
+    const toolsEl = document.getElementById('stat-tools');
+
+    if (problemsEl && typeof ProblemBank !== 'undefined') {
+        const total = Object.values(ProblemBank).reduce((sum, list) => sum + list.length, 0);
+        problemsEl.textContent = total.toLocaleString();
+    }
+
+    if (examsEl) {
+        const examCount = (typeof PracticeMidterm !== 'undefined') ? 1 : 0;
+        examsEl.textContent = examCount;
+    }
+
+    if (toolsEl) {
+        const sections = document.querySelectorAll('.nav-btn').length;
+        toolsEl.textContent = sections || '--';
+    }
+}
+
+function recordTopicAttempt(topic, isCorrect) {
+    if (!topic || !AppState.userProgress.topicStats[topic]) return;
+
+    const stats = AppState.userProgress.topicStats[topic];
+    stats.attempted += 1;
+    if (isCorrect) stats.correct += 1;
+
+    const mastery = stats.attempted > 0
+        ? Math.round((stats.correct / stats.attempted) * 100)
+        : 0;
+    AppState.userProgress.topicMastery[topic] = mastery;
+
+    AppState.userProgress.lastActivity = new Date().toLocaleString();
+    saveUserProgress();
 }
 
 // ===========================
@@ -155,6 +215,19 @@ function setupEventListeners() {
             console.log('Difficulty changed:', difficultySelect.value);
         });
     }
+
+    // Home CTA buttons
+    const diagnosticBtn = document.getElementById('ctaDiagnostic');
+    if (diagnosticBtn) diagnosticBtn.addEventListener('click', startDiagnostic);
+
+    const studyBtn = document.getElementById('ctaStudyGuide');
+    if (studyBtn) studyBtn.addEventListener('click', viewStudyGuide);
+
+    const practiceBtn = document.getElementById('ctaPractice');
+    if (practiceBtn) practiceBtn.addEventListener('click', startPractice);
+
+    const loadProblemsBtn = document.getElementById('loadProblemsBtn');
+    if (loadProblemsBtn) loadProblemsBtn.addEventListener('click', loadProblems);
 }
 
 // ===========================
@@ -314,6 +387,8 @@ function checkAnswer(problemId) {
         isCorrect = userAnswer === problem.answer;
     }
 
+    recordTopicAttempt(problem.topic, isCorrect);
+
     // Show feedback
     if (isCorrect) {
         feedbackDiv.innerHTML = `
@@ -422,22 +497,22 @@ function initializeQuiz() {
                 <div class="quiz-card" onclick="startQuizType('diagnostic')">
                     <h4>🎯 Diagnostic Quiz</h4>
                     <p>Identify your strengths and weaknesses across all topics</p>
-                    <span class="quiz-meta">30 questions | 45 minutes</span>
+                    <span class="quiz-meta">Coming soon</span>
                 </div>
                 <div class="quiz-card" onclick="startQuizType('topic')">
                     <h4>📚 Topic Quiz</h4>
                     <p>Focus on specific topics you want to practice</p>
-                    <span class="quiz-meta">Variable length</span>
+                    <span class="quiz-meta">Coming soon</span>
                 </div>
                 <div class="quiz-card" onclick="startQuizType('practice-exam')">
                     <h4>📝 Practice Exam</h4>
                     <p>Full-length practice midterm under timed conditions</p>
-                    <span class="quiz-meta">50 questions | 110 minutes</span>
+                    <span class="quiz-meta">35 questions | 110 minutes</span>
                 </div>
                 <div class="quiz-card" onclick="startQuizType('quick')">
                     <h4>⚡ Quick Quiz</h4>
                     <p>5-minute rapid-fire review</p>
-                    <span class="quiz-meta">10 questions | 5 minutes</span>
+                    <span class="quiz-meta">Coming soon</span>
                 </div>
             </div>
         </div>
@@ -713,24 +788,7 @@ function displayExamResults(results, exam, userAnswers) {
 
 function initializeStudyGuide() {
     const container = document.getElementById('study-container');
-    container.innerHTML = `
-        <div class="study-guide-main">
-            <div class="study-toc">
-                <h3>Table of Contents</h3>
-                <ul class="toc-list">
-                    <li><a href="#sg-balance-sheet" onclick="scrollToStudySection('sg-balance-sheet')">1. Balance Sheet</a></li>
-                    <li><a href="#sg-income-statement" onclick="scrollToStudySection('sg-income-statement')">2. Income Statement</a></li>
-                    <li><a href="#sg-double-entry" onclick="scrollToStudySection('sg-double-entry')">3. Double-Entry Accounting</a></li>
-                    <li><a href="#sg-accrual" onclick="scrollToStudySection('sg-accrual')">4. Accrual Accounting</a></li>
-                    <li><a href="#sg-adjusting" onclick="scrollToStudySection('sg-adjusting')">5. Adjusting Entries</a></li>
-                    <li><a href="#sg-receivables" onclick="scrollToStudySection('sg-receivables')">6. Accounts Receivable</a></li>
-                </ul>
-            </div>
-            <div class="study-content">
-                <p class="info-message">Comprehensive study guide content will be loaded here, covering all topics for Midterm 1.</p>
-            </div>
-        </div>
-    `;
+    container.innerHTML = getStudyGuideHTML();
 }
 
 function scrollToStudySection(id) {
@@ -748,6 +806,7 @@ function setupDarkMode() {
     const toggle = document.getElementById('dark-mode-toggle');
     const body = document.body;
     const icon = document.getElementById('theme-icon');
+    if (!toggle || !icon) return;
 
     // Load saved theme
     const savedTheme = localStorage.getItem('theme') || 'light';
