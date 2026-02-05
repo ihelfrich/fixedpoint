@@ -228,6 +228,48 @@ function setupEventListeners() {
 
     const loadProblemsBtn = document.getElementById('loadProblemsBtn');
     if (loadProblemsBtn) loadProblemsBtn.addEventListener('click', loadProblems);
+
+    // Delegate dynamic UI interactions
+    document.addEventListener('click', (event) => {
+        const actionBtn = event.target.closest('[data-action]');
+        if (actionBtn) {
+            switch (actionBtn.dataset.action) {
+                case 'quiz-back':
+                    initializeQuiz();
+                    break;
+                case 'exam-submit':
+                    gradePracticeExam();
+                    break;
+                case 'exam-cancel':
+                    initializeQuiz();
+                    break;
+                case 'exam-retake':
+                    startQuizType('practice-exam');
+                    break;
+                default:
+                    break;
+            }
+            return;
+        }
+
+        const quizCard = event.target.closest('.quiz-card');
+        if (quizCard && quizCard.dataset.quizType) {
+            startQuizType(quizCard.dataset.quizType);
+            return;
+        }
+
+        const checkBtn = event.target.closest('.check-answer-btn');
+        if (checkBtn && checkBtn.dataset.problemId) {
+            checkAnswer(checkBtn.dataset.problemId);
+            return;
+        }
+
+        const studyLink = event.target.closest('.study-link');
+        if (studyLink && studyLink.dataset.studyTarget) {
+            event.preventDefault();
+            scrollToStudySection(studyLink.dataset.studyTarget);
+        }
+    });
 }
 
 // ===========================
@@ -337,7 +379,7 @@ function renderProblem(problem, index) {
         html += `</div>`;
     }
 
-    html += `<button class="btn btn-secondary check-answer-btn" onclick="checkAnswer('${problem.id}')">Check Answer</button>`;
+    html += `<button class="btn btn-secondary check-answer-btn" data-problem-id="${problem.id}">Check Answer</button>`;
     html += `<div class="answer-feedback" id="feedback-${problem.id}" style="display:none;"></div>`;
     html += `</div>`;
 
@@ -494,22 +536,22 @@ function initializeQuiz() {
         <div class="quiz-main">
             <h3>Select Quiz Type</h3>
             <div class="quiz-options">
-                <div class="quiz-card" onclick="startQuizType('diagnostic')">
+                <div class="quiz-card" data-quiz-type="diagnostic">
                     <h4>🎯 Diagnostic Quiz</h4>
                     <p>Identify your strengths and weaknesses across all topics</p>
                     <span class="quiz-meta">Coming soon</span>
                 </div>
-                <div class="quiz-card" onclick="startQuizType('topic')">
+                <div class="quiz-card" data-quiz-type="topic">
                     <h4>📚 Topic Quiz</h4>
                     <p>Focus on specific topics you want to practice</p>
                     <span class="quiz-meta">Coming soon</span>
                 </div>
-                <div class="quiz-card" onclick="startQuizType('practice-exam')">
+                <div class="quiz-card" data-quiz-type="practice-exam">
                     <h4>📝 Practice Exam</h4>
                     <p>Full-length practice midterm under timed conditions</p>
                     <span class="quiz-meta">35 questions | 110 minutes</span>
                 </div>
-                <div class="quiz-card" onclick="startQuizType('quick')">
+                <div class="quiz-card" data-quiz-type="quick">
                     <h4>⚡ Quick Quiz</h4>
                     <p>5-minute rapid-fire review</p>
                     <span class="quiz-meta">Coming soon</span>
@@ -531,7 +573,7 @@ function startQuizType(type) {
             <div class="info-message">
                 <h3>${type.charAt(0).toUpperCase() + type.slice(1)} Quiz</h3>
                 <p>This quiz type is coming soon! For now, try the Practice Exam.</p>
-                <button class="btn btn-primary" onclick="initializeQuiz()">Back to Quiz Selection</button>
+                <button class="btn btn-primary" data-action="quiz-back">Back to Quiz Selection</button>
             </div>
         `;
     }
@@ -627,8 +669,8 @@ function renderPracticeExam(exam) {
 
     // Submit button
     html += '<div class="exam-actions">';
-    html += '<button class="btn btn-primary btn-large" onclick="gradePracticeExam()">Submit Exam for Grading</button>';
-    html += '<button class="btn btn-secondary" onclick="initializeQuiz()">Cancel and Return</button>';
+    html += '<button class="btn btn-primary btn-large" data-action="exam-submit">Submit Exam for Grading</button>';
+    html += '<button class="btn btn-secondary" data-action="exam-cancel">Cancel and Return</button>';
     html += '</div>';
 
     html += '</div>'; // End container
@@ -764,8 +806,8 @@ function displayExamResults(results, exam, userAnswers) {
     html += '</div>'; // End detailed review
 
     html += '<div class="results-actions">';
-    html += '<button class="btn btn-primary" onclick="startQuizType(\'practice-exam\')">Retake Exam</button>';
-    html += '<button class="btn btn-secondary" onclick="initializeQuiz()">Back to Quizzes</button>';
+    html += '<button class="btn btn-primary" data-action="exam-retake">Retake Exam</button>';
+    html += '<button class="btn btn-secondary" data-action="quiz-back">Back to Quizzes</button>';
     html += '</div>';
 
     html += '</div>'; // End results
