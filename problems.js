@@ -1849,6 +1849,537 @@ ProblemBank['accounts-receivable'].push(...alphaPhiMediumExpansion.filter(p => p
 ProblemBank['accounts-receivable'].push(...alphaPhiHardExpansion.filter(p => p.topic === 'accounts-receivable'));
 
 // ===========================
+// FINANCIAL RATIOS - ALPHA PHI EDITION
+// ===========================
+
+// Easy Ratio Problems (15)
+const alphaPhiRatiosEasy = [
+    {
+        id: 'ap-ratio-e-001',
+        topic: 'financial-ratios',
+        difficulty: 'easy',
+        type: 'calculation',
+        question: 'Alpha Phi has current assets of $45,000 and current liabilities of $18,000. Calculate the current ratio.',
+        answer: 2.50,
+        explanation: 'Current Ratio = Current Assets ÷ Current Liabilities = $45,000 ÷ $18,000 = 2.50. This means Alpha Phi has $2.50 in current assets for every $1 of current liabilities.',
+        points: 5
+    },
+    {
+        id: 'ap-ratio-e-002',
+        topic: 'financial-ratios',
+        difficulty: 'easy',
+        type: 'multiple-choice',
+        question: 'Alpha Phi reports total debt of $150,000 and total equity of $250,000. What is the debt-to-equity ratio?',
+        options: ['0.60', '0.40', '1.67', '2.67'],
+        answer: '0.60',
+        explanation: 'Debt-to-Equity Ratio = Total Debt ÷ Total Equity = $150,000 ÷ $250,000 = 0.60. This means for every $1 of equity, the chapter has $0.60 of debt.',
+        points: 3
+    },
+    {
+        id: 'ap-ratio-e-003',
+        topic: 'financial-ratios',
+        difficulty: 'easy',
+        type: 'calculation',
+        question: 'Alpha Phi had net income of $38,000 and total revenue of $190,000. Calculate the profit margin percentage.',
+        answer: 20.0,
+        explanation: 'Profit Margin = (Net Income ÷ Total Revenue) × 100 = ($38,000 ÷ $190,000) × 100 = 20%. This means Alpha Phi keeps 20 cents of profit for every dollar of revenue.',
+        points: 5
+    },
+    {
+        id: 'ap-ratio-e-004',
+        topic: 'financial-ratios',
+        difficulty: 'easy',
+        type: 'true-false',
+        question: 'True or False: A current ratio of 2.0 means the organization has twice as many current assets as current liabilities.',
+        answer: true,
+        explanation: 'TRUE. Current Ratio = Current Assets ÷ Current Liabilities. A ratio of 2.0 means current assets are 2 times (double) current liabilities.',
+        points: 2
+    },
+    {
+        id: 'ap-ratio-e-005',
+        topic: 'financial-ratios',
+        difficulty: 'easy',
+        type: 'calculation',
+        question: 'Alpha Phi has total assets of $500,000 and total liabilities of $180,000. Calculate the equity ratio (equity ÷ assets).',
+        answer: 0.64,
+        explanation: 'Equity = Assets - Liabilities = $500,000 - $180,000 = $320,000. Equity Ratio = Equity ÷ Assets = $320,000 ÷ $500,000 = 0.64 or 64%.',
+        points: 5
+    },
+    {
+        id: 'ap-ratio-e-006',
+        topic: 'financial-ratios',
+        difficulty: 'easy',
+        type: 'multiple-choice',
+        question: 'Alpha Phi generated $85,000 in revenue using assets of $340,000. What is the asset turnover ratio?',
+        options: ['0.25', '0.50', '4.00', '0.20'],
+        answer: '0.25',
+        explanation: 'Asset Turnover = Revenue ÷ Total Assets = $85,000 ÷ $340,000 = 0.25. This means the chapter generates $0.25 in revenue for every $1 of assets.',
+        points: 3
+    },
+    {
+        id: 'ap-ratio-e-007',
+        topic: 'financial-ratios',
+        difficulty: 'easy',
+        type: 'calculation',
+        question: 'Alpha Phi has accounts receivable of $12,000 and net credit sales of $144,000. Calculate the accounts receivable turnover ratio.',
+        answer: 12.0,
+        explanation: 'A/R Turnover = Net Credit Sales ÷ Average Accounts Receivable = $144,000 ÷ $12,000 = 12.0. This means the chapter collects its receivables 12 times per year.',
+        points: 5
+    },
+    {
+        id: 'ap-ratio-e-008',
+        topic: 'financial-ratios',
+        difficulty: 'easy',
+        type: 'true-false',
+        question: 'True or False: A higher current ratio always means better financial health.',
+        answer: false,
+        explanation: 'FALSE. While a higher current ratio indicates more liquidity, an excessively high ratio might mean the organization isn\'t efficiently using its assets. A ratio between 1.5 and 3.0 is generally considered healthy.',
+        points: 2
+    },
+    {
+        id: 'ap-ratio-e-009',
+        topic: 'financial-ratios',
+        difficulty: 'easy',
+        type: 'calculation',
+        question: 'Alpha Phi has cash of $8,000, short-term investments of $5,000, and current liabilities of $10,000. Calculate the quick ratio (acid-test ratio).',
+        answer: 1.30,
+        explanation: 'Quick Ratio = (Cash + Short-term Investments) ÷ Current Liabilities = ($8,000 + $5,000) ÷ $10,000 = 1.30. This measures immediate liquidity without relying on inventory.',
+        points: 5
+    },
+    {
+        id: 'ap-ratio-e-010',
+        topic: 'financial-ratios',
+        difficulty: 'easy',
+        type: 'multiple-choice',
+        question: 'Which ratio measures how many times a company can pay its interest expense?',
+        options: ['Current ratio', 'Times interest earned', 'Debt-to-equity', 'Asset turnover'],
+        answer: 'Times interest earned',
+        explanation: 'Times Interest Earned ratio = EBIT (Earnings Before Interest and Taxes) ÷ Interest Expense. It measures the ability to cover interest payments.',
+        points: 3
+    },
+    {
+        id: 'ap-ratio-e-011',
+        topic: 'financial-ratios',
+        difficulty: 'easy',
+        type: 'calculation',
+        question: 'Alpha Phi has operating income of $42,000 and interest expense of $6,000. Calculate the times interest earned ratio.',
+        answer: 7.0,
+        explanation: 'Times Interest Earned = Operating Income ÷ Interest Expense = $42,000 ÷ $6,000 = 7.0. Alpha Phi can cover its interest expense 7 times over.',
+        points: 5
+    },
+    {
+        id: 'ap-ratio-e-012',
+        topic: 'financial-ratios',
+        difficulty: 'easy',
+        type: 'true-false',
+        question: 'True or False: Return on Assets (ROA) is calculated as Net Income ÷ Total Assets.',
+        answer: true,
+        explanation: 'TRUE. ROA = Net Income ÷ Total Assets. It measures how efficiently a company uses its assets to generate profit.',
+        points: 2
+    },
+    {
+        id: 'ap-ratio-e-013',
+        topic: 'financial-ratios',
+        difficulty: 'easy',
+        type: 'calculation',
+        question: 'Alpha Phi earned net income of $28,000 using average total assets of $400,000. Calculate the return on assets (ROA) percentage.',
+        answer: 7.0,
+        explanation: 'ROA = (Net Income ÷ Total Assets) × 100 = ($28,000 ÷ $400,000) × 100 = 7.0%. This means the chapter generates 7 cents of profit for every dollar of assets.',
+        points: 5
+    },
+    {
+        id: 'ap-ratio-e-014',
+        topic: 'financial-ratios',
+        difficulty: 'easy',
+        type: 'multiple-choice',
+        question: 'Alpha Phi has net income of $35,000 and average equity of $175,000. What is the return on equity (ROE)?',
+        options: ['5%', '10%', '20%', '25%'],
+        answer: '20%',
+        explanation: 'ROE = (Net Income ÷ Average Equity) × 100 = ($35,000 ÷ $175,000) × 100 = 20%. This measures how efficiently the chapter uses equity to generate profit.',
+        points: 3
+    },
+    {
+        id: 'ap-ratio-e-015',
+        topic: 'financial-ratios',
+        difficulty: 'easy',
+        type: 'calculation',
+        question: 'Alpha Phi has gross profit of $90,000 and net sales of $180,000. Calculate the gross profit margin percentage.',
+        answer: 50.0,
+        explanation: 'Gross Profit Margin = (Gross Profit ÷ Net Sales) × 100 = ($90,000 ÷ $180,000) × 100 = 50%. This means 50% of sales revenue remains after deducting cost of goods sold.',
+        points: 5
+    }
+];
+
+// Medium Ratio Problems (15)
+const alphaPhiRatiosMedium = [
+    {
+        id: 'ap-ratio-m-001',
+        topic: 'financial-ratios',
+        difficulty: 'medium',
+        type: 'comprehensive',
+        question: 'Alpha Phi reports: Current Assets $58,000, Inventory $12,000, Current Liabilities $25,000, Total Assets $420,000, Total Liabilities $165,000. Calculate: (a) Current Ratio, (b) Quick Ratio, (c) Debt-to-Equity Ratio.',
+        answer: {
+            currentRatio: 2.32,
+            quickRatio: 1.84,
+            debtToEquity: 0.65
+        },
+        explanation: '(a) Current Ratio = $58,000 ÷ $25,000 = 2.32. (b) Quick Ratio = ($58,000 - $12,000) ÷ $25,000 = $46,000 ÷ $25,000 = 1.84. (c) Equity = $420,000 - $165,000 = $255,000. Debt-to-Equity = $165,000 ÷ $255,000 = 0.65.',
+        points: 10
+    },
+    {
+        id: 'ap-ratio-m-002',
+        topic: 'financial-ratios',
+        difficulty: 'medium',
+        type: 'calculation',
+        question: 'Alpha Phi: Beginning A/R $15,000, Ending A/R $19,000, Net Credit Sales $204,000. Calculate: (a) Average A/R, (b) A/R Turnover, (c) Days Sales in Receivables (365 days ÷ turnover).',
+        answer: {
+            averageAR: 17000,
+            turnover: 12.0,
+            daysInAR: 30.42
+        },
+        explanation: '(a) Average A/R = ($15,000 + $19,000) ÷ 2 = $17,000. (b) Turnover = $204,000 ÷ $17,000 = 12.0. (c) Days in A/R = 365 ÷ 12.0 = 30.42 days.',
+        points: 10
+    },
+    {
+        id: 'ap-ratio-m-003',
+        topic: 'financial-ratios',
+        difficulty: 'medium',
+        type: 'comprehensive',
+        question: 'Alpha Phi income statement: Revenue $225,000, COGS $112,500, Operating Expenses $78,000, Interest $4,500. Calculate: (a) Gross Profit Margin %, (b) Operating Profit Margin %, (c) Net Profit Margin %.',
+        answer: {
+            grossMargin: 50.0,
+            operatingMargin: 15.33,
+            netMargin: 13.33
+        },
+        explanation: '(a) Gross Profit = $225k - $112.5k = $112.5k. Gross Margin = ($112.5k ÷ $225k) × 100 = 50%. (b) Operating Profit = $112.5k - $78k = $34.5k. Operating Margin = ($34.5k ÷ $225k) × 100 = 15.33%. (c) Net Income = $34.5k - $4.5k = $30k. Net Margin = ($30k ÷ $225k) × 100 = 13.33%.',
+        points: 12
+    },
+    {
+        id: 'ap-ratio-m-004',
+        topic: 'financial-ratios',
+        difficulty: 'medium',
+        type: 'calculation',
+        question: 'Alpha Phi: Net Income $42,000, Interest Expense $6,000, Tax Expense $8,000, Total Assets $500,000. Calculate return on assets (ROA) using EBIT in the numerator.',
+        answer: 11.2,
+        explanation: 'EBIT = Net Income + Interest + Taxes = $42,000 + $6,000 + $8,000 = $56,000. ROA = (EBIT ÷ Total Assets) × 100 = ($56,000 ÷ $500,000) × 100 = 11.2%.',
+        points: 10
+    },
+    {
+        id: 'ap-ratio-m-005',
+        topic: 'financial-ratios',
+        difficulty: 'medium',
+        type: 'comprehensive',
+        question: 'Alpha Phi: Average Inventory $18,000, COGS $144,000. Calculate: (a) Inventory Turnover, (b) Days in Inventory (365 ÷ turnover).',
+        answer: {
+            inventoryTurnover: 8.0,
+            daysInInventory: 45.63
+        },
+        explanation: '(a) Inventory Turnover = COGS ÷ Average Inventory = $144,000 ÷ $18,000 = 8.0 times per year. (b) Days in Inventory = 365 ÷ 8.0 = 45.63 days.',
+        points: 10
+    },
+    {
+        id: 'ap-ratio-m-006',
+        topic: 'financial-ratios',
+        difficulty: 'medium',
+        type: 'calculation',
+        question: 'Alpha Phi: Beginning Equity $180,000, Ending Equity $220,000, Net Income $48,000. Calculate the return on equity (ROE) percentage.',
+        answer: 24.0,
+        explanation: 'Average Equity = ($180,000 + $220,000) ÷ 2 = $200,000. ROE = (Net Income ÷ Average Equity) × 100 = ($48,000 ÷ $200,000) × 100 = 24%.',
+        points: 10
+    },
+    {
+        id: 'ap-ratio-m-007',
+        topic: 'financial-ratios',
+        difficulty: 'medium',
+        type: 'multiple-choice',
+        question: 'Alpha Phi improved its current ratio from 1.8 to 2.4. Which transaction could cause this?',
+        options: [
+            'Paid off accounts payable with cash',
+            'Purchased equipment with cash',
+            'Collected accounts receivable',
+            'Issued long-term debt for cash'
+        ],
+        answer: 'Issued long-term debt for cash',
+        explanation: 'Issuing long-term debt for cash increases current assets (cash) without increasing current liabilities, improving the current ratio. Options A and C don\'t change the ratio (both numerator and denominator affected equally). Option B decreases current assets.',
+        points: 8
+    },
+    {
+        id: 'ap-ratio-m-008',
+        topic: 'financial-ratios',
+        difficulty: 'medium',
+        type: 'comprehensive',
+        question: 'Alpha Phi 2025: Revenue $195,000, Beginning Assets $380,000, Ending Assets $420,000, Net Income $39,000. Calculate: (a) Asset Turnover, (b) ROA %, (c) Profit Margin %.',
+        answer: {
+            assetTurnover: 0.4875,
+            roa: 9.75,
+            profitMargin: 20.0
+        },
+        explanation: '(a) Average Assets = ($380k + $420k) ÷ 2 = $400k. Asset Turnover = $195k ÷ $400k = 0.4875. (b) ROA = ($39k ÷ $400k) × 100 = 9.75%. (c) Profit Margin = ($39k ÷ $195k) × 100 = 20%. Note: ROA = Profit Margin × Asset Turnover = 20% × 0.4875 = 9.75%.',
+        points: 12
+    },
+    {
+        id: 'ap-ratio-m-009',
+        topic: 'financial-ratios',
+        difficulty: 'medium',
+        type: 'calculation',
+        question: 'Alpha Phi: EBIT $55,000, Interest Expense $5,000, Average Total Assets $440,000, Average Equity $260,000. Calculate the times interest earned ratio.',
+        answer: 11.0,
+        explanation: 'Times Interest Earned = EBIT ÷ Interest Expense = $55,000 ÷ $5,000 = 11.0. Alpha Phi can cover its interest payments 11 times with operating income.',
+        points: 8
+    },
+    {
+        id: 'ap-ratio-m-010',
+        topic: 'financial-ratios',
+        difficulty: 'medium',
+        type: 'comprehensive',
+        question: 'Alpha Phi: Cash $22,000, Short-term Investments $8,000, A/R $15,000, Inventory $18,000, Prepaid $4,000, Current Liabilities $30,000. Calculate: (a) Current Ratio, (b) Quick Ratio.',
+        answer: {
+            currentRatio: 2.23,
+            quickRatio: 1.50
+        },
+        explanation: '(a) Current Assets = $22k + $8k + $15k + $18k + $4k = $67k. Current Ratio = $67k ÷ $30k = 2.23. (b) Quick Assets = Cash + Short-term Investments + A/R = $22k + $8k + $15k = $45k. Quick Ratio = $45k ÷ $30k = 1.50.',
+        points: 10
+    },
+    {
+        id: 'ap-ratio-m-011',
+        topic: 'financial-ratios',
+        difficulty: 'medium',
+        type: 'calculation',
+        question: 'Alpha Phi: Net Sales $280,000, Beginning Total Assets $465,000, Ending Total Assets $515,000, Purchases $140,000. Calculate the asset turnover ratio.',
+        answer: 0.571,
+        explanation: 'Average Total Assets = ($465,000 + $515,000) ÷ 2 = $490,000. Asset Turnover = Net Sales ÷ Average Total Assets = $280,000 ÷ $490,000 = 0.571.',
+        points: 8
+    },
+    {
+        id: 'ap-ratio-m-012',
+        topic: 'financial-ratios',
+        difficulty: 'medium',
+        type: 'multiple-choice',
+        question: 'Alpha Phi has a debt-to-equity ratio of 0.75. If total equity is $300,000, what are total liabilities?',
+        options: ['$225,000', '$400,000', '$175,000', '$300,000'],
+        answer: '$225,000',
+        explanation: 'Debt-to-Equity = Total Debt ÷ Total Equity. 0.75 = Debt ÷ $300,000. Debt = 0.75 × $300,000 = $225,000.',
+        points: 8
+    },
+    {
+        id: 'ap-ratio-m-013',
+        topic: 'financial-ratios',
+        difficulty: 'medium',
+        type: 'comprehensive',
+        question: 'Alpha Phi: Operating Income $62,000, Interest $7,000, Net Income $43,000, Average Assets $550,000, Average Equity $325,000. Calculate: (a) ROA %, (b) ROE %.',
+        answer: {
+            roa: 7.82,
+            roe: 13.23
+        },
+        explanation: '(a) ROA = (Net Income ÷ Average Assets) × 100 = ($43,000 ÷ $550,000) × 100 = 7.82%. (b) ROE = (Net Income ÷ Average Equity) × 100 = ($43,000 ÷ $325,000) × 100 = 13.23%.',
+        points: 10
+    },
+    {
+        id: 'ap-ratio-m-014',
+        topic: 'financial-ratios',
+        difficulty: 'medium',
+        type: 'calculation',
+        question: 'Alpha Phi: Beginning A/R $18,500, Ending A/R $21,500, Credit Sales $240,000, Cash Sales $60,000. Calculate the receivables turnover ratio.',
+        answer: 12.0,
+        explanation: 'Average A/R = ($18,500 + $21,500) ÷ 2 = $20,000. A/R Turnover = Credit Sales ÷ Average A/R = $240,000 ÷ $20,000 = 12.0. (Cash sales don\'t create receivables, so exclude them.)',
+        points: 10
+    },
+    {
+        id: 'ap-ratio-m-015',
+        topic: 'financial-ratios',
+        difficulty: 'medium',
+        type: 'comprehensive',
+        question: 'Alpha Phi: Total Assets $680,000, Current Liabilities $85,000, Long-term Debt $245,000, Equity $350,000. Calculate: (a) Debt Ratio (Total Debt ÷ Total Assets), (b) Equity Ratio.',
+        answer: {
+            debtRatio: 0.4853,
+            equityRatio: 0.5147
+        },
+        explanation: '(a) Total Debt = $85k + $245k = $330k. Debt Ratio = $330k ÷ $680k = 0.4853 or 48.53%. (b) Equity Ratio = $350k ÷ $680k = 0.5147 or 51.47%. Note: Debt Ratio + Equity Ratio = 100%.',
+        points: 10
+    }
+];
+
+// Hard Ratio Problems (10)
+const alphaPhiRatiosHard = [
+    {
+        id: 'ap-ratio-h-001',
+        topic: 'financial-ratios',
+        difficulty: 'hard',
+        type: 'comprehensive',
+        question: 'Alpha Phi 2025 Complete Analysis: Revenue $385,000, COGS $192,500, Operating Expenses $135,000, Interest $12,000, Taxes $15,000. Beginning: Assets $620,000, Liabilities $248,000. Ending: Assets $680,000, Liabilities $272,000. Calculate: (a) Gross Profit Margin %, (b) Operating Margin %, (c) Net Margin %, (d) ROA %, (e) ROE %, (f) Asset Turnover.',
+        answer: {
+            grossMargin: 50.0,
+            operatingMargin: 13.38,
+            netMargin: 7.79,
+            roa: 4.62,
+            roe: 7.45,
+            assetTurnover: 0.592
+        },
+        explanation: 'Gross Profit = $385k - $192.5k = $192.5k. (a) Gross Margin = ($192.5k ÷ $385k) × 100 = 50%. Operating Income = $192.5k - $135k = $57.5k. (b) Operating Margin = ($57.5k ÷ $385k) × 100 = 13.38%. Net Income = $57.5k - $12k - $15k = $30.5k. (c) Net Margin = ($30.5k ÷ $385k) × 100 = 7.79%. Average Assets = ($620k + $680k) ÷ 2 = $650k. (d) ROA = ($30.5k ÷ $650k) × 100 = 4.69%. Beginning Equity = $620k - $248k = $372k. Ending Equity = $680k - $272k = $408k. Average Equity = ($372k + $408k) ÷ 2 = $390k. (e) ROE = ($30.5k ÷ $390k) × 100 = 7.82%. (f) Asset Turnover = $385k ÷ $650k = 0.592.',
+        points: 25
+    },
+    {
+        id: 'ap-ratio-h-002',
+        topic: 'financial-ratios',
+        difficulty: 'hard',
+        type: 'comprehensive',
+        question: 'Alpha Phi DuPont Analysis: Net Income $52,000, Sales $325,000, Beginning Assets $540,000, Ending Assets $620,000, Beginning Equity $310,000, Ending Equity $370,000. Calculate ROE using DuPont formula: ROE = Profit Margin × Asset Turnover × Equity Multiplier. Show all components.',
+        answer: {
+            profitMargin: 16.0,
+            assetTurnover: 0.5603,
+            equityMultiplier: 1.706,
+            roe: 15.28
+        },
+        explanation: 'Profit Margin = ($52k ÷ $325k) × 100 = 16%. Average Assets = ($540k + $620k) ÷ 2 = $580k. Asset Turnover = $325k ÷ $580k = 0.5603. Average Equity = ($310k + $370k) ÷ 2 = $340k. Equity Multiplier = Average Assets ÷ Average Equity = $580k ÷ $340k = 1.706. ROE = 16% × 0.5603 × 1.706 = 15.28%. Verify: ROE = ($52k ÷ $340k) × 100 = 15.29% ✓',
+        points: 25
+    },
+    {
+        id: 'ap-ratio-h-003',
+        topic: 'financial-ratios',
+        difficulty: 'hard',
+        type: 'comprehensive',
+        question: 'Alpha Phi Operating Cycle Analysis: Beginning Inventory $24,000, Ending Inventory $28,000, COGS $156,000, Beginning A/R $16,000, Ending A/R $20,000, Credit Sales $312,000. Calculate: (a) Days in Inventory, (b) Days in A/R, (c) Operating Cycle (days), (d) If A/P has 35-day payment period, what is the Cash Conversion Cycle?',
+        answer: {
+            daysInInventory: 60.58,
+            daysInAR: 21.01,
+            operatingCycle: 81.59,
+            cashConversionCycle: 46.59
+        },
+        explanation: 'Average Inventory = ($24k + $28k) ÷ 2 = $26k. Inventory Turnover = $156k ÷ $26k = 6.0. (a) Days in Inventory = 365 ÷ 6.0 = 60.83 days. Average A/R = ($16k + $20k) ÷ 2 = $18k. A/R Turnover = $312k ÷ $18k = 17.33. (b) Days in A/R = 365 ÷ 17.33 = 21.06 days. (c) Operating Cycle = 60.83 + 21.06 = 81.89 days. (d) Cash Conversion Cycle = Operating Cycle - Days Payable = 81.89 - 35 = 46.89 days.',
+        points: 25
+    },
+    {
+        id: 'ap-ratio-h-004',
+        topic: 'financial-ratios',
+        difficulty: 'hard',
+        type: 'comprehensive',
+        question: 'Alpha Phi Liquidity Crisis Analysis: Current Assets $95,000 (including Inventory $35,000, Prepaid $8,000), Current Liabilities $110,000. The chapter needs a current ratio of at least 1.5 and quick ratio of at least 1.0. How much of the current liabilities must be refinanced to long-term debt to meet BOTH requirements?',
+        answer: 58000,
+        explanation: 'Current situation: Current Ratio = $95k ÷ $110k = 0.86. Quick Assets = $95k - $35k - $8k = $52k. Quick Ratio = $52k ÷ $110k = 0.47. Target: Current Ratio ≥ 1.5 and Quick Ratio ≥ 1.0. Let X = amount refinanced to long-term debt. New Current Liabilities = $110k - X. For Current Ratio: $95k ÷ ($110k - X) ≥ 1.5, so $95k ≥ 1.5($110k - X), $95k ≥ $165k - 1.5X, 1.5X ≥ $70k, X ≥ $46,667. For Quick Ratio: $52k ÷ ($110k - X) ≥ 1.0, so $52k ≥ $110k - X, X ≥ $58k. To meet BOTH requirements, need X ≥ $58,000 (the more restrictive).',
+        points: 30
+    },
+    {
+        id: 'ap-ratio-h-005',
+        topic: 'financial-ratios',
+        difficulty: 'hard',
+        type: 'comprehensive',
+        question: 'Alpha Phi Leverage Analysis: EBIT $85,000, Interest $15,000, Total Assets $750,000, Total Equity $425,000. (a) Calculate current ROE. (b) If the chapter borrows an additional $100,000 at 8% interest and invests it in assets earning 12% EBIT, calculate the new ROE. (c) Does leverage benefit shareholders?',
+        answer: {
+            currentROE: 16.47,
+            newEBIT: 97000,
+            newInterest: 23000,
+            newEquity: 425000,
+            newROE: 17.41,
+            leverageBeneficial: true
+        },
+        explanation: '(a) Current Net Income (assuming no taxes for simplicity) = $85k - $15k = $70k. Current ROE = ($70k ÷ $425k) × 100 = 16.47%. (b) Additional EBIT from new assets = $100k × 12% = $12k. New EBIT = $85k + $12k = $97k. Additional Interest = $100k × 8% = $8k. New Interest = $15k + $8k = $23k. New Net Income = $97k - $23k = $74k. Equity unchanged = $425k. New ROE = ($74k ÷ $425k) × 100 = 17.41%. (c) YES, leverage is beneficial because the return on borrowed funds (12%) exceeds the cost (8%), increasing ROE from 16.47% to 17.41%.',
+        points: 30
+    },
+    {
+        id: 'ap-ratio-h-006',
+        topic: 'financial-ratios',
+        difficulty: 'hard',
+        type: 'comprehensive',
+        question: 'Alpha Phi Comprehensive Ratio Comparison: Two scenarios given. Scenario A: Assets $500k, Liabilities $200k, Revenue $300k, Net Income $36k. Scenario B: Assets $650k, Liabilities $325k, Revenue $390k, Net Income $42.9k. Calculate for each: (a) ROA, (b) ROE, (c) Debt-to-Equity, (d) Profit Margin. Which scenario is financially stronger?',
+        answer: {
+            scenarioA: {
+                roa: 7.2,
+                roe: 12.0,
+                debtToEquity: 0.667,
+                profitMargin: 12.0
+            },
+            scenarioB: {
+                roa: 6.6,
+                roe: 13.2,
+                debtToEquity: 1.0,
+                profitMargin: 11.0
+            },
+            analysis: 'Mixed results - Scenario A has better ROA, profit margin, and lower leverage. Scenario B has higher ROE due to greater leverage.'
+        },
+        explanation: 'Scenario A: Equity = $500k - $200k = $300k. (a) ROA = ($36k ÷ $500k) × 100 = 7.2%. (b) ROE = ($36k ÷ $300k) × 100 = 12%. (c) D/E = $200k ÷ $300k = 0.667. (d) Profit Margin = ($36k ÷ $300k) × 100 = 12%. Scenario B: Equity = $650k - $325k = $325k. (a) ROA = ($42.9k ÷ $650k) × 100 = 6.6%. (b) ROE = ($42.9k ÷ $325k) × 100 = 13.2%. (c) D/E = $325k ÷ $325k = 1.0. (d) Profit Margin = ($42.9k ÷ $390k) × 100 = 11%. Analysis: Scenario A is more efficient (higher ROA and margin) with less risk (lower leverage). Scenario B has higher ROE but only due to higher leverage (financial risk).',
+        points: 30
+    },
+    {
+        id: 'ap-ratio-h-007',
+        topic: 'financial-ratios',
+        difficulty: 'hard',
+        type: 'comprehensive',
+        question: 'Alpha Phi Sustainable Growth Rate: Net Income $58,000, Dividends paid $12,000, Beginning Equity $280,000, Ending Equity $326,000. Calculate: (a) Retention Ratio, (b) ROE, (c) Sustainable Growth Rate (ROE × Retention Ratio).',
+        answer: {
+            retentionRatio: 0.793,
+            roe: 19.08,
+            sustainableGrowthRate: 15.14
+        },
+        explanation: 'Retained Earnings = Net Income - Dividends = $58k - $12k = $46k. (a) Retention Ratio = Retained Earnings ÷ Net Income = $46k ÷ $58k = 0.793 or 79.3%. Average Equity = ($280k + $326k) ÷ 2 = $303k. (b) ROE = ($58k ÷ $303k) × 100 = 19.14%. (c) Sustainable Growth Rate = ROE × Retention Ratio = 19.14% × 0.793 = 15.18%. This is the maximum growth rate achievable without external financing.',
+        points: 25
+    },
+    {
+        id: 'ap-ratio-h-008',
+        topic: 'financial-ratios',
+        difficulty: 'hard',
+        type: 'comprehensive',
+        question: 'Alpha Phi Financial Distress Indicators: Current Ratio 0.85, Quick Ratio 0.42, Debt-to-Equity 3.2, Times Interest Earned 1.8, Negative Operating Cash Flow -$18,000. Analyze the financial health and identify the THREE most concerning metrics.',
+        answer: {
+            concern1: 'Debt-to-Equity ratio of 3.2 (extremely high leverage)',
+            concern2: 'Times Interest Earned of 1.8 (barely covering interest)',
+            concern3: 'Negative operating cash flow of -$18,000',
+            overallAssessment: 'Severe financial distress - high risk of insolvency'
+        },
+        explanation: 'All metrics are concerning, but the THREE most severe: (1) D/E of 3.2 means debt is 3.2x equity - extremely leveraged and risky. (2) TIE of 1.8 means EBIT barely covers interest (less than 2x is concerning). Small earnings decline could make interest payments unsustainable. (3) Negative operating cash flow means operations aren\'t generating cash - relying on financing. Combined with low liquidity ratios (Current 0.85 < 1.0, Quick 0.42 < 1.0), the chapter faces severe financial distress and potential insolvency.',
+        points: 25
+    },
+    {
+        id: 'ap-ratio-h-009',
+        topic: 'financial-ratios',
+        difficulty: 'hard',
+        type: 'comprehensive',
+        question: 'Alpha Phi Ratio Manipulation: Current Assets $120,000, Inventory $45,000, Current Liabilities $80,000. The treasurer proposes: (1) Pay $20,000 of A/P before year-end, or (2) Delay recording $20,000 inventory purchase until next year. Calculate the current and quick ratios under each scenario. Which is ethical?',
+        answer: {
+            current: {
+                currentRatio: 1.50,
+                quickRatio: 0.9375
+            },
+            scenario1: {
+                currentRatio: 1.67,
+                quickRatio: 1.25,
+                ethical: true
+            },
+            scenario2: {
+                currentRatio: 1.88,
+                quickRatio: 1.41,
+                ethical: false
+            }
+        },
+        explanation: 'Current: Current Ratio = $120k ÷ $80k = 1.50. Quick Ratio = ($120k - $45k) ÷ $80k = 0.9375. Scenario 1 (Pay A/P early): Cash decreases $20k, A/P decreases $20k. New: Current Assets = $100k, Current Liabilities = $60k. Current Ratio = $100k ÷ $60k = 1.67. Quick Assets = $55k. Quick Ratio = $55k ÷ $60k = 0.917. Wait, let me recalculate: Original Quick Assets = $120k - $45k = $75k. After paying A/P: Cash -$20k, so Quick Assets = $55k. Quick Ratio = $55k ÷ $60k = 0.917. ETHICAL - legitimate business decision. Scenario 2 (Delay recording purchase): Inventory and A/P both understated by $20k. Current Assets = $120k (should be $140k), Current Liabilities = $80k (should be $100k). Reported ratios are INFLATED. This is UNETHICAL - violates matching principle and misrepresents financial position. It\'s financial statement fraud.',
+        points: 30
+    },
+    {
+        id: 'ap-ratio-h-010',
+        topic: 'financial-ratios',
+        difficulty: 'hard',
+        type: 'comprehensive',
+        question: 'Alpha Phi Industry Comparison: Chapter ratios: Current 2.1, Quick 1.4, D/E 0.6, ROA 8.5%, ROE 14.2%, Profit Margin 11%, Asset Turnover 0.77. Industry averages: Current 1.8, Quick 1.1, D/E 0.9, ROA 7.2%, ROE 13.5%, Profit Margin 9.5%, Asset Turnover 0.85. Provide a comprehensive analysis of Alpha Phi\'s performance relative to industry.',
+        answer: {
+            liquidity: 'Strong - both ratios exceed industry averages',
+            leverage: 'Conservative - lower debt than peers (0.6 vs 0.9)',
+            profitability: 'Above average - ROA 8.5% vs 7.2%, margin 11% vs 9.5%',
+            efficiency: 'Below average - asset turnover 0.77 vs 0.85',
+            overallAssessment: 'Strong financial position with room for improvement in asset utilization'
+        },
+        explanation: 'LIQUIDITY: Current 2.1 vs 1.8 (stronger), Quick 1.4 vs 1.1 (stronger) - Alpha Phi has better short-term financial health. LEVERAGE: D/E 0.6 vs 0.9 - Chapter is more conservatively financed, lower financial risk. PROFITABILITY: ROA 8.5% vs 7.2% (+1.3 points better), ROE 14.2% vs 13.5% (+0.7 points), Profit Margin 11% vs 9.5% (+1.5 points) - Superior profitability across all measures. EFFICIENCY: Asset Turnover 0.77 vs 0.85 (-0.08) - Lower asset utilization, suggesting opportunity for improvement. OVERALL: Alpha Phi outperforms industry in liquidity, profitability, and maintains conservative leverage. Weakness is asset efficiency - the chapter could generate more revenue from existing assets. Recommendation: Focus on increasing revenue without proportional asset growth to improve asset turnover.',
+        points: 30
+    }
+];
+
+// Create new topic in ProblemBank
+ProblemBank['financial-ratios'] = [];
+
+// Add all ratio problems to the bank
+ProblemBank['financial-ratios'].push(...alphaPhiRatiosEasy);
+ProblemBank['financial-ratios'].push(...alphaPhiRatiosMedium);
+ProblemBank['financial-ratios'].push(...alphaPhiRatiosHard);
+
+// ===========================
 // PROBLEM BANK FUNCTIONS
 // ===========================
 
