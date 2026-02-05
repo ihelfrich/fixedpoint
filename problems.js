@@ -2380,6 +2380,199 @@ ProblemBank['financial-ratios'].push(...alphaPhiRatiosMedium);
 ProblemBank['financial-ratios'].push(...alphaPhiRatiosHard);
 
 // ===========================
+// EXAM-ALIGNED PROBLEMS (MIDTERM 1 FORMAT)
+// Classes 1-7: Alpha Phi VP Marketing + Jewelry Line + HulaPost
+// Created: February 4, 2026
+// ===========================
+
+// PART I: Multiple Choice (20 problems, 6 points each)
+const examMC = [
+    {
+        id: 'exam-mc-001',
+        topic: 'accrual',
+        difficulty: 'medium',
+        type: 'multiple-choice',
+        question: 'Alpha Phi VP of Marketing, Hanna, signs a contract with a DJ for the Spring Formal on January 15. The DJ performs on February 20, and Alpha Phi pays the $1,500 invoice on March 5. Using accrual accounting, when should Alpha Phi record the DJ expense?',
+        options: ['January 15 (when contract signed)', 'February 20 (when service performed)', 'March 5 (when payment made)', 'Equally over all three months'],
+        answer: 'February 20 (when service performed)',
+        explanation: 'Under accrual accounting, expenses are recorded when incurred (when the service is performed or goods are consumed), NOT when cash is paid. The DJ expense should be recorded on February 20 when the service was performed. This follows the matching principle - matching the expense to the period when the related revenue (formal ticket sales) is recognized.',
+        points: 6
+    },
+    {
+        id: 'exam-mc-002',
+        topic: 'accrual',
+        difficulty: 'medium',
+        type: 'multiple-choice',
+        question: 'Hanna\'s jewelry line, "Nia Designs," receives $4,800 on December 1 from a corporate client for custom pieces to be delivered in January. Under accrual accounting, how should this be recorded in December?',
+        options: ['Debit Cash $4,800; Credit Revenue $4,800', 'Debit Cash $4,800; Credit Unearned Revenue $4,800', 'Debit Accounts Receivable $4,800; Credit Revenue $4,800', 'No entry needed until jewelry is delivered'],
+        answer: 'Debit Cash $4,800; Credit Unearned Revenue $4,800',
+        explanation: 'When cash is received before services are performed or goods are delivered, it creates a LIABILITY called Unearned Revenue (or Deferred Revenue). The company has an obligation to deliver the jewelry. Revenue cannot be recognized until earned (when jewelry is delivered in January). The entry records the cash increase and the obligation: Dr. Cash $4,800, Cr. Unearned Revenue $4,800.',
+        points: 6
+    },
+    {
+        id: 'exam-mc-003',
+        topic: 'adjusting-entries',
+        difficulty: 'medium',
+        type: 'multiple-choice',
+        question: 'On November 1, Alpha Phi paid $6,000 for a 6-month insurance policy on the chapter house. What adjusting entry is needed on December 31 (year-end)?',
+        options: ['Dr. Insurance Expense $2,000; Cr. Prepaid Insurance $2,000', 'Dr. Insurance Expense $4,000; Cr. Prepaid Insurance $4,000', 'Dr. Insurance Expense $6,000; Cr. Cash $6,000', 'Dr. Prepaid Insurance $4,000; Cr. Insurance Expense $4,000'],
+        answer: 'Dr. Insurance Expense $2,000; Cr. Prepaid Insurance $2,000',
+        explanation: 'The $6,000 payment on Nov 1 was initially recorded as Dr. Prepaid Insurance $6,000 (asset). By Dec 31, 2 months have expired (Nov and Dec). Expired insurance = $6,000 ÷ 6 months × 2 months = $2,000. The adjusting entry moves the expired portion from the asset account to expense: Dr. Insurance Expense $2,000, Cr. Prepaid Insurance $2,000. This leaves $4,000 in Prepaid Insurance (for Jan-Apr of next year).',
+        points: 6
+    },
+    {
+        id: 'exam-mc-004',
+        topic: 'accounts-receivable',
+        difficulty: 'medium',
+        type: 'multiple-choice',
+        question: 'Alpha Phi has $15,000 in Accounts Receivable from member dues. The chapter estimates 3% will be uncollectible. What is the Net Realizable Value of Accounts Receivable?',
+        options: ['$15,000', '$14,550', '$15,450', '$450'],
+        answer: '$14,550',
+        explanation: 'Net Realizable Value (NRV) is the amount the company expects to actually collect. NRV = Gross A/R - Allowance for Doubtful Accounts. Allowance = $15,000 × 3% = $450. NRV = $15,000 - $450 = $14,550. This is the amount that should appear on the Balance Sheet under current assets.',
+        points: 6
+    },
+    {
+        id: 'exam-mc-005',
+        topic: 'double-entry',
+        difficulty: 'medium',
+        type: 'multiple-choice',
+        question: 'Hanna purchases $2,400 of gemstones for her jewelry inventory on account from a supplier. What is the journal entry?',
+        options: ['Dr. Inventory $2,400; Cr. Cash $2,400', 'Dr. Inventory $2,400; Cr. Accounts Payable $2,400', 'Dr. Cost of Goods Sold $2,400; Cr. Accounts Payable $2,400', 'Dr. Supplies $2,400; Cr. Accounts Payable $2,400'],
+        answer: 'Dr. Inventory $2,400; Cr. Accounts Payable $2,400',
+        explanation: 'Purchasing inventory "on account" means buying on credit (not paying cash immediately). This increases an asset (Inventory) and increases a liability (Accounts Payable). Entry: Dr. Inventory $2,400 (increase asset), Cr. Accounts Payable $2,400 (increase liability). Note: COGS is not recorded until the inventory is sold.',
+        points: 6
+    }
+];
+
+// PART II: Account Classification (20 problems, 5 points each)
+const examClassification = [
+    {
+        id: 'exam-class-001',
+        topic: 'balance-sheet',
+        difficulty: 'medium',
+        type: 'multiple-choice',
+        question: 'CLASSIFY: Alpha Phi\'s chapter house (building)',
+        options: ['Asset', 'Liability', 'Revenue', 'Expense', 'Not recognized / Gain or Loss'],
+        answer: 'Asset',
+        explanation: 'The chapter house is a long-term asset (Property, Plant & Equipment). It provides future economic benefits, is owned by the organization, and appears on the Balance Sheet under non-current assets. It will be depreciated over its useful life.',
+        points: 5
+    },
+    {
+        id: 'exam-class-002',
+        topic: 'balance-sheet',
+        difficulty: 'medium',
+        type: 'multiple-choice',
+        question: 'CLASSIFY: Prepaid insurance on jewelry inventory for Nia Designs',
+        options: ['Asset', 'Liability', 'Revenue', 'Expense', 'Not recognized / Gain or Loss'],
+        answer: 'Asset',
+        explanation: 'Prepaid Insurance is a current asset. When insurance is paid in advance, it represents a future economic benefit (coverage that will be received). As time passes, the prepaid asset is reduced and Insurance Expense is increased through adjusting entries.',
+        points: 5
+    },
+    {
+        id: 'exam-class-003',
+        topic: 'balance-sheet',
+        difficulty: 'medium',
+        type: 'multiple-choice',
+        question: 'CLASSIFY: Unearned membership dues collected in December for Spring semester (Jan-May)',
+        options: ['Asset', 'Liability', 'Revenue', 'Expense', 'Not recognized / Gain or Loss'],
+        answer: 'Liability',
+        explanation: 'Unearned Revenue (or Deferred Revenue) is a LIABILITY. When Alpha Phi collects dues before the service period, it has an obligation to provide future services (housing, events, etc.). This liability decreases as services are provided and revenue is earned.',
+        points: 5
+    },
+    {
+        id: 'exam-class-004',
+        topic: 'income-statement',
+        difficulty: 'medium',
+        type: 'multiple-choice',
+        question: 'CLASSIFY: Cost of gemstones used to create sold jewelry for Nia Designs',
+        options: ['Asset', 'Liability', 'Revenue', 'Expense', 'Not recognized / Gain or Loss'],
+        answer: 'Expense',
+        explanation: 'This is Cost of Goods Sold (COGS), an expense on the Income Statement. When inventory is sold, its cost is moved from the asset account (Inventory) to an expense account (COGS) to match with the sales revenue. This follows the matching principle.',
+        points: 5
+    },
+    {
+        id: 'exam-class-005',
+        topic: 'balance-sheet',
+        difficulty: 'medium',
+        type: 'multiple-choice',
+        question: 'CLASSIFY: Accounts Payable to suppliers for Alpha Phi event decorations purchased on credit',
+        options: ['Asset', 'Liability', 'Revenue', 'Expense', 'Not recognized / Gain or Loss'],
+        answer: 'Liability',
+        explanation: 'Accounts Payable is a current LIABILITY. It represents amounts owed to suppliers for goods/services purchased on credit. This will be paid in the future, creating an obligation. Appears on Balance Sheet under current liabilities.',
+        points: 5
+    }
+];
+
+// PART III: Transaction Analysis (15 problems, 6 points each)
+const examTransactionAnalysis = [
+    {
+        id: 'exam-trans-001',
+        topic: 'double-entry',
+        difficulty: 'medium',
+        type: 'transaction-analysis',
+        question: 'TRANSACTION ANALYSIS: Alpha Phi purchases $3,500 of event supplies (decorations, tablecloths, etc.) for cash. Circle: I (Increase), D (Decrease), or N (No effect) for: Assets, Liabilities, Stockholders\' Equity, Revenue, Expenses',
+        options: ['Assets: I / D / N', 'Liabilities: I / D / N', 'Equity: I / D / N', 'Revenue: I / D / N', 'Expenses: I / D / N'],
+        answer: 'Assets: N, Liabilities: N, Equity: N, Revenue: N, Expenses: N',
+        explanation: 'Entry: Dr. Supplies (asset) $3,500, Cr. Cash (asset) $3,500. This is an exchange of one asset for another. Supplies increase $3,500, Cash decreases $3,500, so total Assets = NO CHANGE. No effect on liabilities, equity, revenue, or expenses. The supplies are not an expense yet - they become expense when used/consumed (through adjusting entry).',
+        points: 6
+    },
+    {
+        id: 'exam-trans-002',
+        topic: 'double-entry',
+        difficulty: 'medium',
+        type: 'transaction-analysis',
+        question: 'TRANSACTION ANALYSIS: Hanna invests $15,000 of personal cash into Nia Designs jewelry business in exchange for common stock. Circle: I (Increase), D (Decrease), or N (No effect) for: Assets, Liabilities, Stockholders\' Equity, Revenue, Expenses',
+        options: ['Assets: I / D / N', 'Liabilities: I / D / N', 'Equity: I / D / N', 'Revenue: I / D / N', 'Expenses: I / D / N'],
+        answer: 'Assets: I, Liabilities: N, Equity: I, Revenue: N, Expenses: N',
+        explanation: 'Entry: Dr. Cash $15,000, Cr. Common Stock $15,000. Assets INCREASE (cash increases). Equity INCREASES (stock issued). No effect on liabilities, revenue, or expenses. This is an owner investment (financing activity), not revenue from operations.',
+        points: 6
+    },
+    {
+        id: 'exam-trans-003',
+        topic: 'double-entry',
+        difficulty: 'medium',
+        type: 'transaction-analysis',
+        question: 'TRANSACTION ANALYSIS: Alpha Phi collects $12,000 cash from members for dues that were previously recorded as Accounts Receivable. Circle: I (Increase), D (Decrease), or N (No effect) for: Assets, Liabilities, Stockholders\' Equity, Revenue, Expenses',
+        options: ['Assets: I / D / N', 'Liabilities: I / D / N', 'Equity: I / D / N', 'Revenue: I / D / N', 'Expenses: I / D / N'],
+        answer: 'Assets: N, Liabilities: N, Equity: N, Revenue: N, Expenses: N',
+        explanation: 'Entry: Dr. Cash $12,000, Cr. Accounts Receivable $12,000. Cash (asset) increases $12,000, A/R (asset) decreases $12,000, so total Assets = NO CHANGE. Revenue was already recorded when the receivable was created, so no revenue now. No effect on any account category - just reallocation within assets.',
+        points: 6
+    },
+    {
+        id: 'exam-trans-004',
+        topic: 'double-entry',
+        difficulty: 'medium',
+        type: 'transaction-analysis',
+        question: 'TRANSACTION ANALYSIS: Nia Designs sells $8,000 of custom jewelry for cash. The cost of the jewelry (gemstones + materials) was $4,800. Circle: I (Increase), D (Decrease), or N (No effect) for: Assets, Liabilities, Stockholders\' Equity, Revenue, Expenses',
+        options: ['Assets: I / D / N', 'Liabilities: I / D / N', 'Equity: I / D / N', 'Revenue: I / D / N', 'Expenses: I / D / N'],
+        answer: 'Assets: I, Liabilities: N, Equity: I, Revenue: I, Expenses: I',
+        explanation: 'TWO entries required: (1) Dr. Cash $8,000, Cr. Sales Revenue $8,000. (2) Dr. Cost of Goods Sold $4,800, Cr. Inventory $4,800. Net effect: Assets increase $3,200 (Cash +$8k, Inventory -$4.8k). Equity increases $3,200 (through net income). Revenue increases $8,000. Expenses increase $4,800. No effect on liabilities.',
+        points: 6
+    },
+    {
+        id: 'exam-trans-005',
+        topic: 'double-entry',
+        difficulty: 'medium',
+        type: 'transaction-analysis',
+        question: 'TRANSACTION ANALYSIS: Alpha Phi borrows $40,000 from USC Credit Union by signing a note payable. Circle: I (Increase), D (Decrease), or N (No effect) for: Assets, Liabilities, Stockholders\' Equity, Revenue, Expenses',
+        options: ['Assets: I / D / N', 'Liabilities: I / D / N', 'Equity: I / D / N', 'Revenue: I / D / N', 'Expenses: I / D / N'],
+        answer: 'Assets: I, Liabilities: I, Equity: N, Revenue: N, Expenses: N',
+        explanation: 'Entry: Dr. Cash $40,000, Cr. Notes Payable $40,000. Assets INCREASE (cash increases). Liabilities INCREASE (note payable increases). No effect on equity - borrowing money is not revenue. No effect on revenue or expenses. This is a financing transaction.',
+        points: 6
+    }
+];
+
+// Add exam-aligned problems to appropriate topics
+ProblemBank['accrual'].push(...examMC.filter(p => p.topic === 'accrual'));
+ProblemBank['adjusting-entries'].push(...examMC.filter(p => p.topic === 'adjusting-entries'));
+ProblemBank['accounts-receivable'].push(...examMC.filter(p => p.topic === 'accounts-receivable'));
+ProblemBank['double-entry'].push(...examMC.filter(p => p.topic === 'double-entry'));
+ProblemBank['income-statement'].push(...examMC.filter(p => p.topic === 'income-statement'));
+ProblemBank['balance-sheet'].push(...examMC.filter(p => p.topic === 'balance-sheet'));
+ProblemBank['balance-sheet'].push(...examClassification);
+ProblemBank['double-entry'].push(...examTransactionAnalysis);
+
+// ===========================
 // PROBLEM BANK FUNCTIONS
 // ===========================
 
