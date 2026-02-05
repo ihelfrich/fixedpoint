@@ -25,30 +25,137 @@
 
         <!-- HOME SECTION -->
         <section id="home" class="content-section active">
-            <div class="welcome-card">
-                <h2>Welcome to Your Complete ACCT 410x Study Platform</h2>
-                <p>Prepare for Midterm 1 (February 9, 2026) with comprehensive practice materials covering Classes 1-7</p>
-
-                <div class="stats-grid">
-                    <div class="stat-card">
-                        <div class="stat-number" id="stat-problems">--</div>
-                        <div class="stat-label">Practice Problems</div>
+            <div class="dashboard">
+                <div class="hero-panel card">
+                    <p class="eyebrow">Midterm 1 Sprint Plan</p>
+                    <h2>Focus-first study flow built for fast, distraction‑light progress.</h2>
+                    <p class="hero-subtitle">Everything here is chunked to reduce overwhelm. Start with a 5‑minute win, then stack momentum.</p>
+                    <div class="cta-buttons">
+                        <button class="btn btn-primary" id="ctaDiagnostic">🎯 Start Diagnostic Quiz</button>
+                        <button class="btn btn-secondary" id="ctaStudyGuide">📚 View Study Guide</button>
+                        <button class="btn btn-secondary" id="ctaPractice">📝 Practice Problems</button>
                     </div>
-                    <div class="stat-card">
-                        <div class="stat-number" id="stat-exams">--</div>
-                        <div class="stat-label">Practice Exams</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-number" id="stat-tools">--</div>
-                        <div class="stat-label">Sections</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-number" id="user-progress">0%</div>
-                        <div class="stat-label">Your Progress</div>
+                    <div class="micro-steps">
+                        <div class="micro-step"><span>1</span>Warm‑up: 5 problems in 10 minutes</div>
+                        <div class="micro-step"><span>2</span>Deep dive: 25‑minute focus sprint</div>
+                        <div class="micro-step"><span>3</span>Lock‑in: Review missed items once</div>
                     </div>
                 </div>
 
-                <div class="topic-overview">
+                <div class="focus-panel card">
+                    <div>
+                        <h3>Focus Sprint Timer</h3>
+                        <p class="focus-hint">Pick a sprint length. The timer keeps you honest.</p>
+                    </div>
+                    <div class="focus-timer" id="focusTimer">10:00</div>
+                    <div class="focus-progress">
+                        <div class="focus-progress-fill" id="focusProgress"></div>
+                    </div>
+                    <p class="focus-status" id="focusStatus">Ready when you are.</p>
+                    <div class="focus-controls">
+                        <button class="btn btn-secondary" data-action="focus-start" data-minutes="5">5 min</button>
+                        <button class="btn btn-secondary" data-action="focus-start" data-minutes="10">10 min</button>
+                        <button class="btn btn-secondary" data-action="focus-start" data-minutes="25">25 min</button>
+                        <button class="btn btn-secondary" data-action="focus-stop">Stop</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number" id="stat-problems">--</div>
+                    <div class="stat-label">Practice Problems</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="stat-exams">--</div>
+                    <div class="stat-label">Practice Exams</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="stat-tools">--</div>
+                    <div class="stat-label">Sections</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="user-progress">0%</div>
+                    <div class="stat-label">Your Progress</div>
+                </div>
+            </div>
+
+            <div class="home-grid">
+                <div class="card quick-practice">
+                    <h3>Quick Practice Set</h3>
+                    <p class="muted">Generate a small set of problems to finish in one sitting.</p>
+                    <div class="quick-controls">
+                        <label>
+                            Topic
+                            <select id="quick-topic">
+                                <option value="all">All Topics</option>
+                                <option value="balance-sheet">Balance Sheet</option>
+                                <option value="income-statement">Income Statement</option>
+                                <option value="double-entry">Double-Entry Accounting</option>
+                                <option value="accrual">Accrual Accounting</option>
+                                <option value="adjusting-entries">Adjusting Entries</option>
+                                <option value="accounts-receivable">Accounts Receivable</option>
+                                <option value="financial-ratios">Financial Ratios</option>
+                            </select>
+                        </label>
+                        <label>
+                            Difficulty
+                            <select id="quick-difficulty">
+                                <option value="all">All Levels</option>
+                                <option value="easy">Easy</option>
+                                <option value="medium">Medium</option>
+                                <option value="hard">Hard</option>
+                                <option value="expert">Expert</option>
+                            </select>
+                        </label>
+                        <label>
+                            Count
+                            <select id="quick-count">
+                                <option value="3">3</option>
+                                <option value="5" selected>5</option>
+                                <option value="8">8</option>
+                            </select>
+                        </label>
+                        <button class="btn btn-primary" data-action="quick-practice">Generate Set</button>
+                    </div>
+                    <div id="quick-practice-container" class="quick-results">
+                        <p class="placeholder">Select a topic and press Generate to start.</p>
+                    </div>
+                </div>
+
+                <div class="card study-path">
+                    <h3>Study Path (Minimal Steps)</h3>
+                    <div class="path-steps">
+                        <div class="path-step">
+                            <span>1</span>
+                            <div>
+                                <strong>Warm‑up</strong>
+                                <p>5 quick problems to activate recall.</p>
+                            </div>
+                        </div>
+                        <div class="path-step">
+                            <span>2</span>
+                            <div>
+                                <strong>Deep Work</strong>
+                                <p>Focus sprint + review mistakes immediately.</p>
+                            </div>
+                        </div>
+                        <div class="path-step">
+                            <span>3</span>
+                            <div>
+                                <strong>Lock‑in</strong>
+                                <p>Practice exam or targeted topic drill.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="path-actions">
+                        <button class="btn btn-secondary" data-action="goto-practice">Go to Practice</button>
+                        <button class="btn btn-secondary" data-action="goto-quiz">Go to Exam</button>
+                        <button class="btn btn-secondary" data-action="goto-study">Open Study Guide</button>
+                    </div>
+                </div>
+
+                <div class="card topic-overview">
                     <h3>Midterm 1 Coverage (Classes 1-7)</h3>
                     <div class="topic-list">
                         <div class="topic-item">
@@ -94,24 +201,6 @@
                             </div>
                         </div>
                     </div>
-                </div>
-
-                <div class="quick-start">
-                    <h3>Quick Start Guide</h3>
-                    <ol>
-                        <li><strong>Take the Diagnostic Quiz</strong> to identify your weak areas</li>
-                        <li><strong>Review the Study Guide</strong> for comprehensive coverage</li>
-                        <li><strong>Practice with Problem Sets</strong> organized by difficulty</li>
-                        <li><strong>Use the Simulator</strong> to build real journal entries and financial statements</li>
-                        <li><strong>Take the Practice Exam</strong> under timed conditions</li>
-                        <li><strong>Track Your Progress</strong> to stay motivated</li>
-                    </ol>
-                </div>
-
-                <div class="cta-buttons">
-                    <button class="btn btn-primary" id="ctaDiagnostic">🎯 Start Diagnostic Quiz</button>
-                    <button class="btn btn-secondary" id="ctaStudyGuide">📚 View Study Guide</button>
-                    <button class="btn btn-secondary" id="ctaPractice">📝 Practice Problems</button>
                 </div>
             </div>
         </section>

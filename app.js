@@ -33,8 +33,17 @@ const AppState = {
         darkMode: false,
         showHints: true,
         difficulty: 'all'
+    },
+    sessionStats: {
+        attempted: 0,
+        correct: 0,
+        streak: 0
     }
 };
+
+let focusTimerInterval = null;
+let focusTimerTotalSeconds = 0;
+let focusTimerRemainingSeconds = 0;
 
 // Initialize App
 document.addEventListener('DOMContentLoaded', () => {
@@ -53,6 +62,7 @@ function initializeApp() {
     console.log('ACCT 410x Study Platform Initialized');
     updateProgressDisplay();
     updateHomeStats();
+    updateSessionStats();
     setupDarkMode();
 }
 
@@ -92,6 +102,33 @@ function updateProgressDisplay() {
     const progressElement = document.getElementById('user-progress');
     if (progressElement) {
         progressElement.textContent = average + '%';
+    }
+}
+
+function updateSessionStats() {
+    const attemptedEl = document.getElementById('session-attempted');
+    const correctEl = document.getElementById('session-correct');
+    const accuracyEl = document.getElementById('session-accuracy');
+    const streakEl = document.getElementById('session-streak');
+
+    if (attemptedEl) attemptedEl.textContent = AppState.sessionStats.attempted;
+    if (correctEl) correctEl.textContent = AppState.sessionStats.correct;
+    if (streakEl) streakEl.textContent = AppState.sessionStats.streak;
+
+    if (accuracyEl) {
+        const accuracy = AppState.sessionStats.attempted > 0
+            ? Math.round((AppState.sessionStats.correct / AppState.sessionStats.attempted) * 100)
+            : 0;
+        accuracyEl.textContent = `${accuracy}%`;
+    }
+}
+
+function resetSessionStats() {
+    AppState.sessionStats = { attempted: 0, correct: 0, streak: 0 };
+    updateSessionStats();
+    const container = document.getElementById('practice-container');
+    if (container) {
+        container.innerHTML = '<p class="placeholder">Session reset. Generate a new set to continue.</p>';
     }
 }
 
@@ -229,11 +266,36 @@ function setupEventListeners() {
     const loadProblemsBtn = document.getElementById('loadProblemsBtn');
     if (loadProblemsBtn) loadProblemsBtn.addEventListener('click', loadProblems);
 
+    const practiceGenerateBtn = document.getElementById('practiceGenerateBtn');
+    if (practiceGenerateBtn) practiceGenerateBtn.addEventListener('click', loadProblems);
+
+    const practiceResetBtn = document.getElementById('practiceResetBtn');
+    if (practiceResetBtn) practiceResetBtn.addEventListener('click', resetSessionStats);
+
     // Delegate dynamic UI interactions
     document.addEventListener('click', (event) => {
         const actionBtn = event.target.closest('[data-action]');
         if (actionBtn) {
             switch (actionBtn.dataset.action) {
+                case 'focus-start':
+                    startFocusTimer(actionBtn.dataset.minutes);
+                    break;
+                case 'focus-stop':
+                    stopFocusTimer();
+                    break;
+                case 'quick-practice':
+                    loadQuickPractice();
+                    break;
+                case 'goto-practice':
+                    navigateToSection('practice');
+                    break;
+                case 'goto-quiz':
+                    navigateToSection('quiz');
+                    startQuizType('practice-exam');
+                    break;
+                case 'goto-study':
+                    navigateToSection('study');
+                    break;
                 case 'quiz-back':
                     initializeQuiz();
                     break;
@@ -260,7 +322,7 @@ function setupEventListeners() {
 
         const checkBtn = event.target.closest('.check-answer-btn');
         if (checkBtn && checkBtn.dataset.problemId) {
-            checkAnswer(checkBtn.dataset.problemId);
+            checkAnswer(checkBtn.dataset.problemId, checkBtn.dataset.instanceId);
             return;
         }
 
@@ -289,6 +351,72 @@ function startPractice() {
     navigateToSection('practice');
 }
 
+function startFocusTimer(minutes) {
+    const duration = parseInt(minutes, 10);
+    if (!Number.isFinite(duration) || duration <= 0) {
+        return;
+    }
+
+    stopFocusTimer(false);
+
+    focusTimerTotalSeconds = duration * 60;
+    focusTimerRemainingSeconds = focusTimerTotalSeconds;
+    updateFocusTimerUI();
+    setFocusStatus(`Sprint running: ${duration} minutes. Stay locked in.`);
+
+    focusTimerInterval = setInterval(() => {
+        focusTimerRemainingSeconds -= 1;
+        if (focusTimerRemainingSeconds <= 0) {
+            focusTimerRemainingSeconds = 0;
+            updateFocusTimerUI();
+            stopFocusTimer(false);
+            setFocusStatus('Sprint complete. Review your misses now.');
+            showNotification('Focus sprint complete. Review your misses now.', 'success');
+            return;
+        }
+        updateFocusTimerUI();
+    }, 1000);
+}
+
+function stopFocusTimer(resetStatus = true) {
+    if (focusTimerInterval) {
+        clearInterval(focusTimerInterval);
+        focusTimerInterval = null;
+    }
+
+    if (resetStatus) {
+        focusTimerTotalSeconds = 0;
+        focusTimerRemainingSeconds = 0;
+        updateFocusTimerUI();
+        setFocusStatus('Ready when you are.');
+    }
+}
+
+function updateFocusTimerUI() {
+    const timerEl = document.getElementById('focusTimer');
+    const progressEl = document.getElementById('focusProgress');
+
+    if (!timerEl) return;
+
+    const mins = Math.floor(focusTimerRemainingSeconds / 60);
+    const secs = focusTimerRemainingSeconds % 60;
+    timerEl.textContent = `${mins}:${secs.toString().padStart(2, '0')}`;
+
+    if (progressEl) {
+        const progress = focusTimerTotalSeconds > 0
+            ? ((focusTimerTotalSeconds - focusTimerRemainingSeconds) / focusTimerTotalSeconds) * 100
+            : 0;
+        progressEl.style.width = `${Math.min(100, Math.max(0, progress))}%`;
+    }
+}
+
+function setFocusStatus(message) {
+    const statusEl = document.getElementById('focusStatus');
+    if (statusEl) {
+        statusEl.textContent = message;
+    }
+}
+
 // ===========================
 // PRACTICE SECTION
 // ===========================
@@ -298,19 +426,61 @@ function initializePracticeSection() {
 }
 
 function loadProblems() {
-    const topic = document.getElementById('topic-select').value;
-    const difficulty = document.getElementById('difficulty-select').value;
+    const topicSelect = document.getElementById('practice-topic') || document.getElementById('topic-select');
+    const difficultySelect = document.getElementById('practice-difficulty') || document.getElementById('difficulty-select');
+    const countSelect = document.getElementById('practice-count');
+    const modeSelect = document.getElementById('practice-mode');
+
+    const topic = topicSelect ? topicSelect.value : 'all';
+    const difficulty = difficultySelect ? difficultySelect.value : 'all';
+    const count = countSelect ? parseInt(countSelect.value, 10) : null;
+    const mode = modeSelect ? modeSelect.value : 'mixed';
 
     const container = document.getElementById('practice-container');
     container.innerHTML = '<div class="loading">Loading problems...</div>';
 
     // Get actual problems
     setTimeout(() => {
-        container.innerHTML = generatePracticeProblems(topic, difficulty);
+        container.innerHTML = generatePracticeProblems(topic, difficulty, count, mode);
     }, 300);
 }
 
-function generatePracticeProblems(topic, difficulty) {
+function loadQuickPractice() {
+    const container = document.getElementById('quick-practice-container');
+    if (!container) return;
+
+    const topicSelect = document.getElementById('quick-topic');
+    const difficultySelect = document.getElementById('quick-difficulty');
+    const countSelect = document.getElementById('quick-count');
+
+    const topic = topicSelect ? topicSelect.value : 'all';
+    const difficulty = difficultySelect ? difficultySelect.value : 'all';
+    const count = countSelect ? parseInt(countSelect.value, 10) : 5;
+
+    container.innerHTML = '<div class="loading">Building your quick set...</div>';
+
+    const problems = getRandomProblems(topic, difficulty, count || 5);
+
+    if (problems.length === 0) {
+        container.innerHTML = '<p class="info-message">No problems found for this combination. Try a different topic or difficulty.</p>';
+        return;
+    }
+
+    let html = '<div class="quick-set">';
+    html += `<div class="quick-results-header">`;
+    html += `<h4>${formatTopicName(topic)} · ${formatDifficulty(difficulty)}</h4>`;
+    html += `<span class="quick-count">${problems.length} problems</span>`;
+    html += `</div>`;
+
+    problems.forEach((problem, index) => {
+        html += renderProblem(problem, index);
+    });
+
+    html += '</div>';
+    container.innerHTML = html;
+}
+
+function generatePracticeProblems(topic, difficulty, count = null, mode = 'mixed') {
     // Get problems from the problem bank
     let problems = [];
 
@@ -326,8 +496,19 @@ function generatePracticeProblems(topic, difficulty) {
         }
     }
 
+    if (mode === 'mixed') {
+        problems = shuffleArray(problems.slice());
+    } else {
+        problems = problems.slice();
+    }
+
+    if (count && Number.isFinite(count)) {
+        problems = problems.slice(0, count);
+    }
+
     let html = '<div class="problems-container">';
-    html += `<h3>Practice Problems: ${formatTopicName(topic)} - ${formatDifficulty(difficulty)}</h3>`;
+    html += `<h3>Practice Set: ${formatTopicName(topic)} · ${formatDifficulty(difficulty)}</h3>`;
+    html += `<p class="problem-subtitle">Mode: ${mode === 'focused' ? 'Focused' : 'Mixed'} · ${problems.length} problems</p>`;
     html += `<p class="problem-count">Found ${problems.length} problems</p>`;
 
     if (problems.length === 0) {
@@ -343,7 +524,8 @@ function generatePracticeProblems(topic, difficulty) {
 }
 
 function renderProblem(problem, index) {
-    let html = `<div class="problem-card" id="problem-${problem.id}">`;
+    const instanceId = generateUniqueId();
+    let html = `<div class="problem-card" id="problem-${problem.id}-${instanceId}" data-instance-id="${instanceId}">`;
     html += `<div class="problem-header">`;
     html += `<span class="problem-number">Problem ${index + 1}</span>`;
     html += `<span class="problem-difficulty badge-${problem.difficulty}">${problem.difficulty}</span>`;
@@ -356,37 +538,152 @@ function renderProblem(problem, index) {
         html += `<div class="problem-options">`;
         problem.options.forEach((option, i) => {
             html += `<div class="option">`;
-            html += `<input type="radio" name="problem-${problem.id}" id="${problem.id}-${i}" value="${option}">`;
-            html += `<label for="${problem.id}-${i}">${option}</label>`;
+            html += `<input type="radio" name="problem-${problem.id}-${instanceId}" id="${problem.id}-${instanceId}-${i}" value="${option}">`;
+            html += `<label for="${problem.id}-${instanceId}-${i}">${option}</label>`;
             html += `</div>`;
         });
         html += `</div>`;
     } else if (problem.type === 'calculation') {
         html += `<div class="calculation-input">`;
         html += `<label>Your Answer: $</label>`;
-        html += `<input type="number" id="answer-${problem.id}" placeholder="Enter amount">`;
+        html += `<input type="number" id="answer-${problem.id}-${instanceId}" placeholder="Enter amount">`;
         html += `</div>`;
     } else if (problem.type === 'true-false') {
         html += `<div class="problem-options">`;
         html += `<div class="option">`;
-        html += `<input type="radio" name="problem-${problem.id}" id="${problem.id}-true" value="true">`;
-        html += `<label for="${problem.id}-true">True</label>`;
+        html += `<input type="radio" name="problem-${problem.id}-${instanceId}" id="${problem.id}-${instanceId}-true" value="true">`;
+        html += `<label for="${problem.id}-${instanceId}-true">True</label>`;
         html += `</div>`;
         html += `<div class="option">`;
-        html += `<input type="radio" name="problem-${problem.id}" id="${problem.id}-false" value="false">`;
-        html += `<label for="${problem.id}-false">False</label>`;
+        html += `<input type="radio" name="problem-${problem.id}-${instanceId}" id="${problem.id}-${instanceId}-false" value="false">`;
+        html += `<label for="${problem.id}-${instanceId}-false">False</label>`;
         html += `</div>`;
         html += `</div>`;
+    } else if (problem.type === 'transaction-analysis') {
+        html += renderTransactionAnalysis(problem, instanceId);
+    } else if (problem.type === 'journal-entry') {
+        html += renderJournalEntry(problem, instanceId);
+    } else if (problem.type === 'comprehensive') {
+        html += renderComprehensive(problem, instanceId);
+    } else {
+        html += renderShortAnswer(problem, instanceId);
     }
 
-    html += `<button class="btn btn-secondary check-answer-btn" data-problem-id="${problem.id}">Check Answer</button>`;
-    html += `<div class="answer-feedback" id="feedback-${problem.id}" style="display:none;"></div>`;
+    const revealOnly = problem.type === 'journal-entry'
+        || (problem.type === 'comprehensive' && typeof problem.answer !== 'number');
+    const buttonLabel = revealOnly ? 'Reveal Solution' : 'Check Answer';
+    html += `<button class="btn btn-secondary check-answer-btn" data-problem-id="${problem.id}" data-instance-id="${instanceId}">${buttonLabel}</button>`;
+    html += `<div class="answer-feedback" id="feedback-${problem.id}-${instanceId}" style="display:none;"></div>`;
     html += `</div>`;
 
     return html;
 }
 
-function checkAnswer(problemId) {
+function renderTransactionAnalysis(problem, instanceId) {
+    const categories = ['assets', 'liabilities', 'equity', 'revenue', 'expenses'];
+    const labels = ['Assets', 'Liabilities', 'Stockholders\' Equity', 'Revenue', 'Expenses'];
+
+    let html = '<div class="transaction-grid">';
+    categories.forEach((cat, i) => {
+        html += '<div class="transaction-row">';
+        html += `<div class="transaction-label">${labels[i]}</div>`;
+        html += '<div class="transaction-options">';
+        ['I', 'D', 'N'].forEach(choice => {
+            html += `<label class="transaction-choice">`;
+            html += `<input type="radio" name="problem-${problem.id}-${instanceId}-${cat}" value="${choice}">`;
+            html += `<span>${choice}</span>`;
+            html += `</label>`;
+        });
+        html += '</div></div>';
+    });
+    html += '</div>';
+    return html;
+}
+
+function renderJournalEntry(problem, instanceId) {
+    const entries = normalizeJournalEntries(problem.answer);
+    const entryList = entries.length > 0 ? entries : [{ label: 'Entry' }];
+
+    let html = '<div class="journal-entry">';
+    html += '<p class="journal-hint">Enter debits and credits for each required entry. Debits must equal credits.</p>';
+
+    entryList.forEach((entry, entryIndex) => {
+        html += `<div class="journal-entry-group">`;
+        html += `<div class="journal-group-label">${entry.label || `Entry ${entryIndex + 1}`}</div>`;
+        html += '<div class="journal-entry-grid">';
+
+        html += '<div class="journal-column">';
+        html += '<div class="journal-header">Debits</div>';
+        for (let i = 0; i < 3; i += 1) {
+            html += '<div class="journal-row">';
+            html += `<input type="text" placeholder="Account" data-entry="debit-account" data-index="${entryIndex}-${i}" data-instance="${instanceId}">`;
+            html += `<input type="number" placeholder="Amount" data-entry="debit-amount" data-index="${entryIndex}-${i}" data-instance="${instanceId}">`;
+            html += '</div>';
+        }
+        html += '</div>';
+
+        html += '<div class="journal-column">';
+        html += '<div class="journal-header">Credits</div>';
+        for (let i = 0; i < 3; i += 1) {
+            html += '<div class="journal-row">';
+            html += `<input type="text" placeholder="Account" data-entry="credit-account" data-index="${entryIndex}-${i}" data-instance="${instanceId}">`;
+            html += `<input type="number" placeholder="Amount" data-entry="credit-amount" data-index="${entryIndex}-${i}" data-instance="${instanceId}">`;
+            html += '</div>';
+        }
+        html += '</div>';
+
+        html += '</div></div>';
+    });
+
+    html += '</div>';
+    return html;
+}
+
+function renderComprehensive(problem, instanceId) {
+    if (typeof problem.answer === 'number') {
+        return `
+            <div class="comprehensive-input">
+                <label>Your Answer: $</label>
+                <input type="number" data-comprehensive-answer data-instance="${instanceId}" placeholder="Enter amount">
+            </div>
+        `;
+    }
+
+    if (problem.answer && typeof problem.answer === 'object') {
+        const fields = flattenAnswerObject(problem.answer);
+        const rows = fields.map(field => `
+            <label>
+                ${field.label}
+                <input type="number" data-comprehensive-field="${field.path}" data-instance="${instanceId}" placeholder="Enter amount">
+            </label>
+        `).join('');
+
+        return `
+            <div class="comprehensive-inputs">
+                <p class="journal-hint">Enter each requested amount. Use commas only if needed.</p>
+                <div class="comprehensive-grid">${rows}</div>
+            </div>
+        `;
+    }
+
+    return `
+        <div class="comprehensive-workspace">
+            <label>Work Space (show your steps or final statement)</label>
+            <textarea rows="5" data-comprehensive-work data-instance="${instanceId}" placeholder="Write your solution here..."></textarea>
+        </div>
+    `;
+}
+
+function renderShortAnswer(problem, instanceId) {
+    return `
+        <div class="comprehensive-workspace">
+            <label>Your Response</label>
+            <textarea rows="4" data-short-answer data-instance="${instanceId}" placeholder="Write your response here..."></textarea>
+        </div>
+    `;
+}
+
+function checkAnswer(problemId, instanceId) {
     // Find the problem
     let problem = null;
     if (typeof ProblemBank !== 'undefined') {
@@ -401,38 +698,142 @@ function checkAnswer(problemId) {
 
     if (!problem) return;
 
-    // Get user's answer
+    const card = instanceId
+        ? document.querySelector(`[data-instance-id="${instanceId}"]`)
+        : null;
+
+    const feedbackId = instanceId ? `feedback-${problemId}-${instanceId}` : `feedback-${problemId}`;
+    const feedbackDiv = card ? card.querySelector(`#${feedbackId}`) : document.getElementById(feedbackId);
+    if (!feedbackDiv) return;
+
+    // Get user's answer based on type
     let userAnswer = null;
+    let isCorrect = null;
+
     if (problem.type === 'multiple-choice' || problem.type === 'true-false') {
-        const selected = document.querySelector(`input[name="problem-${problemId}"]:checked`);
+        const selector = instanceId
+            ? `input[name="problem-${problemId}-${instanceId}"]:checked`
+            : `input[name="problem-${problemId}"]:checked`;
+        const selected = card ? card.querySelector(selector) : document.querySelector(selector);
         userAnswer = selected ? selected.value : null;
+
+        if (userAnswer === null) {
+            feedbackDiv.innerHTML = '<p class="feedback-warning">Please select an answer.</p>';
+            feedbackDiv.style.display = 'block';
+            return;
+        }
+
+        if (problem.type === 'true-false') {
+            isCorrect = (userAnswer === 'true') === problem.answer;
+        } else {
+            isCorrect = userAnswer === problem.answer;
+        }
     } else if (problem.type === 'calculation') {
-        const input = document.getElementById(`answer-${problemId}`);
+        const inputId = instanceId ? `answer-${problemId}-${instanceId}` : `answer-${problemId}`;
+        const input = card ? card.querySelector(`#${inputId}`) : document.getElementById(inputId);
         userAnswer = input ? parseFloat(input.value) : null;
-    }
 
-    const feedbackDiv = document.getElementById(`feedback-${problemId}`);
+        if (userAnswer === null || Number.isNaN(userAnswer)) {
+            feedbackDiv.innerHTML = '<p class="feedback-warning">Please enter an answer.</p>';
+            feedbackDiv.style.display = 'block';
+            return;
+        }
 
-    if (userAnswer === null) {
-        feedbackDiv.innerHTML = '<p class="feedback-warning">Please select or enter an answer.</p>';
-        feedbackDiv.style.display = 'block';
-        return;
-    }
-
-    // Check if correct
-    let isCorrect = false;
-    if (problem.type === 'calculation') {
         isCorrect = Math.abs(userAnswer - problem.answer) < 0.01;
-    } else if (problem.type === 'true-false') {
-        isCorrect = (userAnswer === 'true') === problem.answer;
+    } else if (problem.type === 'transaction-analysis') {
+        const categories = ['assets', 'liabilities', 'equity', 'revenue', 'expenses'];
+        const selections = {};
+        const missing = [];
+
+        categories.forEach(cat => {
+            const selector = `input[name="problem-${problemId}-${instanceId}-${cat}"]:checked`;
+            const selected = card ? card.querySelector(selector) : document.querySelector(selector);
+            if (!selected) {
+                missing.push(cat);
+            } else {
+                selections[cat] = selected.value;
+            }
+        });
+
+        if (missing.length > 0) {
+            feedbackDiv.innerHTML = '<p class="feedback-warning">Please answer each category (Assets, Liabilities, Equity, Revenue, Expenses).</p>';
+            feedbackDiv.style.display = 'block';
+            return;
+        }
+
+        userAnswer = selections;
+        const correctMap = parseTransactionAnswer(problem.answer);
+        if (correctMap) {
+            isCorrect = categories.every(cat => selections[cat] === correctMap[cat]);
+        } else {
+            isCorrect = null;
+        }
+    } else if (problem.type === 'comprehensive') {
+        if (typeof problem.answer === 'number') {
+            const input = card ? card.querySelector('[data-comprehensive-answer]') : document.querySelector('[data-comprehensive-answer]');
+            userAnswer = input ? parseFloat(input.value) : null;
+            if (userAnswer === null || Number.isNaN(userAnswer)) {
+                feedbackDiv.innerHTML = '<p class="feedback-warning">Please enter an answer.</p>';
+                feedbackDiv.style.display = 'block';
+                return;
+            }
+            isCorrect = Math.abs(userAnswer - problem.answer) < 0.01;
+        } else if (problem.answer && typeof problem.answer === 'object') {
+            const inputs = card
+                ? card.querySelectorAll('[data-comprehensive-field]')
+                : document.querySelectorAll('[data-comprehensive-field]');
+            const missing = [];
+            let allCorrect = true;
+
+            inputs.forEach(input => {
+                const value = parseFloat(input.value);
+                const path = input.dataset.comprehensiveField;
+                if (!path) return;
+                if (Number.isNaN(value)) {
+                    missing.push(path);
+                    allCorrect = false;
+                } else {
+                    const expected = getAnswerByPath(problem.answer, path);
+                    if (typeof expected === 'number') {
+                        if (Math.abs(value - expected) >= 0.01) {
+                            allCorrect = false;
+                        }
+                    } else {
+                        allCorrect = false;
+                    }
+                }
+            });
+
+            if (missing.length > 0) {
+                feedbackDiv.innerHTML = '<p class="feedback-warning">Please complete all fields.</p>';
+                feedbackDiv.style.display = 'block';
+                return;
+            }
+
+            isCorrect = allCorrect;
+        } else {
+            isCorrect = null;
+        }
+    } else if (problem.type === 'journal-entry') {
+        isCorrect = null;
     } else {
-        isCorrect = userAnswer === problem.answer;
+        isCorrect = null;
     }
 
-    recordTopicAttempt(problem.topic, isCorrect);
+    if (typeof isCorrect === 'boolean') {
+        recordTopicAttempt(problem.topic, isCorrect);
+        AppState.sessionStats.attempted += 1;
+        if (isCorrect) {
+            AppState.sessionStats.correct += 1;
+            AppState.sessionStats.streak += 1;
+        } else {
+            AppState.sessionStats.streak = 0;
+        }
+        updateSessionStats();
+    }
 
     // Show feedback
-    if (isCorrect) {
+    if (isCorrect === true) {
         feedbackDiv.innerHTML = `
             <div class="feedback-correct">
                 <strong>✓ Correct!</strong>
@@ -440,11 +841,19 @@ function checkAnswer(problemId) {
             </div>
         `;
         AppState.userProgress.problemsCompleted++;
-    } else {
+    } else if (isCorrect === false) {
         feedbackDiv.innerHTML = `
             <div class="feedback-incorrect">
                 <strong>✗ Incorrect</strong>
-                <p><strong>Correct Answer:</strong> ${problem.answer}</p>
+                <div class="answer-block"><strong>Correct Answer:</strong> ${formatAnswerDisplay(problem)}</div>
+                <p>${problem.explanation}</p>
+            </div>
+        `;
+    } else {
+        feedbackDiv.innerHTML = `
+            <div class="feedback-neutral">
+                <strong>Solution Review</strong>
+                <div class="answer-block">${formatAnswerDisplay(problem)}</div>
                 <p>${problem.explanation}</p>
             </div>
         `;
@@ -920,6 +1329,255 @@ function initializeProgressSection() {
 // ===========================
 // HELPER FUNCTIONS
 // ===========================
+
+function getRandomProblems(topic, difficulty, count) {
+    let pool = [];
+
+    if (typeof ProblemBank !== 'undefined') {
+        if (topic === 'all') {
+            pool = Object.values(ProblemBank).flat();
+        } else {
+            pool = ProblemBank[topic] || [];
+        }
+
+        if (difficulty !== 'all') {
+            pool = pool.filter(problem => problem.difficulty === difficulty);
+        }
+    }
+
+    if (pool.length <= count) {
+        return pool;
+    }
+
+    const shuffled = shuffleArray(pool.slice());
+    return shuffled.slice(0, count);
+}
+
+function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i -= 1) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+}
+
+function formatCurrency(amount) {
+    if (typeof amount !== 'number' || Number.isNaN(amount)) return amount;
+    return amount.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 2 });
+}
+
+function formatKeyLabel(label) {
+    if (!label) return '';
+    return label
+        .toString()
+        .replace(/([A-Z])/g, ' $1')
+        .replace(/[_-]+/g, ' ')
+        .replace(/\s+/g, ' ')
+        .trim()
+        .replace(/^./, (str) => str.toUpperCase());
+}
+
+function flattenAnswerObject(obj, prefix = '') {
+    const fields = [];
+    Object.entries(obj).forEach(([key, value]) => {
+        const path = prefix ? `${prefix}.${key}` : key;
+        if (value && typeof value === 'object' && !Array.isArray(value)) {
+            fields.push(...flattenAnswerObject(value, path));
+        } else {
+            fields.push({
+                path,
+                label: path.split('.').map(formatKeyLabel).join(' · '),
+                value
+            });
+        }
+    });
+    return fields;
+}
+
+function getAnswerByPath(obj, path) {
+    return path.split('.').reduce((acc, key) => (acc ? acc[key] : undefined), obj);
+}
+
+function parseTransactionAnswer(answer) {
+    if (!answer) return null;
+    if (typeof answer === 'object') {
+        return {
+            assets: answer.assets,
+            liabilities: answer.liabilities,
+            equity: answer.equity,
+            revenue: answer.revenue,
+            expenses: answer.expenses
+        };
+    }
+
+    if (typeof answer !== 'string') return null;
+
+    const map = {};
+    answer.split(',').forEach(part => {
+        const [label, value] = part.split(':').map(item => item.trim());
+        if (!label || !value) return;
+        const key = label.toLowerCase();
+        const normalized = value.trim().charAt(0).toUpperCase();
+        if (key.includes('asset')) map.assets = normalized;
+        if (key.includes('liab')) map.liabilities = normalized;
+        if (key.includes('equity')) map.equity = normalized;
+        if (key.includes('revenue')) map.revenue = normalized;
+        if (key.includes('expense')) map.expenses = normalized;
+    });
+
+    return map;
+}
+
+function formatTransactionAnswer(answer) {
+    const map = parseTransactionAnswer(answer);
+    if (!map) return '<span>Solution unavailable.</span>';
+    const labels = {
+        assets: 'Assets',
+        liabilities: 'Liabilities',
+        equity: 'Stockholders\' Equity',
+        revenue: 'Revenue',
+        expenses: 'Expenses'
+    };
+    return `
+        <div class="transaction-answer">
+            ${Object.keys(labels).map(key => `
+                <div class="transaction-answer-row">
+                    <span>${labels[key]}</span>
+                    <strong>${map[key] || '?'}</strong>
+                </div>
+            `).join('')}
+        </div>
+    `;
+}
+
+function normalizeJournalEntries(answer) {
+    if (!answer) return [];
+
+    if (answer.debits && answer.credits) {
+        return [{
+            label: 'Entry',
+            debits: answer.debits,
+            credits: answer.credits
+        }];
+    }
+
+    if (Array.isArray(answer.entries)) {
+        return answer.entries.map((entry, index) => ({
+            label: `Entry ${index + 1}`,
+            debits: [{ account: entry.debit, amount: entry.amount }],
+            credits: [{ account: entry.credit, amount: entry.amount }]
+        }));
+    }
+
+    const entries = [];
+    Object.entries(answer).forEach(([key, value]) => {
+        if (value && value.debits && value.credits) {
+            entries.push({
+                label: formatKeyLabel(key),
+                debits: value.debits,
+                credits: value.credits
+            });
+            return;
+        }
+
+        if (value && typeof value === 'object') {
+            Object.entries(value).forEach(([subKey, subVal]) => {
+                if (subVal && subVal.debits && subVal.credits) {
+                    entries.push({
+                        label: `${formatKeyLabel(key)} · ${formatKeyLabel(subKey)}`,
+                        debits: subVal.debits,
+                        credits: subVal.credits
+                    });
+                }
+            });
+        }
+    });
+
+    return entries;
+}
+
+function formatJournalEntryAnswer(answer) {
+    const entries = normalizeJournalEntries(answer);
+    if (!entries.length) {
+        return `<pre>${JSON.stringify(answer, null, 2)}</pre>`;
+    }
+
+    const renderLines = (lines) => lines.map(line => `
+        <div class="journal-line">
+            <span>${line.account}</span>
+            <strong>$${formatCurrency(Math.abs(line.amount))}</strong>
+        </div>
+    `).join('');
+
+    return entries.map(entry => `
+        <div class="journal-solution">
+            <div class="journal-group-label">${entry.label}</div>
+            <div class="journal-solution-grid">
+                <div>
+                    <div class="journal-header">Debits</div>
+                    ${renderLines(entry.debits)}
+                </div>
+                <div>
+                    <div class="journal-header">Credits</div>
+                    ${renderLines(entry.credits)}
+                </div>
+            </div>
+        </div>
+    `).join('');
+}
+
+function formatComprehensiveAnswer(answer) {
+    if (typeof answer === 'number') {
+        return `<strong>$${formatCurrency(answer)}</strong>`;
+    }
+    if (typeof answer !== 'object' || answer === null) {
+        return `<pre>${JSON.stringify(answer, null, 2)}</pre>`;
+    }
+
+    const sections = Object.entries(answer).map(([key, value]) => {
+        if (typeof value === 'object' && value !== null) {
+            const lines = Object.entries(value).map(([subKey, subVal]) => `
+                <div class="solution-line">
+                    <span>${formatKeyLabel(subKey)}</span>
+                    <strong>$${formatCurrency(subVal)}</strong>
+                </div>
+            `).join('');
+            return `
+                <div class="solution-group">
+                    <h5>${formatKeyLabel(key)}</h5>
+                    ${lines}
+                </div>
+            `;
+        }
+        return `
+            <div class="solution-line">
+                <span>${formatKeyLabel(key)}</span>
+                <strong>$${formatCurrency(value)}</strong>
+            </div>
+        `;
+    }).join('');
+
+    return `<div class="comprehensive-solution">${sections}</div>`;
+}
+
+function formatAnswerDisplay(problem) {
+    if (problem.type === 'journal-entry') {
+        return formatJournalEntryAnswer(problem.answer);
+    }
+    if (problem.type === 'transaction-analysis') {
+        return formatTransactionAnswer(problem.answer);
+    }
+    if (problem.type === 'comprehensive') {
+        return formatComprehensiveAnswer(problem.answer);
+    }
+    if (problem.type === 'calculation') {
+        return `<strong>$${formatCurrency(problem.answer)}</strong>`;
+    }
+    if (problem.type === 'true-false') {
+        return problem.answer ? 'True' : 'False';
+    }
+    return problem.answer;
+}
 
 function showNotification(message, type = 'info') {
     // Create notification element

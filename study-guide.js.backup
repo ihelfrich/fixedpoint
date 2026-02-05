@@ -22,15 +22,15 @@ function getStudyGuideHTML() {
             <!-- TABLE OF CONTENTS -->
             <div class="study-section card">
                 <h3>📋 Table of Contents</h3>
-                <ol>
-                    <li><a href="#sg-balance-sheet">Balance Sheet (Class 2)</a></li>
-                    <li><a href="#sg-income-statement">Income Statement (Class 3)</a></li>
-                    <li><a href="#sg-double-entry">Double-Entry Accounting (Class 4)</a></li>
-                    <li><a href="#sg-accrual">Accrual Accounting (Class 5)</a></li>
-                    <li><a href="#sg-adjusting">Adjusting Entries & Accounting Cycle (Class 6)</a></li>
-                    <li><a href="#sg-receivables">Accounts Receivable (Class 7)</a></li>
-                    <li><a href="#sg-formulas">Key Formulas Summary</a></li>
-                    <li><a href="#sg-exam-tips">Exam Strategy & Tips</a></li>
+                <ol style="line-height: 2;">
+                    <li><a href="#sg-balance-sheet" style="color: var(--primary);">Balance Sheet (Class 2)</a></li>
+                    <li><a href="#sg-income-statement" style="color: var(--primary);">Income Statement (Class 3)</a></li>
+                    <li><a href="#sg-double-entry" style="color: var(--primary);">Double-Entry Accounting (Class 4)</a></li>
+                    <li><a href="#sg-accrual" style="color: var(--primary);">Accrual Accounting (Class 5)</a></li>
+                    <li><a href="#sg-adjusting" style="color: var(--primary);">Adjusting Entries & Accounting Cycle (Class 6)</a></li>
+                    <li><a href="#sg-receivables" style="color: var(--primary);">Accounts Receivable (Class 7)</a></li>
+                    <li><a href="#sg-formulas" style="color: var(--primary);">Key Formulas Summary</a></li>
+                    <li><a href="#sg-exam-tips" style="color: var(--primary);">Exam Strategy & Tips</a></li>
                 </ol>
             </div>
 
@@ -230,46 +230,46 @@ Total Liabilities & Equity                  $ 65,000
                     <p><strong>Matching Principle:</strong> Expenses are recorded in the SAME PERIOD as the revenues they help generate.</p>
 
                     <p><strong>Common Expense Accounts:</strong></p>
-                    <table>
+                    <table style="width:100%; border-collapse: collapse; margin: 20px 0;">
                         <tr>
-                            <th>Expense Type</th>
-                            <th>Description</th>
+                            <th style="padding: 12px; text-align: left; border: 1px solid var(--border); background: var(--primary); color: white;">Expense Type</th>
+                            <th style="padding: 12px; text-align: left; border: 1px solid var(--border); background: var(--primary); color: white;">Description</th>
                         </tr>
                         <tr>
-                            <td><strong>Cost of Goods Sold (COGS)</strong></td>
-                            <td>Direct cost of inventory sold</td>
+                            <td style="padding: 12px; border: 1px solid var(--border);"><strong>Cost of Goods Sold (COGS)</strong></td>
+                            <td style="padding: 12px; border: 1px solid var(--border);">Direct cost of inventory sold</td>
                         </tr>
                         <tr>
-                            <td><strong>Salaries/Wages Expense</strong></td>
-                            <td>Employee compensation</td>
+                            <td style="padding: 12px; border: 1px solid var(--border);"><strong>Salaries/Wages Expense</strong></td>
+                            <td style="padding: 12px; border: 1px solid var(--border);">Employee compensation</td>
                         </tr>
                         <tr>
-                            <td><strong>Rent Expense</strong></td>
-                            <td>Cost of leasing facilities</td>
+                            <td style="padding: 12px; border: 1px solid var(--border);"><strong>Rent Expense</strong></td>
+                            <td style="padding: 12px; border: 1px solid var(--border);">Cost of leasing facilities</td>
                         </tr>
                         <tr>
-                            <td><strong>Utilities Expense</strong></td>
-                            <td>Electric, water, gas, phone</td>
+                            <td style="padding: 12px; border: 1px solid var(--border);"><strong>Utilities Expense</strong></td>
+                            <td style="padding: 12px; border: 1px solid var(--border);">Electric, water, gas, phone</td>
                         </tr>
                         <tr>
-                            <td><strong>Depreciation Expense</strong></td>
-                            <td>Allocation of PP&E cost over useful life</td>
+                            <td style="padding: 12px; border: 1px solid var(--border);"><strong>Depreciation Expense</strong></td>
+                            <td style="padding: 12px; border: 1px solid var(--border);">Allocation of PP&E cost over useful life</td>
                         </tr>
                         <tr>
-                            <td><strong>Interest Expense</strong></td>
-                            <td>Cost of borrowing money</td>
+                            <td style="padding: 12px; border: 1px solid var(--border);"><strong>Interest Expense</strong></td>
+                            <td style="padding: 12px; border: 1px solid var(--border);">Cost of borrowing money</td>
                         </tr>
                         <tr>
-                            <td><strong>Insurance Expense</strong></td>
-                            <td>Cost of insurance coverage used</td>
+                            <td style="padding: 12px; border: 1px solid var(--border);"><strong>Insurance Expense</strong></td>
+                            <td style="padding: 12px; border: 1px solid var(--border);">Cost of insurance coverage used</td>
                         </tr>
                         <tr>
-                            <td><strong>Supplies Expense</strong></td>
-                            <td>Cost of supplies consumed</td>
+                            <td style="padding: 12px; border: 1px solid var(--border);"><strong>Supplies Expense</strong></td>
+                            <td style="padding: 12px; border: 1px solid var(--border);">Cost of supplies consumed</td>
                         </tr>
                         <tr>
-                            <td><strong>Bad Debt Expense</strong></td>
-                            <td>Estimated uncollectible receivables</td>
+                            <td style="padding: 12px; border: 1px solid var(--border);"><strong>Bad Debt Expense</strong></td>
+                            <td style="padding: 12px; border: 1px solid var(--border);">Estimated uncollectible receivables</td>
                         </tr>
                     </table>
 
@@ -364,42 +364,42 @@ Net Income                                          $ 1,750
 
                 <div class="concept-block">
                     <h4>Debit & Credit Rules</h4>
-                    <table>
+                    <table style="width:100%; border-collapse: collapse; margin: 20px 0;">
                         <tr>
-                            <th>Account Type</th>
-                            <th>Increase</th>
-                            <th>Decrease</th>
-                            <th>Normal Balance</th>
+                            <th style="padding: 12px; text-align: left; border: 1px solid var(--border); background: var(--primary); color: white;">Account Type</th>
+                            <th style="padding: 12px; text-align: center; border: 1px solid var(--border); background: var(--primary); color: white;">Increase</th>
+                            <th style="padding: 12px; text-align: center; border: 1px solid var(--border); background: var(--primary); color: white;">Decrease</th>
+                            <th style="padding: 12px; text-align: center; border: 1px solid var(--border); background: var(--primary); color: white;">Normal Balance</th>
                         </tr>
                         <tr>
-                            <td><strong>ASSETS</strong></td>
-                            <td>DEBIT (+)</td>
-                            <td>Credit (-)</td>
-                            <td><strong>DEBIT</strong></td>
+                            <td style="padding: 12px; border: 1px solid var(--border);"><strong>ASSETS</strong></td>
+                            <td style="padding: 12px; text-align: center; border: 1px solid var(--border); background: #D1FAE5;">DEBIT (+)</td>
+                            <td style="padding: 12px; text-align: center; border: 1px solid var(--border); background: #FEE2E2;">Credit (-)</td>
+                            <td style="padding: 12px; text-align: center; border: 1px solid var(--border);"><strong>DEBIT</strong></td>
                         </tr>
                         <tr>
-                            <td><strong>LIABILITIES</strong></td>
-                            <td>CREDIT (+)</td>
-                            <td>Debit (-)</td>
-                            <td><strong>CREDIT</strong></td>
+                            <td style="padding: 12px; border: 1px solid var(--border);"><strong>LIABILITIES</strong></td>
+                            <td style="padding: 12px; text-align: center; border: 1px solid var(--border); background: #D1FAE5;">CREDIT (+)</td>
+                            <td style="padding: 12px; text-align: center; border: 1px solid var(--border); background: #FEE2E2;">Debit (-)</td>
+                            <td style="padding: 12px; text-align: center; border: 1px solid var(--border);"><strong>CREDIT</strong></td>
                         </tr>
                         <tr>
-                            <td><strong>EQUITY</strong></td>
-                            <td>CREDIT (+)</td>
-                            <td>Debit (-)</td>
-                            <td><strong>CREDIT</strong></td>
+                            <td style="padding: 12px; border: 1px solid var(--border);"><strong>EQUITY</strong></td>
+                            <td style="padding: 12px; text-align: center; border: 1px solid var(--border); background: #D1FAE5;">CREDIT (+)</td>
+                            <td style="padding: 12px; text-align: center; border: 1px solid var(--border); background: #FEE2E2;">Debit (-)</td>
+                            <td style="padding: 12px; text-align: center; border: 1px solid var(--border);"><strong>CREDIT</strong></td>
                         </tr>
                         <tr>
-                            <td><strong>REVENUE</strong></td>
-                            <td>CREDIT (+)</td>
-                            <td>Debit (-)</td>
-                            <td><strong>CREDIT</strong></td>
+                            <td style="padding: 12px; border: 1px solid var(--border);"><strong>REVENUE</strong></td>
+                            <td style="padding: 12px; text-align: center; border: 1px solid var(--border); background: #D1FAE5;">CREDIT (+)</td>
+                            <td style="padding: 12px; text-align: center; border: 1px solid var(--border); background: #FEE2E2;">Debit (-)</td>
+                            <td style="padding: 12px; text-align: center; border: 1px solid var(--border);"><strong>CREDIT</strong></td>
                         </tr>
                         <tr>
-                            <td><strong>EXPENSES</strong></td>
-                            <td>DEBIT (+)</td>
-                            <td>Credit (-)</td>
-                            <td><strong>DEBIT</strong></td>
+                            <td style="padding: 12px; border: 1px solid var(--border);"><strong>EXPENSES</strong></td>
+                            <td style="padding: 12px; text-align: center; border: 1px solid var(--border); background: #D1FAE5;">DEBIT (+)</td>
+                            <td style="padding: 12px; text-align: center; border: 1px solid var(--border); background: #FEE2E2;">Credit (-)</td>
+                            <td style="padding: 12px; text-align: center; border: 1px solid var(--border);"><strong>DEBIT</strong></td>
                         </tr>
                     </table>
 
@@ -545,31 +545,31 @@ Net Income impact: $7,000 revenue - $4,000 expense = $3,000 ✓
 
                 <div class="concept-block">
                     <h4>Accrual vs. Cash Basis</h4>
-                    <table>
+                    <table style="width:100%; border-collapse: collapse; margin: 20px 0;">
                         <tr>
-                            <th></th>
-                            <th>Accrual Basis (GAAP)</th>
-                            <th>Cash Basis</th>
+                            <th style="padding: 12px; text-align: left; border: 1px solid var(--border); background: var(--primary); color: white;"></th>
+                            <th style="padding: 12px; text-align: center; border: 1px solid var(--border); background: var(--primary); color: white;">Accrual Basis (GAAP)</th>
+                            <th style="padding: 12px; text-align: center; border: 1px solid var(--border); background: var(--primary); color: white;">Cash Basis</th>
                         </tr>
                         <tr>
-                            <td><strong>Revenue recognized when:</strong></td>
-                            <td>When EARNED<br>(goods delivered / services performed)</td>
-                            <td>When CASH RECEIVED</td>
+                            <td style="padding: 12px; border: 1px solid var(--border);"><strong>Revenue recognized when:</strong></td>
+                            <td style="padding: 12px; border: 1px solid var(--border); background: #D1FAE5;">When EARNED<br>(goods delivered / services performed)</td>
+                            <td style="padding: 12px; border: 1px solid var(--border);">When CASH RECEIVED</td>
                         </tr>
                         <tr>
-                            <td><strong>Expenses recognized when:</strong></td>
-                            <td>When INCURRED<br>(resources consumed / benefits received)</td>
-                            <td>When CASH PAID</td>
+                            <td style="padding: 12px; border: 1px solid var(--border);"><strong>Expenses recognized when:</strong></td>
+                            <td style="padding: 12px; border: 1px solid var(--border); background: #D1FAE5;">When INCURRED<br>(resources consumed / benefits received)</td>
+                            <td style="padding: 12px; border: 1px solid var(--border);">When CASH PAID</td>
                         </tr>
                         <tr>
-                            <td><strong>Required by:</strong></td>
-                            <td>GAAP (all public companies)</td>
-                            <td>Small businesses, individuals, tax reporting</td>
+                            <td style="padding: 12px; border: 1px solid var(--border);"><strong>Required by:</strong></td>
+                            <td style="padding: 12px; border: 1px solid var(--border); background: #D1FAE5;">GAAP (all public companies)</td>
+                            <td style="padding: 12px; border: 1px solid var(--border);">Small businesses, individuals, tax reporting</td>
                         </tr>
                         <tr>
-                            <td><strong>Matches revenues & expenses:</strong></td>
-                            <td>✅ YES (Matching Principle)</td>
-                            <td>❌ NO</td>
+                            <td style="padding: 12px; border: 1px solid var(--border);"><strong>Matches revenues & expenses:</strong></td>
+                            <td style="padding: 12px; border: 1px solid var(--border); background: #D1FAE5;">✅ YES (Matching Principle)</td>
+                            <td style="padding: 12px; border: 1px solid var(--border);">❌ NO</td>
                         </tr>
                     </table>
                 </div>
@@ -644,31 +644,31 @@ Gross Profit = $800
                 <div class="concept-block">
                     <h4>Four Types of Accrual Scenarios</h4>
 
-                    <table>
+                    <table style="width:100%; border-collapse: collapse; margin: 20px 0;">
                         <tr>
-                            <th>Scenario</th>
-                            <th>Timing</th>
-                            <th>Account Created</th>
+                            <th style="padding: 12px; border: 1px solid var(--border); background: var(--primary); color: white;">Scenario</th>
+                            <th style="padding: 12px; border: 1px solid var(--border); background: var(--primary); color: white;">Timing</th>
+                            <th style="padding: 12px; border: 1px solid var(--border); background: var(--primary); color: white;">Account Created</th>
                         </tr>
                         <tr>
-                            <td><strong>1. Accrued Revenue</strong></td>
-                            <td>Revenue earned BEFORE cash received</td>
-                            <td>Accounts Receivable (Asset)</td>
+                            <td style="padding: 12px; border: 1px solid var(--border);"><strong>1. Accrued Revenue</strong></td>
+                            <td style="padding: 12px; border: 1px solid var(--border);">Revenue earned BEFORE cash received</td>
+                            <td style="padding: 12px; border: 1px solid var(--border);">Accounts Receivable (Asset)</td>
                         </tr>
                         <tr>
-                            <td><strong>2. Deferred Revenue</strong></td>
-                            <td>Cash received BEFORE revenue earned</td>
-                            <td>Unearned Revenue (Liability)</td>
+                            <td style="padding: 12px; border: 1px solid var(--border);"><strong>2. Deferred Revenue</strong></td>
+                            <td style="padding: 12px; border: 1px solid var(--border);">Cash received BEFORE revenue earned</td>
+                            <td style="padding: 12px; border: 1px solid var(--border);">Unearned Revenue (Liability)</td>
                         </tr>
                         <tr>
-                            <td><strong>3. Accrued Expense</strong></td>
-                            <td>Expense incurred BEFORE cash paid</td>
-                            <td>Accounts Payable or ____ Payable (Liability)</td>
+                            <td style="padding: 12px; border: 1px solid var(--border);"><strong>3. Accrued Expense</strong></td>
+                            <td style="padding: 12px; border: 1px solid var(--border);">Expense incurred BEFORE cash paid</td>
+                            <td style="padding: 12px; border: 1px solid var(--border);">Accounts Payable or ____ Payable (Liability)</td>
                         </tr>
                         <tr>
-                            <td><strong>4. Prepaid Expense</strong></td>
-                            <td>Cash paid BEFORE expense incurred</td>
-                            <td>Prepaid ____ (Asset)</td>
+                            <td style="padding: 12px; border: 1px solid var(--border);"><strong>4. Prepaid Expense</strong></td>
+                            <td style="padding: 12px; border: 1px solid var(--border);">Cash paid BEFORE expense incurred</td>
+                            <td style="padding: 12px; border: 1px solid var(--border);">Prepaid ____ (Asset)</td>
                         </tr>
                     </table>
 
@@ -718,7 +718,7 @@ Result on Dec 31, 2025 Income Statement:
 
                 <div class="concept-block">
                     <h4>The Accounting Cycle</h4>
-                    <ol>
+                    <ol style="line-height: 2;">
                         <li><strong>Analyze transactions</strong> - Identify accounts affected</li>
                         <li><strong>Journalize</strong> - Record in general journal</li>
                         <li><strong>Post to ledger</strong> - Transfer to T-accounts</li>
@@ -940,42 +940,42 @@ Dr. Bad Debt Expense                   $2,000
                     <p><strong>Method 2: Aging of Accounts Receivable</strong></p>
                     <p>Estimates bad debt based on how long receivables have been outstanding</p>
 
-                    <table>
+                    <table style="width:100%; border-collapse: collapse; margin: 20px 0;">
                         <tr>
-                            <th>Age Category</th>
-                            <th>Amount</th>
-                            <th>Estimated % Uncollectible</th>
-                            <th>Estimated Uncollectible</th>
+                            <th style="padding: 12px; border: 1px solid var(--border); background: var(--primary); color: white;">Age Category</th>
+                            <th style="padding: 12px; border: 1px solid var(--border); background: var(--primary); color: white;">Amount</th>
+                            <th style="padding: 12px; border: 1px solid var(--border); background: var(--primary); color: white;">Estimated % Uncollectible</th>
+                            <th style="padding: 12px; border: 1px solid var(--border); background: var(--primary); color: white;">Estimated Uncollectible</th>
                         </tr>
                         <tr>
-                            <td>Not yet due</td>
-                            <td>$50,000</td>
-                            <td>1%</td>
-                            <td>$500</td>
+                            <td style="padding: 12px; border: 1px solid var(--border);">Not yet due</td>
+                            <td style="padding: 12px; border: 1px solid var(--border);">$50,000</td>
+                            <td style="padding: 12px; border: 1px solid var(--border);">1%</td>
+                            <td style="padding: 12px; border: 1px solid var(--border);">$500</td>
                         </tr>
                         <tr>
-                            <td>1-30 days past due</td>
-                            <td>$20,000</td>
-                            <td>5%</td>
-                            <td>$1,000</td>
+                            <td style="padding: 12px; border: 1px solid var(--border);">1-30 days past due</td>
+                            <td style="padding: 12px; border: 1px solid var(--border);">$20,000</td>
+                            <td style="padding: 12px; border: 1px solid var(--border);">5%</td>
+                            <td style="padding: 12px; border: 1px solid var(--border);">$1,000</td>
                         </tr>
                         <tr>
-                            <td>31-60 days past due</td>
-                            <td>$8,000</td>
-                            <td>10%</td>
-                            <td>$800</td>
+                            <td style="padding: 12px; border: 1px solid var(--border);">31-60 days past due</td>
+                            <td style="padding: 12px; border: 1px solid var(--border);">$8,000</td>
+                            <td style="padding: 12px; border: 1px solid var(--border);">10%</td>
+                            <td style="padding: 12px; border: 1px solid var(--border);">$800</td>
                         </tr>
                         <tr>
-                            <td>Over 60 days past due</td>
-                            <td>$4,000</td>
-                            <td>25%</td>
-                            <td>$1,000</td>
+                            <td style="padding: 12px; border: 1px solid var(--border);">Over 60 days past due</td>
+                            <td style="padding: 12px; border: 1px solid var(--border);">$4,000</td>
+                            <td style="padding: 12px; border: 1px solid var(--border);">25%</td>
+                            <td style="padding: 12px; border: 1px solid var(--border);">$1,000</td>
                         </tr>
-                        <tr>
-                            <td>Total</td>
-                            <td>$82,000</td>
-                            <td></td>
-                            <td>$3,300</td>
+                        <tr style="background: var(--bg-secondary); font-weight: bold;">
+                            <td style="padding: 12px; border: 1px solid var(--border);">Total</td>
+                            <td style="padding: 12px; border: 1px solid var(--border);">$82,000</td>
+                            <td style="padding: 12px; border: 1px solid var(--border);"></td>
+                            <td style="padding: 12px; border: 1px solid var(--border);">$3,300</td>
                         </tr>
                     </table>
 
@@ -1184,15 +1184,15 @@ Net Sales                              $ 96,500
             </div>
 
             <!-- BACK TO TOP -->
-            <div>
+            <div style="text-align: center; margin-top: 40px;">
                 <a href="#sg-balance-sheet" class="back-to-top">↑ Back to Top</a>
             </div>
 
             <!-- FOOTER -->
-            <div>
+            <div style="text-align: center; padding: 40px 0; color: var(--text-secondary);">
                 <p><strong>Good luck on your Midterm 1!</strong></p>
                 <p>Use this guide alongside the Practice Problems for maximum preparation.</p>
-                <p>📚 ACCT 410x | Spring 2026 | Midterm 1: February 9, 2026</p>
+                <p style="margin-top: 20px;">📚 ACCT 410x | Spring 2026 | Midterm 1: February 9, 2026</p>
             </div>
         </div>
     `;
