@@ -180,7 +180,7 @@ const incomeStatementEasy = [
         id: 'is-e-001',
         topic: 'income-statement',
         difficulty: 'easy',
-        type: 'calculation',
+        type: 'comprehensive',
         question: 'A company has revenue of $250,000 and total expenses of $180,000. What is net income?',
         answer: 70000,
         explanation: 'Net Income = Revenue - Expenses = $250,000 - $180,000 = $70,000',
@@ -1405,15 +1405,15 @@ const alphaPhiMediumExpansion = [
         answer: {
             debits: [
                 { account: 'New Furniture', amount: 18000 },
-                { account: 'Accumulated Depreciation', amount: 10000 }
+                { account: 'Accumulated Depreciation', amount: 10000 },
+                { account: 'Loss on Trade-in', amount: 500 }
             ],
             credits: [
                 { account: 'Old Furniture', amount: 12000 },
-                { account: 'Cash', amount: 16500 },
-                { account: 'Loss on Trade-in', amount: -500 }
+                { account: 'Cash', amount: 16500 }
             ]
         },
-        explanation: 'Book value of old furniture = $12,000 - $10,000 = $2,000. Trade-in value = $18,000 - $16,500 = $1,500. Loss = $2,000 - $1,500 = $500. Entry: Debit New Furniture $18,000, Debit Acc. Depreciation $10,000, Debit Loss $500; Credit Old Furniture $12,000, Credit Cash $16,500.',
+        explanation: 'Book value of old furniture = $12,000 - $10,000 = $2,000. Trade-in value = $18,000 - $16,500 = $1,500. Loss = $2,000 - $1,500 = $500. Entry: Debit New Furniture $18,000, Debit Accumulated Depreciation $10,000, Debit Loss on Trade-in $500; Credit Old Furniture $12,000, Credit Cash $16,500.',
         points: 10
     },
     {
@@ -1557,9 +1557,9 @@ const alphaPhiMediumExpansion = [
         question: 'Alpha Phi reports: Current Assets $45,000, Non-current Assets $380,000, Current Liabilities $22,000, Long-term Debt $285,000. Calculate the current ratio and debt-to-equity ratio.',
         answer: {
             currentRatio: 2.05,
-            debtToEquity: 2.59
+            debtToEquity: 2.6
         },
-        explanation: 'Current Ratio = Current Assets / Current Liabilities = $45,000 / $22,000 = 2.05. Total Assets = $425,000, Total Liabilities = $307,000, Equity = $118,000. Debt-to-Equity = $307,000 / $118,000 = 2.60.',
+        explanation: 'Current Ratio = Current Assets / Current Liabilities = $45,000 / $22,000 = 2.05. Total Assets = $425,000, Total Liabilities = $307,000, Equity = $118,000. Debt-to-Equity = $307,000 / $118,000 = 2.60 (rounded).',
         points: 10
     },
     {
